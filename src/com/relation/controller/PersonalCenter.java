@@ -1,5 +1,7 @@
 package com.relation.controller;
 
+import com.fasterxml.jackson.core.JsonProcessingException;
+import com.fasterxml.jackson.databind.ObjectMapper;
 import com.relation.pojo.User;
 import com.relation.service.UserService;
 import org.springframework.stereotype.Controller;
@@ -17,13 +19,14 @@ public class PersonalCenter {
     @RequestMapping("/PersonalCenter")
     public String showPersonalInfo(@RequestParam("username") String username,
                          @RequestParam("key") String key,
-                         Model model) throws SQLException {
+                         Model model) throws SQLException, JsonProcessingException {
         User searchUser = us.searchUser(username);
         if (!searchUser.getKey().equals(key)) {
             model.addAttribute("msg", "密码错误");
             return "showMessage";
         }
-        model.addAttribute("msg", searchUser);
+        ObjectMapper mapper=new ObjectMapper();
+        model.addAttribute("msg", mapper.writeValueAsString(searchUser));
         return "showMessage";
     }
 }
