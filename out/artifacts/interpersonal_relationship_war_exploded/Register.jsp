@@ -11,6 +11,7 @@
     <title>Title</title>
 </head>
 <body>
+<h1>注册</h1>
 <form action="${pageContext.request.contextPath}/user/register.form" method="post">
     用户名
     <input type="text" name="username">

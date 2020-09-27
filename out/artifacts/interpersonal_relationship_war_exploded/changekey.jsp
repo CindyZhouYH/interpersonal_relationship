@@ -11,7 +11,9 @@
     <title>Title</title>
 </head>
 <body>
+<h1>修改密码</h1>
 <form action="${pageContext.request.contextPath}/user/changeKey.form" method="post">
+
     用户名
     <input type="text" name="username">
     旧密码
