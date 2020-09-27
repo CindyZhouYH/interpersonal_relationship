@@ -17,4 +17,7 @@ public class UserService {
     public User searchUser(String  username) throws SQLException {
         return dbuser.searchUser(username);
     }
+    public boolean updateUserKey(User user) throws SQLException {
+        return dbuser.upDateUserKey(user);
+    }
 }

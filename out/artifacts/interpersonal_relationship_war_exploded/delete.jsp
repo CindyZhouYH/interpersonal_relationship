@@ -20,6 +20,6 @@
     <input type="text" name="email">
     密码
     <input type="text" name="key">
-    <input type="submit" name="注册">
+    <input type="submit" name="注销">
 </body>
 </html>

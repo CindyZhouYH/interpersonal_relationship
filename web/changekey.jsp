@@ -2,7 +2,7 @@
   Created by IntelliJ IDEA.
   User: 圆
   Date: 2020/9/27
-  Time: 14:41
+  Time: 15:38
   To change this template use File | Settings | File Templates.
 --%>
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
@@ -11,15 +11,15 @@
     <title>Title</title>
 </head>
 <body>
-<form action="${pageContext.request.contextPath}/user/delete.form" method="post">
+<form action="${pageContext.request.contextPath}/user/changeKey.form" method="post">
     用户名
     <input type="text" name="username">
-    姓名
-    <input type="text" name="name">
-    邮箱
-    <input type="text" name="email">
-    密码
-    <input type="text" name="key">
-    <input type="submit" name="注销">
+    旧密码
+    <input type="text" name="oldKey">
+    新密码
+    <input type="text" name="newKey">
+    确认新密码
+    <input type="text" name="confirmKey">
+    <input type="submit" name="修改密码">
 </body>
 </html>
