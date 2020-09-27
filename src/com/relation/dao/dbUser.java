@@ -28,10 +28,10 @@ public class dbUser {
             st.setString(5,user.getKey());
             System.out.println(st);
             st.executeUpdate();
-            //conn.commit();
+            conn.commit();
             return 1;
         }catch(SQLException e){
-            //conn.rollback();
+            conn.rollback();
             return 0;
         }finally {
             JdbcUtils.release(conn,st,rs);
@@ -41,9 +41,9 @@ public class dbUser {
     public boolean deleteUser(User user) throws SQLException {
         try{
             getConnected();
-            String sql="delete from user where `id`=?";
+            String sql="delete from user where `username`=?";
             st=conn.prepareStatement(sql);     //预编译
-            st.setInt(1,user.getId());
+            st.setString(1,user.getUsername());
             st.executeUpdate();
             conn.commit();
             return true;
@@ -97,6 +97,6 @@ public class dbUser {
 
     private void getConnected() throws SQLException {
         conn= JdbcUtils.getConnection();
-        //conn.setAutoCommit(false);
+        conn.setAutoCommit(false);
     }
 }

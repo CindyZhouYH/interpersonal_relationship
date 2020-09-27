@@ -11,4 +11,7 @@ public class UserService {
     public int addUser(User user) throws SQLException {
         return dbuser.addUser(user);
     }
+    public boolean deleteUser(User user) throws SQLException {
+        return dbuser.deleteUser(user);
+    }
 }
