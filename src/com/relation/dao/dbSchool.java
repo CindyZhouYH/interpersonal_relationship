@@ -54,5 +54,6 @@ public class dbSchool {
 
     private void getConnected() throws SQLException {
         conn= JdbcUtils.getConnection();
+        conn.setAutoCommit(false);
     }
 }

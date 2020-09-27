@@ -14,7 +14,7 @@ public class JdbcUtils{
     static{
         try {
             driver = "com.mysql.jdbc.Driver";
-            url = "jdbc:mysql://127.0.0.1:3306/ssmbuild?useSSL=false&allowPublicKeyRetrieval=true&serverTimezone=UTC";
+            url = "jdbc:mysql://127.0.0.1:3306/interpersonal_relationship?useSSL=false&allowPublicKeyRetrieval=true&serverTimezone=UTC";
             username = "root";
             password = "ZYHmysql917";
             Class.forName(driver);

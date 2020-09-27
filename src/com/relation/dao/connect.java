@@ -1,5 +1,8 @@
 package com.relation.dao;
 
+import com.relation.dao.utils.JdbcUtils;
+import com.relation.pojo.User;
+
 import java.sql.*;
 
 public class connect {
@@ -11,20 +14,20 @@ public class connect {
         String username="root";
         String password="ZYHmysql917";
         // 连接
-        Connection connection=DriverManager.getConnection(url,username,password);
-        Statement statement=connection.createStatement();
+
+        Connection conn= JdbcUtils.getConnection();
+        String sql="insert into user(`id`,`username`,`name`,`email`,`key`)values(?,?,?,?,?)";
+        PreparedStatement st=conn.prepareStatement(sql);
         //写sql语句
-        String sqlInsert="insert into ";
-        String sql="SELECT * FROM books";
-        //返回结果集
-        ResultSet result=statement.executeQuery(sql);
-        while(result.next()){
-            System.out.println("id="+result.getObject("bookID"));
-            System.out.println("name="+result.getObject("bookName"));
-        }
-        //释放
-        result.close();
-        statement.close();
-        connection.close();
+        User user=new User("cindy917","Yuanhang Zhou","18678902738@163.com","123456");
+        st=conn.prepareStatement(sql);     //预编译
+        st.setInt(1,user.getId());
+        st.setString(2,user.getUsername());
+        st.setString(3,user.getName());
+        st.setString(4,user.getEmail());
+        st.setString(5,user.getKey());
+        st.executeUpdate();
+        st.close();
+        conn.close();
     }
 }

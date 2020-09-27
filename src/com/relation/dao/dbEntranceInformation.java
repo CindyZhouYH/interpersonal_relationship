@@ -17,10 +17,6 @@ public class dbEntranceInformation {
     private PreparedStatement st=null;
     private ResultSet rs=null;
 
-    private void getConnected() throws SQLException {
-        conn= JdbcUtils.getConnection();
-    }
-
     public boolean addInfo(User user, School sch, EntranceInformation ei) throws SQLException {
         try{
             getConnected();
@@ -81,5 +77,9 @@ public class dbEntranceInformation {
         }finally {
             JdbcUtils.release(conn,st,rs);
         }
+    }
+    private void getConnected() throws SQLException {
+        conn= JdbcUtils.getConnection();
+        conn.setAutoCommit(false);
     }
 }

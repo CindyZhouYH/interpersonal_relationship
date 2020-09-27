@@ -1,7 +1,7 @@
 package com.relation.pojo;
 
 public class User {
-    private static int totalNum=0;
+    private static int totalNum=2;
     private int id;
     private String username;
     private String name;

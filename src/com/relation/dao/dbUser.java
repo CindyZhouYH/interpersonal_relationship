@@ -14,22 +14,25 @@ public class dbUser {
     private PreparedStatement st=null;
     private ResultSet rs=null;
 
-    public boolean addUser(User user) throws SQLException {
+    public int addUser(User user) throws SQLException {
         try{
             getConnected();
+            System.out.println("connect over");
             String sql="insert into user(`id`,`username`,`name`,`email`,`key`)values(?,?,?,?,?)";
             st=conn.prepareStatement(sql);     //预编译
+            System.out.println(st);
             st.setInt(1,user.getId());
             st.setString(2,user.getUsername());
             st.setString(3,user.getName());
             st.setString(4,user.getEmail());
             st.setString(5,user.getKey());
+            System.out.println(st);
             st.executeUpdate();
-            conn.commit();
-            return true;
+            //conn.commit();
+            return 1;
         }catch(SQLException e){
-            conn.rollback();
-            return false;
+            //conn.rollback();
+            return 0;
         }finally {
             JdbcUtils.release(conn,st,rs);
         }
@@ -94,5 +97,6 @@ public class dbUser {
 
     private void getConnected() throws SQLException {
         conn= JdbcUtils.getConnection();
+        //conn.setAutoCommit(false);
     }
 }
