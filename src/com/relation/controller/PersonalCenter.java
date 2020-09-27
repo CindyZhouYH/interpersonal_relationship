@@ -11,26 +11,19 @@ import java.sql.SQLException;
 
 @Controller
 @RequestMapping("/user")
-public class Delete {
+public class PersonalCenter {
     UserService us = new UserService();
 
-    @RequestMapping("/delete")
-    public String delete(@RequestParam("username") String username,
-                         @RequestParam("name") String name,
-                         @RequestParam("email") String email,
+    @RequestMapping("/PersonalCenter")
+    public String showPersonalInfo(@RequestParam("username") String username,
                          @RequestParam("key") String key,
                          Model model) throws SQLException {
         User searchUser = us.searchUser(username);
-        if (searchUser.getKey().equals(key)) {
-            boolean ans = us.deleteUser(username);
-            if (!ans) {
-                model.addAttribute("msg", "注销失败" + ans);
-                return "showMessage";
-            }
-            model.addAttribute("msg", "注销成功,再见!");
-        } else {
+        if (!searchUser.getKey().equals(key)) {
             model.addAttribute("msg", "密码错误");
+            return "showMessage";
         }
+        model.addAttribute("msg", searchUser);
         return "showMessage";
     }
 }

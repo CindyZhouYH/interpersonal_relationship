@@ -38,12 +38,12 @@ public class dbUser {
         }
     }
 
-    public boolean deleteUser(User user) throws SQLException {
+    public boolean deleteUser(String username) throws SQLException {
         try{
             getConnected();
             String sql="delete from user where `username`=?";
             st=conn.prepareStatement(sql);     //预编译
-            st.setString(1,user.getUsername());
+            st.setString(1,username);
             st.executeUpdate();
             conn.commit();
             return true;
@@ -79,13 +79,18 @@ public class dbUser {
             String sql="select * from user where `username`=?";
             st=conn.prepareStatement(sql);     //预编译
             st.setString(1,username);
+            //System.out.println(st);
             rs=st.executeQuery();
             conn.commit();
-            User returnUser=new User(Integer.parseInt(rs.getObject("id").toString()),
-                    rs.getObject("username").toString(),
-                    rs.getObject("name").toString(),
-                    rs.getObject("email").toString(),
-                    rs.getObject("key").toString());
+            System.out.println(rs);
+            User returnUser=null;
+            while(rs.next()){
+                returnUser=new User(Integer.parseInt(rs.getObject("id").toString()),
+                        rs.getObject("username").toString(),
+                        rs.getObject("name").toString(),
+                        rs.getObject("email").toString(),
+                        rs.getObject("key").toString());
+            }
             return returnUser;
         }catch(SQLException e){
             conn.rollback();
