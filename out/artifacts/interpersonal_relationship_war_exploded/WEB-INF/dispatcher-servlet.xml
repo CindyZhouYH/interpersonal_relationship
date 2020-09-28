@@ -10,7 +10,7 @@
     <!--指定视图解析器-->
     <bean class="org.springframework.web.servlet.view.InternalResourceViewResolver">
         <!-- 视图的路径 -->
-        <property name="prefix" value="/WEB-INF/jsp/"/>
+        <property name="prefix" value="/"/>
         <!-- 视图名称后缀  -->
         <property name="suffix" value=".jsp"/>
     </bean>

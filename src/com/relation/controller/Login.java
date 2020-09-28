@@ -23,11 +23,11 @@ public class Login {
         User searchUser = us.searchUser(username);
         if (!searchUser.getKey().equals(key)) {
             model.addAttribute("msg", "密码错误");
-            return "showMessage";
+            return "redirect:/login.jsp";
         }
-        session.setAttribute("userLoginName", searchUser.getUsername());
+        session.setAttribute("user", searchUser);
         ObjectMapper mapper=new ObjectMapper();
         model.addAttribute("msg","登陆成功！" + mapper.writeValueAsString(searchUser));
-        return "showMessage";
+        return "redirect:/index.jsp";
     }
 }

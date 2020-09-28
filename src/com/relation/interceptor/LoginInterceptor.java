@@ -18,7 +18,7 @@ public class LoginInterceptor implements HandlerInterceptor {
         if(httpServletRequest.getRequestURI().contains("register")){
             return true;
         }
-        if(sess.getAttribute("userLoginName")!=null){
+        if(sess.getAttribute("user")!=null){
             return true;
         }
         httpServletRequest.getRequestDispatcher("/login.jsp").forward(httpServletRequest,httpServletResponse);
