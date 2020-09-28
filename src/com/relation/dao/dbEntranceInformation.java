@@ -20,13 +20,20 @@ public class dbEntranceInformation {
     public boolean addInfo(User user, School sch, EntranceInformation ei) throws SQLException {
         try{
             getConnected();
-            String sql="insert into entranceinformation(`id`,`user_id`,`schoool_id`,`year`)values(?,?,?,?)";
+            String sql="insert into entranceinformation(`id`,`user_id`,`school_id`,`year`)values(?,?,?,?)";
             st=conn.prepareStatement(sql);     //预编译
+            System.out.println(st);
+            System.out.println(ei.getId());
+            System.out.println(user.getId());
+            System.out.println(sch.getId());
+            System.out.println(ei.getYear());
             st.setInt(1,ei.getId());
             st.setInt(2,user.getId());
             st.setInt(3,sch.getId());
             st.setInt(4,ei.getYear());
+            System.out.println(st);
             st.executeUpdate();
+            System.out.println(st);
             conn.commit();
             return true;
         }catch(SQLException e){

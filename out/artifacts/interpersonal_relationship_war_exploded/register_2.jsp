@@ -86,7 +86,7 @@
                 <button onclick="duonload()">Confirm</button>
             </div>
         </div>
-        <form action="aaa">
+        <form action="${pageContext.request.contextPath}/registerEentranceInfo/add.form" method="post">
             <div id="show1"style="display:inline;"></div>
             <div id="show2"style="display:inline;"></div>
             <div id="show3"style="display:inline;"></div>
@@ -102,7 +102,7 @@
                 <div class="star">
                     *
                     <span class = "register_w">
-                            SchoolName1: <input type="text" name="R_Schoolname" type="text">
+                            SchoolName1: <input type="text" name="schoolName1" type="text">
                         </span>
                 </div>
             </div>
@@ -110,7 +110,7 @@
                 <div class="star">
                     *
                     <span class = "register_w">
-                            Identity: <input type="text" name="R_Identity" type="text">
+                            Identity: <input type="text" name="level1" type="text">
                         </span>
                 </div>
             </div>
@@ -118,7 +118,7 @@
                 <div class="star">
                     *
                     <span class = "register_w">
-                            Year: <input type="text" name="R_Year" type="text">
+                            Year: <input type="text" name="year1" type="text">
                         </span>
                 </div>
             </div>
@@ -129,7 +129,7 @@
                 <div class="star">
                     *
                     <span class = "register_w">
-                            SchoolName2: <input type="text" name="R_Schoolname" type="text">
+                            SchoolName2: <input type="text" name="schoolName2" type="text">
                         </span>
                 </div>
             </div>
@@ -137,7 +137,7 @@
                 <div class="star">
                     *
                     <span class = "register_w">
-                            Identity: <input type="text" name="R_Identity" type="text">
+                            Identity: <input type="text" name="level2" type="text">
                         </span>
                 </div>
             </div>
@@ -145,7 +145,7 @@
                 <div class="star">
                     *
                     <span class = "register_w">
-                            Year: <input type="text" name="R_Year" type="text">
+                            Year: <input type="text" name="year2" type="text">
                         </span>
                 </div>
             </div>
@@ -156,7 +156,7 @@
                 <div class="star">
                     *
                     <span class = "register_w">
-                            SchoolName3: <input type="text" name="R_Schoolname" type="text">
+                            SchoolName3: <input type="text" name="schoolName3" type="text">
                         </span>
                 </div>
             </div>
@@ -164,7 +164,7 @@
                 <div class="star">
                     *
                     <span class = "register_w">
-                            Identity: <input type="text" name="R_Identity" type="text">
+                            Identity: <input type="text" name="level3" type="text">
                         </span>
                 </div>
             </div>
@@ -172,7 +172,7 @@
                 <div class="star">
                     *
                     <span class = "register_w">
-                            Year: <input type="text" name="R_Year" type="text">
+                            Year: <input type="text" name="year3" type="text">
                         </span>
                 </div>
             </div>
@@ -183,7 +183,7 @@
                 <div class="star">
                     *
                     <span class = "register_w">
-                            SchoolName4: <input type="text" name="R_Schoolname" type="text">
+                            SchoolName4: <input type="text" name="schoolName4" type="text">
                         </span>
                 </div>
             </div>
@@ -191,7 +191,7 @@
                 <div class="star">
                     *
                     <span class = "register_w">
-                            Identity: <input type="text" name="R_Identity" type="text">
+                            Identity: <input type="text" name="level4" type="text">
                         </span>
                 </div>
             </div>
@@ -199,7 +199,7 @@
                 <div class="star">
                     *
                     <span class = "register_w">
-                            Year: <input type="text" name="R_Year" type="text">
+                            Year: <input type="text" name="year4" type="text">
                         </span>
                 </div>
             </div>
@@ -210,7 +210,7 @@
                 <div class="star">
                     *
                     <span class = "register_w">
-                            SchoolName5: <input type="text" name="R_Schoolname" type="text">
+                            SchoolName5: <input type="text" name="schoolName5" type="text">
                         </span>
                 </div>
             </div>
@@ -218,7 +218,7 @@
                 <div class="star">
                     *
                     <span class = "register_w">
-                            Identity: <input type="text" name="R_Identity" type="text">
+                            Identity: <input type="text" name="level5" type="text">
                         </span>
                 </div>
             </div>
@@ -226,7 +226,7 @@
                 <div class="star">
                     *
                     <span class = "register_w">
-                            Year: <input type="text" name="R_Year" type="text">
+                            Year: <input type="text" name="year5" type="text">
                         </span>
                 </div>
             </div>

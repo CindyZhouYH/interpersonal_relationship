@@ -57,6 +57,7 @@
   <ul class="header-social">
     <li><a href="login.jsp"><span>login</span></a></li>
     <li><a href="register_1.jsp"><span>register</span></a></li>
+    <li><a href="register_2.jsp"><span>register_school</span></a></li>
   </ul>
 
 </header> <!-- Header End -->

@@ -40,9 +40,15 @@ public class dbSchool {
             st.setString(1, name);
             rs=st.executeQuery();
             conn.commit();
-            School returnSchool=new School(Integer.parseInt(rs.getObject("id").toString()),
-                    rs.getObject("name").toString(),
-                    Integer.parseInt(rs.getObject("level").toString()));
+            School returnSchool=null;
+            System.out.println(rs);
+            System.out.println(returnSchool);
+            while(rs.next()){
+                System.out.println("1");
+                returnSchool=new School(Integer.parseInt(rs.getObject("id").toString()),
+                        rs.getObject("name").toString(),
+                        Integer.parseInt(rs.getObject("level").toString()));
+            }
             return returnSchool;
         }catch(SQLException e){
             conn.rollback();

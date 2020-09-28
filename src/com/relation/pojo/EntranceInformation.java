@@ -1,7 +1,7 @@
 package com.relation.pojo;
 
 public class EntranceInformation {
-    private static int totalNum=0;
+    private static int totalNum=5;
     private int id;
     private int user_id;
     private int school_id;
