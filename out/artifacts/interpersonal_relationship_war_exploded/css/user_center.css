@@ -62,6 +62,13 @@ td{
     height:80px;
     text-align: left;
 }
+#username,#password,#name,#email{
+    border:0;
+    outline:0;
+    background-color: transparent;
+    height:30px;
+    font-size: 20px;
+}
 tr{
     display: block;
     float: left;

@@ -9,6 +9,8 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpSession;
 import java.sql.SQLException;
 
 @Controller
@@ -17,16 +19,11 @@ public class PersonalCenter {
     UserService us = new UserService();
 
     @RequestMapping("/PersonalCenter")
-    public String showPersonalInfo(@RequestParam("username") String username,
-                         @RequestParam("key") String key,
-                         Model model) throws SQLException, JsonProcessingException {
-        User searchUser = us.searchUser(username);
-        if (!searchUser.getKey().equals(key)) {
-            model.addAttribute("msg", "密码错误");
-            return "showMessage";
-        }
+    public String showPersonalInfo(Model model, HttpServletRequest request) throws SQLException, JsonProcessingException {
+        HttpSession sess=request.getSession();
+        User searchUser =(User)sess.getAttribute("user");
         ObjectMapper mapper=new ObjectMapper();
         model.addAttribute("msg", mapper.writeValueAsString(searchUser));
-        return "showMessage";
+        return "redirect:/user_center.jsp";
     }
 }
