@@ -62,7 +62,9 @@ td{
     height:80px;
     text-align: left;
 }
-#username,#password,#name,#email{
+#username,#password,#name,#email,#school1,#id1,#y1,
+#school2,#id2,#y2,#school3,#id3,#y3,#school4,#id4,#y4,
+#school5,#id5,#y5{
     border:0;
     outline:0;
     background-color: transparent;

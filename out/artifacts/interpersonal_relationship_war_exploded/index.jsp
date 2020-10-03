@@ -49,7 +49,7 @@
       <li><a class="smoothscroll" href="#screenshots">Screenshots</a></li>
       <li><a class="smoothscroll" href="#testimonials">Introduction</a></li>
       <li><a class="smoothscroll" href="#subscribe">Subscribe</a></li>
-      <li><a href="${pageContext.request.contextPath}/user/PersonalCenter.form">UserCenter</a></li>
+      <li><a href="user_center.jsp">UserCenter</a></li>
     </ul> <!-- end #nav -->
 
   </nav> <!-- end #nav-wrap -->

@@ -85,6 +85,7 @@ public class dbEntranceInformation {
             JdbcUtils.release(conn,st,rs);
         }
     }
+
     private void getConnected() throws SQLException {
         conn= JdbcUtils.getConnection();
         conn.setAutoCommit(false);

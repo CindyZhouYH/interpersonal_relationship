@@ -3,7 +3,7 @@ package com.relation.controller;
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.relation.pojo.User;
-import com.relation.service.UserService;
+import com.relation.service.Service;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -14,15 +14,15 @@ import java.sql.SQLException;
 @Controller
 @RequestMapping("/user")
 public class Login {
-    UserService us = new UserService();
 
     @RequestMapping("/login")
     public String login(@RequestParam("username") String username,
                         @RequestParam("key") String key,
                         HttpSession session, Model model) throws SQLException, JsonProcessingException {
-        User searchUser = us.searchUser(username);
+        User searchUser = Service.UserService.searchUser(username);
         if (!searchUser.getKey().equals(key)) {
             model.addAttribute("msg", "密码错误");
+            System.out.println("wrong password!");
             return "redirect:/login.jsp";
         }
         session.setAttribute("user", searchUser);
