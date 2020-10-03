@@ -1,7 +1,7 @@
 package com.relation.controller;
 
 import com.relation.pojo.User;
-import com.relation.service.UserService;
+import com.relation.service.Service;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -12,7 +12,6 @@ import java.sql.SQLException;
 @Controller
 @RequestMapping("/user")
 public class Register {
-    UserService us=new UserService();
     @RequestMapping("/register")
     public String register(@RequestParam("username") String username,
                          @RequestParam("key") String key,
@@ -25,7 +24,7 @@ public class Register {
             return "redirect:/register_1.jsp";
         }
         User newUser = new User(username, name, email, key);
-        int ans = us.addUser(newUser);
+        int ans = Service.UserService.addUser(newUser);
         if (ans!=1) {
             model.addAttribute("msg", "注册失败"+ans);
             return "redirect:/register_1.jsp";

@@ -16,7 +16,7 @@ public class JdbcUtils{
             driver = "com.mysql.jdbc.Driver";
             url = "jdbc:mysql://127.0.0.1:3306/interpersonal_relationship?useSSL=false&allowPublicKeyRetrieval=true&serverTimezone=UTC";
             username = "root";
-            password = "ZYHmysql917";
+            password = "root";
             Class.forName(driver);
         }catch (Exception ex) {
             ex.printStackTrace();
