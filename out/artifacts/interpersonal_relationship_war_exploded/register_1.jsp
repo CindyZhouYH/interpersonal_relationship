@@ -10,6 +10,25 @@
     <link rel="stylesheet" href="css/register.css">
     <script src="https://cdn.staticfile.org/jquery/1.10.2/jquery.min.js">
     </script>
+
+    <script>
+        function checkEmailDuplicate() {
+            var email = document.getElementById("emailInput").value;
+            $.ajax({
+                type: "post",
+                url: "${pageContext.request.contextPath}/user/register/checkEmailDuplicate",
+                data: {"email": email},
+                success: function (data) {
+                    if (data.toString() == "OK") {
+                        document.getElementById("emailInfo").style.color = "green";
+                    } else {
+                        document.getElementById("emailInfo").style.color = "red";
+                    }
+                    document.getElementById("emailInfo").innerHTML = data;
+                }
+            })
+        }
+    </script>
 </head>
 <body>
 <header>
@@ -25,53 +44,51 @@
         <ul id="nav" class="nav">
             <li><a class="smoothscroll" href="index.jsp" style="font-size: medium;">Back</a></li>
         </ul> <!-- end #nav -->
-
     </nav> <!-- end #nav-wrap -->
-
 </header> <!-- Header End -->
-${msg}
-<div class = "content">
-    <div class = "panel">
+<div class="content">
+    <div class="panel">
         <form action="${pageContext.request.contextPath}/user/register.form" method="post">
             <div class="re">Registration</div>
             <div class="group">
                 <div class="star">
                     *
-                    <span class = "register_w">
-                            Username: <input type="text" name="username">
-                        </span>
+                    <span class="register_w">
+                            Username: <input type="text" id="usernameInput" name="username">
+                    </span>
                 </div>
             </div>
             <div class="group">
                 <div class="star">
                     *
-                    <span class = "register_w">
-                            Password: <input type="password" name="key" >
-                        </span>
+                    <span class="register_w">
+                            Password: <input type="password" id="keyInput" name="key">
+                    </span>
                 </div>
             </div>
             <div class="group">
                 <div class="star">
                     *
-                    <span class = "register_w">
-                            Confirm Password: <input type="password" name="confirmKey">
-                        </span>
+                    <span class="register_w">
+                            Confirm Password: <input type="password" id="confirmKeyInput" name="confirmKey">
+                    </span>
                 </div>
             </div>
             <div class="group">
                 <div class="star">
                     *
-                    <span class = "register_w">
-                            Name: <input type="text" name="name">
-                        </span>
+                    <span class="register_w">
+                            Name: <input type="text" id="nameInput" name="name">
+                    </span>
                 </div>
             </div>
             <div class="group">
                 <div class="star">
                     *
-                    <span class = "register_w">
-                            E-mail: <input type="text" name="email">
-                        </span>
+                    <span class="register_w">
+                            E-mail: <input type="text" id="emailInput" name="email" onblur="checkEmailDuplicate()">
+                    </span>
+                    <span id="emailInfo"></span>
                 </div>
             </div>
             <div class="login">

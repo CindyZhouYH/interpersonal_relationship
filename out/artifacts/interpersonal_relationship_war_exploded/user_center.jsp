@@ -10,11 +10,11 @@
     <link rel="stylesheet" href="css/user_center_layout.css">
     <script src="js/jquery-3.1.1.min.js"></script>
     <script>
-        function getUserProfile(){
+        function getUserProfile() {
             $.post({
-                url:"${pageContext.request.contextPath}/user/PersonalCenter/PersonalInfo",
-                data:{},
-                success:function(data){
+                url: "${pageContext.request.contextPath}/user/PersonalCenter/PersonalInfo",
+                data: {},
+                success: function (data) {
                     var msg = JSON.parse(data);
                     console.log(msg.username);
                     console.log(msg.name);
@@ -23,36 +23,73 @@
                     var uname = msg.username;
                     var name = msg.name;
                     var email = msg.email;
-                    var key= msg.key;
+                    var key = msg.key;
                     document.getElementById("username").value = uname;
                     document.getElementById("name").value = name;
                     document.getElementById("password").value = key;
                     document.getElementById("email").value = email;
                 },
-                error:function(data){
+                error: function (data) {
                     alert("error");
                     console.log(data);
                 }
             });
             $.post({
-                url:"${pageContext.request.contextPath}/user/PersonalCenter/EntranceInfo",
-                data:{},
-                success:function(data){
+                url: "${pageContext.request.contextPath}/user/PersonalCenter/EntranceInfo",
+                data: {},
+                success: function (data) {
                     var msg = JSON.parse(data);
                     var i;
                     console.log(msg);
                     for (i = 1; i <= msg.length; i++) {
                         console.log("school" + i);
-                        console.log(msg[i-1].school_id);
-                        document.getElementById("school" + i).value = msg[i-1].school_id;
-                        document.getElementById("id" + i).value = msg[i-1].id;
-                        document.getElementById("y" + i).value = msg[i-1].year;
+                        console.log(msg[i - 1].school_id);
+                        document.getElementById("school" + i).value = msg[i - 1].name;
+                        document.getElementById("id" + i).value = msg[i - 1].id;
+                        document.getElementById("y" + i).value = msg[i - 1].year;
                         document.getElementById("school_" + i).innerHTML = "School" + i + ":";
                         document.getElementById("id_" + i).innerHTML = "Identity:";
                         document.getElementById("y_" + i).innerHTML = "Year:";
                     }
                 },
-                error:function(data){
+                error: function (data) {
+                    alert("error");
+                    console.log(data);
+                }
+            });
+        }
+    </script>
+    <script>
+        function logOff() {
+            var uname = "";
+            var name = "";
+            var email = "";
+            var key = "";
+            $.post({
+                url: "${pageContext.request.contextPath}/user/PersonalCenter/PersonalInfo",
+                data: {},
+                async: false,
+                success: function (data) {
+                    var msg = JSON.parse(data);
+                    uname = msg.username;
+                    name = msg.name;
+                    email = msg.email;
+                    key = msg.key;
+                },
+                error: function (data) {
+                    alert("error");
+                    console.log(data);
+                }
+            });
+            $.post({
+                url: "${pageContext.request.contextPath}/user/delete",
+                data: {"username": uname, "name": name,
+                    "email": email, "key": key},
+                success: function (data) {
+                    alert(data);
+                    location.href="index.jsp";
+                },
+                error: function (data) {
                     alert("error");
                     console.log(data);
                 }
@@ -73,15 +110,17 @@
         </ul>
     </nav>
     <ul class="header-social">
-        <li><a href="login.html" style="text-decoration: none;"><span>logOff</span></a></li>
+        <li>
+            <button style="text-decoration: none;" onclick="logOff()"><span>logOff</span></button>
+        </li>
     </ul>
 </header>
 <section id="hero">
-    <div class = "content">
-        <div class = "panel">
+    <div class="content">
+        <div class="panel">
             <div class="uc">User Center</div>
             <form action="" method="post">
-                <table class = "table1" >
+                <table class="table1">
                     <thead>
                     <th>Username:</th>
                     <th>Password:</th>
@@ -89,63 +128,63 @@
                     <th>Email:</th>
                     </thead>
                     <tr>
-                        <td><input type = "text" id = "username"></td>
-                        <td><input type = "text" id = "password"></td>
-                        <td><input type = "text" id = "name"></td>
-                        <td><input type = "text" id = "email"></td>
+                        <td><input type="text" id="username"></td>
+                        <td><input type="text" id="password"></td>
+                        <td><input type="text" id="name"></td>
+                        <td><input type="text" id="email"></td>
                     </tr>
                     <thead>
-                    <th id = "school_1"></th>
-                    <th id = "id_1"></th>
-                    <th id = "y_1"></th>
+                    <th id="school_1"></th>
+                    <th id="id_1"></th>
+                    <th id="y_1"></th>
                     </thead>
                     <tr>
-                        <td><input type = "text" id = "school1"></td>
-                        <td><input type = "text" id = "id1"></td>
-                        <td><input type = "text" id = "y1"></td>
-                    </tr>
-
-                    <thead>
-                    <th id = "school_2"></th>
-                    <th id = "id_2"></th>
-                    <th id = "y_2"></th>
-                    </thead>
-                    <tr>
-                        <td><input type = "text" id = "school2"></td>
-                        <td><input type = "text" id = "id2"></td>
-                        <td><input type = "text" id = "y2"></td>
-                    </tr>
-                    <thead>
-                    <th id = "school_3"></th>
-                    <th id = "id_3"></th>
-                    <th id = "y_3"></th>
-                    </thead>
-                    <tr>
-                        <td><input type = "text" id = "school3"></td>
-                        <td><input type = "text" id = "id3"></td>
-                        <td><input type = "text" id = "y3"></td>
+                        <td><input type="text" id="school1"></td>
+                        <td><input type="text" id="id1"></td>
+                        <td><input type="text" id="y1"></td>
                     </tr>
 
                     <thead>
-                    <th id = "school_4"></th>
-                    <th id = "id_4"></th>
-                    <th id = "y_4"></th>
+                    <th id="school_2"></th>
+                    <th id="id_2"></th>
+                    <th id="y_2"></th>
                     </thead>
                     <tr>
-                        <td><input type = "text" id = "school4"></td>
-                        <td><input type = "text" id = "id4"></td>
-                        <td><input type = "text" id = "y4"></td>
+                        <td><input type="text" id="school2"></td>
+                        <td><input type="text" id="id2"></td>
+                        <td><input type="text" id="y2"></td>
+                    </tr>
+                    <thead>
+                    <th id="school_3"></th>
+                    <th id="id_3"></th>
+                    <th id="y_3"></th>
+                    </thead>
+                    <tr>
+                        <td><input type="text" id="school3"></td>
+                        <td><input type="text" id="id3"></td>
+                        <td><input type="text" id="y3"></td>
                     </tr>
 
                     <thead>
-                    <th id = "school_5"></th>
-                    <th id = "id_5"></th>
-                    <th id = "y_5"></th>
+                    <th id="school_4"></th>
+                    <th id="id_4"></th>
+                    <th id="y_4"></th>
                     </thead>
                     <tr>
-                        <td><input type = "text" id = "school5"></td>
-                        <td><input type = "text" id = "id5"></td>
-                        <td><input type = "text" id = "y5"></td>
+                        <td><input type="text" id="school4"></td>
+                        <td><input type="text" id="id4"></td>
+                        <td><input type="text" id="y4"></td>
+                    </tr>
+
+                    <thead>
+                    <th id="school_5"></th>
+                    <th id="id_5"></th>
+                    <th id="y_5"></th>
+                    </thead>
+                    <tr>
+                        <td><input type="text" id="school5"></td>
+                        <td><input type="text" id="id5"></td>
+                        <td><input type="text" id="y5"></td>
                     </tr>
                 </table>
             </form>
@@ -155,7 +194,7 @@
         </div>
     </div>
     <div class="hero-image">
-        <img src="images/hero-image.png" alt="" />
+        <img src="images/hero-image.png" alt=""/>
     </div>
 </section>
 </body>

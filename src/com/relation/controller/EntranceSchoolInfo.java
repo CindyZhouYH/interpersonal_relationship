@@ -12,7 +12,7 @@ import javax.servlet.http.HttpSession;
 import java.sql.SQLException;
 
 @Controller
-@RequestMapping("/registerEentranceInfo")
+@RequestMapping("/registerEntranceInfo")
 public class EntranceSchoolInfo {
 
     @RequestMapping("/add")

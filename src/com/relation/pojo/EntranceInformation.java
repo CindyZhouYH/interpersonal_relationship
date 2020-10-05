@@ -1,13 +1,33 @@
 package com.relation.pojo;
 
+import com.relation.service.Service;
+
+import java.sql.SQLException;
+
 public class EntranceInformation {
     private static int totalNum=5;
     private int id;
     private int user_id;
     private int school_id;
     private int year;
+    private static boolean updated = false;
+
+    private void update() {
+        try {
+            if(!updated) {
+                totalNum = Service.EntranceInformationService.getMaxId();
+                updated = true;
+                System.out.println("updated EntranceInformation totalnum to " + totalNum);
+            }
+        } catch (SQLException e) {
+            e.printStackTrace();
+            totalNum = 0;
+            System.out.println("error updating");
+        }
+    }
 
     public EntranceInformation(int user_id, int school_id, int year) {
+        update();
         totalNum++;
         this.id=totalNum;
         this.user_id = user_id;
@@ -20,14 +40,6 @@ public class EntranceInformation {
         this.user_id = user_id;
         this.school_id = school_id;
         this.year = year;
-    }
-
-    public static int getTotalNum() {
-        return totalNum;
-    }
-
-    public static void setTotalNum(int totalNum) {
-        EntranceInformation.totalNum = totalNum;
     }
 
     public int getId() {

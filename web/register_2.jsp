@@ -86,7 +86,7 @@
                 <button onclick="duonload()">Confirm</button>
             </div>
         </div>
-        <form action="${pageContext.request.contextPath}/registerEentranceInfo/add.form" method="post">
+        <form action="${pageContext.request.contextPath}/registerEntranceInfo/add.form" method="post">
             <div id="show1"style="display:inline;"></div>
             <div id="show2"style="display:inline;"></div>
             <div id="show3"style="display:inline;"></div>

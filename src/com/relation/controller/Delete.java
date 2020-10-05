@@ -7,6 +7,8 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 
+import javax.servlet.http.HttpServletResponse;
+import java.io.IOException;
 import java.sql.SQLException;
 
 @Controller
@@ -14,22 +16,25 @@ import java.sql.SQLException;
 public class Delete {
 
     @RequestMapping("/delete")
-    public String delete(@RequestParam("username") String username,
-                         @RequestParam("name") String name,
-                         @RequestParam("email") String email,
-                         @RequestParam("key") String key,
-                         Model model) throws SQLException {
+    public void delete(@RequestParam("username") String username,
+                       @RequestParam("name") String name,
+                       @RequestParam("email") String email,
+                       @RequestParam("key") String key,
+                       HttpServletResponse response) throws SQLException, IOException {
         User searchUser = Service.UserService.searchUser(username);
         if (searchUser.getKey().equals(key)) {
             boolean ans = Service.UserService.deleteUser(username);
             if (!ans) {
-                model.addAttribute("msg", "注销失败" + ans);
-                return "showMessage";
+                System.out.println("Failed to log off.");
+                response.getWriter().print("Failed to log off.");
+                return;
             }
-            model.addAttribute("msg", "注销成功,再见!");
+            System.out.println("Successfully logged off!");
+            response.getWriter().print("Successfully logged off!");
         } else {
-            model.addAttribute("msg", "密码错误");
+            System.out.println("Wrong password.");
+            response.getWriter().print("Wrong password.");
         }
-        return "showMessage";
+        return;
     }
 }

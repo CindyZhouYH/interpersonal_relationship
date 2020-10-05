@@ -7,6 +7,8 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 
+import javax.servlet.http.HttpServletResponse;
+import java.io.IOException;
 import java.sql.SQLException;
 
 @Controller
@@ -30,6 +32,18 @@ public class Register {
             return "redirect:/register_1.jsp";
         }
         model.addAttribute("msg", "注册成功,欢迎!");
-        return "redirect:/register_2.jsp";
+        return "redirect:/index.jsp";
+    }
+
+    @RequestMapping("/register/checkEmailDuplicate")
+    public void checkEmailDuplicate(@RequestParam("email") String email,
+                                    HttpServletResponse response) throws SQLException, IOException {
+        if (Service.UserService.searchSameEmailUser(email)) {
+            System.out.println("register email dup!");
+            response.getWriter().print("Duplicated");
+        } else {
+            System.out.println("register email ok");
+            response.getWriter().print("OK");
+        }
     }
 }
