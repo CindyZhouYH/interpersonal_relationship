@@ -97,6 +97,7 @@
             });
         }
     </script>
+<%--
     <script>
         function addSchool() {
             //document.getElementById("username").setAttribute("placeholder","请输入");
@@ -122,6 +123,7 @@
             });
         }
     </script>
+--%>
 </head>
 <body onload="getUserProfile()">
 <header>
@@ -153,9 +155,11 @@
                     <th>Name:</th>
                     <th>Email:</th>
                     <th>Add School:</th>
+                    <%--
                     <th>
                         <button id ="add_button" onclick="addSchool()">Add</button>
                     </th>
+                    --%>
                     <th>
                         <div class="revise">
                             <input type="submit" id = "revise_button"value="Revise" style="font-size: 18px;">
