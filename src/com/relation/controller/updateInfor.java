@@ -25,7 +25,7 @@ public class updateInfor {
 
     @RequestMapping("/updateInfor2")
     public String updateInfor2(HttpServletRequest request,
-                           HttpServletResponse response) throws SQLException, IOException {
+                           HttpServletResponse response, HttpSession session) throws SQLException, IOException {
         User user = getUserFromRequest(request);
         System.out.println(request);
         String username=request.getParameter("username");
@@ -49,6 +49,8 @@ public class updateInfor {
                 response.getWriter().print("Failed to update password from "+user.getKey()+" to " +password);
             }
         }
+        User searchUser = Service.UserService.searchUser(username);
+        session.setAttribute("user", searchUser);
         return "redirect:/user_center.jsp";
     }
 

@@ -132,7 +132,7 @@
         <a class="mobile-btn" href="#nav-wrap" title="Show navigation">Show Menu</a>
         <a class="mobile-btn" href="#" title="Hide navigation">Hide Menu</a>
         <ul id="nav" class="nav">
-            <li><a class="smoothscroll" href="index.html" style="font-size: medium;">Back</a></li>
+            <li><a class="smoothscroll" href="index.jsp" style="font-size: medium;">Back</a></li>
         </ul>
     </nav>
     <ul class="header-social">
@@ -163,10 +163,10 @@
                     </th>
                     </thead>
                     <tr>
-                        <td><input type="text" id="username"> </td>
-                        <td><input type="text" id="password"></td>
-                        <td><input type="text" id="name"></td>
-                        <td><input type="text" id="email"></td>
+                        <td><input type="text" id="username" name="username"> </td>
+                        <td><input type="text" id="password" name="password"></td>
+                        <td><input type="text" id="name" name="name"></td>
+                        <td><input type="text" id="email" name="email"></td>
                         <td><select id="schools">
                             <option value="ps">Primary School</option>
                             <option value="jhs">Junior High School</option>
