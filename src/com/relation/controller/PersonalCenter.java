@@ -16,6 +16,8 @@ import java.io.IOException;
 import java.sql.SQLException;
 import java.util.ArrayList;
 
+import static com.relation.helper.Parser.objectToJson;
+
 @Controller
 @RequestMapping("/user")
 public class PersonalCenter {
@@ -29,15 +31,21 @@ public class PersonalCenter {
     public void showPersonalInfo(HttpServletRequest request,
                                  HttpServletResponse response) throws IOException {
         User user = getUserFromRequest(request);
-        response.getWriter().print(Parser.objectToJson(user));
+        response.getWriter().print(objectToJson(user));
     }
 
     @RequestMapping("/PersonalCenter/EntranceInfo")
     public void showEntranceInfo(HttpServletRequest request,
                                  HttpServletResponse response) throws IOException, SQLException {
+        System.out.println("enter entranceInfo");
         User user = getUserFromRequest(request);
         ArrayList<EntranceInformation> entranceInfoArr = Service.EntranceInformationService.getEntranceInformation(user);
-        //System.out.println(objectToJson(entranceInfoArr));
-        response.getWriter().print(Parser.objectToJson(entranceInfoArr));
+        System.out.println(objectToJson(entranceInfoArr));
+        for (EntranceInformation e:entranceInfoArr){
+            e.setSchoolName((Service.SchoolService.searchSchoolThrowId(e.getSchool_id())).getName());
+            e.setSchoolType((Service.SchoolService.searchSchoolThrowId(e.getSchool_id())).getType());
+            //System.out.println(e.toString());
+        }
+        response.getWriter().print(objectToJson(entranceInfoArr));
     }
 }

@@ -69,6 +69,7 @@ public class dbEntranceInformation {
             st.setInt(1,user.getId());
             rs=st.executeQuery();
             conn.commit();
+            System.out.println("get all entrances");
             ArrayList allEntranceInfo=new ArrayList();
             while(rs.next()){
                 EntranceInformation newEI=new EntranceInformation(Integer.parseInt(rs.getObject("id").toString()),
@@ -77,6 +78,7 @@ public class dbEntranceInformation {
                         Integer.parseInt(rs.getObject("year").toString()));
                 allEntranceInfo.add(newEI);
             }
+            System.out.println(allEntranceInfo);
             return allEntranceInfo;
         }catch(SQLException e){
             conn.rollback();

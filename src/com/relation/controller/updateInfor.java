@@ -23,7 +23,7 @@ public class updateInfor {
         return (User)sess.getAttribute("user");
     }
 
-    @RequestMapping("/updateInfor2")
+    @RequestMapping("/updateInform")
     public String updateInfor2(HttpServletRequest request,
                            HttpServletResponse response, HttpSession session) throws SQLException, IOException {
         User user = getUserFromRequest(request);
@@ -51,34 +51,6 @@ public class updateInfor {
         }
         User searchUser = Service.UserService.searchUser(username);
         session.setAttribute("user", searchUser);
-        return "redirect:/user_center.jsp";
-    }
-
-    @RequestMapping("/updateInfor")
-    public String updateInfor(@RequestParam("username") String username,
-                           @RequestParam("password") String password,
-                           @RequestParam("name") String name,
-                           @RequestParam("email") String email,
-                           HttpServletRequest request,
-                           HttpServletResponse response) throws SQLException, IOException {
-        User user = getUserFromRequest(request);
-        boolean ans;
-        if(!user.getUsername().equals(username)){
-            ans=Service.UserService.updateUserUsername(username, user.getId());
-            if(ans){
-                response.getWriter().print("Successfully update username from "+user.getUsername()+" to " +username);
-            }else{
-                response.getWriter().print("Failed to update username from "+user.getUsername()+" to " +username);
-            }
-        }
-        if(!user.getKey().equals(password)){
-            ans=Service.UserService.updateUserKey(password, user.getId());
-            if(ans){
-                response.getWriter().print("Successfully update password from "+user.getKey()+" to " +password);
-            }else{
-                response.getWriter().print("Failed to update password from "+user.getKey()+" to " +password);
-            }
-        }
         return "redirect:/user_center.jsp";
     }
 }

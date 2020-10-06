@@ -34,6 +34,9 @@ public class Service {
         public static School searchSchool(String name) throws SQLException {
             return dbs.searchSchool(name);
         }
+        public static School searchSchoolThrowId(int id) throws SQLException {
+            return dbs.searchSchoolThrowId(id);
+        }
 
         public static boolean addSchool(School school) throws SQLException {
             return dbs.addSchool(school);

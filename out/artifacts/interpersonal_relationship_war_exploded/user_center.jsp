@@ -44,17 +44,17 @@
                     for (i = 1; i <= msg.length; i++) {
                         console.log("school" + i);
                         console.log(msg[i - 1].school_id);
-                        document.getElementById("school" + i).value = msg[i - 1].name;
+                        document.getElementById("school" + i).value = msg[i - 1].schoolName;
                         document.getElementById("id" + i).value = msg[i - 1].id;
                         document.getElementById("y" + i).value = msg[i - 1].year;
                         //document.getElementById("school_" + i).innerHTML = "School" + i + ":";
-                        document.getElementById("school_" + i).innerHTML = msg[i - 1].type;
+                        document.getElementById("school_" + i).innerHTML = msg[i - 1].schoolType;
                         document.getElementById("id_" + i).innerHTML = "Identity:";
                         document.getElementById("y_" + i).innerHTML = "Year:";
                     }
                 },
                 error: function (data) {
-                    alert("error");
+                    alert("errorGettingSchool");
                     console.log(data);
                 }
             });
@@ -145,7 +145,7 @@
     <div class="content">
         <div class="panel">
             <div class="uc">User Center</div>
-            <form action="${pageContext.request.contextPath}/user/updateInfor2" method="post">
+            <form action="${pageContext.request.contextPath}/user/updateInform" method="post">
                 <table class="table1">
                     <thead>
                     <th>Username:</th>

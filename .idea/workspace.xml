@@ -8,11 +8,31 @@
   <component name="ChangeListManager">
     <list default="true" id="72cb9974-045b-4c73-8c7d-aa31ec179841" name="Default Changelist" comment="">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/out/artifacts/interpersonal_relationship_war_exploded/WEB-INF/classes/com/relation/controller/Register.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/artifacts/interpersonal_relationship_war_exploded/WEB-INF/classes/com/relation/controller/Register.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/out/artifacts/interpersonal_relationship_war_exploded/WEB-INF/classes/com/relation/controller/EntranceSchoolInfo.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/artifacts/interpersonal_relationship_war_exploded/WEB-INF/classes/com/relation/controller/EntranceSchoolInfo.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/out/artifacts/interpersonal_relationship_war_exploded/WEB-INF/classes/com/relation/controller/PersonalCenter.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/artifacts/interpersonal_relationship_war_exploded/WEB-INF/classes/com/relation/controller/PersonalCenter.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/out/artifacts/interpersonal_relationship_war_exploded/WEB-INF/classes/com/relation/dao/dbEntranceInformation.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/artifacts/interpersonal_relationship_war_exploded/WEB-INF/classes/com/relation/dao/dbEntranceInformation.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/out/artifacts/interpersonal_relationship_war_exploded/WEB-INF/classes/com/relation/dao/dbSchool.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/artifacts/interpersonal_relationship_war_exploded/WEB-INF/classes/com/relation/dao/dbSchool.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/out/artifacts/interpersonal_relationship_war_exploded/WEB-INF/classes/com/relation/pojo/EntranceInformation.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/artifacts/interpersonal_relationship_war_exploded/WEB-INF/classes/com/relation/pojo/EntranceInformation.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/out/artifacts/interpersonal_relationship_war_exploded/WEB-INF/classes/com/relation/pojo/School.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/artifacts/interpersonal_relationship_war_exploded/WEB-INF/classes/com/relation/pojo/School.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/out/artifacts/interpersonal_relationship_war_exploded/WEB-INF/classes/com/relation/service/Service$SchoolService.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/artifacts/interpersonal_relationship_war_exploded/WEB-INF/classes/com/relation/service/Service$SchoolService.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/out/artifacts/interpersonal_relationship_war_exploded/WEB-INF/classes/com/relation/service/Service$UserService.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/artifacts/interpersonal_relationship_war_exploded/WEB-INF/classes/com/relation/service/Service$UserService.class" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/out/artifacts/interpersonal_relationship_war_exploded/user_center.jsp" beforeDir="false" afterPath="$PROJECT_DIR$/out/artifacts/interpersonal_relationship_war_exploded/user_center.jsp" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/out/production/interpersonal_relationship/com/relation/controller/Register.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/interpersonal_relationship/com/relation/controller/Register.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/com/relation/controller/Register.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/com/relation/controller/Register.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/out/production/interpersonal_relationship/com/relation/controller/EntranceSchoolInfo.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/interpersonal_relationship/com/relation/controller/EntranceSchoolInfo.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/out/production/interpersonal_relationship/com/relation/controller/PersonalCenter.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/interpersonal_relationship/com/relation/controller/PersonalCenter.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/out/production/interpersonal_relationship/com/relation/dao/dbEntranceInformation.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/interpersonal_relationship/com/relation/dao/dbEntranceInformation.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/out/production/interpersonal_relationship/com/relation/dao/dbSchool.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/interpersonal_relationship/com/relation/dao/dbSchool.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/out/production/interpersonal_relationship/com/relation/pojo/EntranceInformation.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/interpersonal_relationship/com/relation/pojo/EntranceInformation.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/out/production/interpersonal_relationship/com/relation/pojo/School.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/interpersonal_relationship/com/relation/pojo/School.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/out/production/interpersonal_relationship/com/relation/service/Service$SchoolService.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/interpersonal_relationship/com/relation/service/Service$SchoolService.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/out/production/interpersonal_relationship/com/relation/service/Service$UserService.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/interpersonal_relationship/com/relation/service/Service$UserService.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/com/relation/controller/EntranceSchoolInfo.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/com/relation/controller/EntranceSchoolInfo.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/com/relation/controller/PersonalCenter.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/com/relation/controller/PersonalCenter.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/com/relation/controller/updateInfor.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/com/relation/controller/updateInfor.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/com/relation/dao/dbEntranceInformation.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/com/relation/dao/dbEntranceInformation.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/com/relation/dao/dbSchool.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/com/relation/dao/dbSchool.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/com/relation/pojo/EntranceInformation.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/com/relation/pojo/EntranceInformation.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/com/relation/pojo/School.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/com/relation/pojo/School.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/com/relation/service/Service.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/com/relation/service/Service.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/web/user_center.jsp" beforeDir="false" afterPath="$PROJECT_DIR$/web/user_center.jsp" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
@@ -218,7 +238,7 @@
       <workItem from="1601640206609" duration="754000" />
       <workItem from="1601813898778" duration="3596000" />
       <workItem from="1601908356508" duration="2894000" />
-      <workItem from="1601957236639" duration="9232000" />
+      <workItem from="1601957236639" duration="12456000" />
     </task>
     <servers />
   </component>
@@ -230,62 +250,62 @@
       <screen x="0" y="0" width="1280" height="680" />
     </state>
     <state x="96" y="0" key="#com.intellij.execution.impl.EditConfigurationsDialog/0.0.1280.680@0.0.1280.680" timestamp="1601113020123" />
-    <state x="446" y="50" key="#com.intellij.ide.util.MemberChooser" timestamp="1601960124102">
+    <state x="446" y="50" key="#com.intellij.ide.util.MemberChooser" timestamp="1601969145516">
       <screen x="0" y="0" width="1280" height="680" />
     </state>
-    <state x="446" y="50" key="#com.intellij.ide.util.MemberChooser/0.0.1280.680@0.0.1280.680" timestamp="1601960124102" />
+    <state x="446" y="50" key="#com.intellij.ide.util.MemberChooser/0.0.1280.680@0.0.1280.680" timestamp="1601969145516" />
     <state x="323" y="82" key="FileChooserDialogImpl" timestamp="1601815093005">
       <screen x="0" y="0" width="1280" height="680" />
     </state>
     <state x="323" y="82" key="FileChooserDialogImpl/0.0.1280.680@0.0.1280.680" timestamp="1601815093005" />
-    <state width="1113" height="254" key="GridCell.Tab.0.bottom" timestamp="1601966533145">
+    <state width="1113" height="255" key="GridCell.Tab.0.bottom" timestamp="1601969841903">
       <screen x="0" y="0" width="1280" height="680" />
     </state>
-    <state width="1113" height="254" key="GridCell.Tab.0.bottom/0.0.1280.680@0.0.1280.680" timestamp="1601966533145" />
-    <state width="1113" height="254" key="GridCell.Tab.0.center" timestamp="1601966533145">
+    <state width="1113" height="255" key="GridCell.Tab.0.bottom/0.0.1280.680@0.0.1280.680" timestamp="1601969841903" />
+    <state width="1113" height="255" key="GridCell.Tab.0.center" timestamp="1601969841903">
       <screen x="0" y="0" width="1280" height="680" />
     </state>
-    <state width="1113" height="254" key="GridCell.Tab.0.center/0.0.1280.680@0.0.1280.680" timestamp="1601966533145" />
-    <state width="1113" height="254" key="GridCell.Tab.0.left" timestamp="1601966533145">
+    <state width="1113" height="255" key="GridCell.Tab.0.center/0.0.1280.680@0.0.1280.680" timestamp="1601969841903" />
+    <state width="1113" height="255" key="GridCell.Tab.0.left" timestamp="1601969841903">
       <screen x="0" y="0" width="1280" height="680" />
     </state>
-    <state width="1113" height="254" key="GridCell.Tab.0.left/0.0.1280.680@0.0.1280.680" timestamp="1601966533145" />
-    <state width="1113" height="254" key="GridCell.Tab.0.right" timestamp="1601966533145">
+    <state width="1113" height="255" key="GridCell.Tab.0.left/0.0.1280.680@0.0.1280.680" timestamp="1601969841903" />
+    <state width="1113" height="255" key="GridCell.Tab.0.right" timestamp="1601969841903">
       <screen x="0" y="0" width="1280" height="680" />
     </state>
-    <state width="1113" height="254" key="GridCell.Tab.0.right/0.0.1280.680@0.0.1280.680" timestamp="1601966533145" />
-    <state width="1113" height="254" key="GridCell.Tab.1.bottom" timestamp="1601966533146">
+    <state width="1113" height="255" key="GridCell.Tab.0.right/0.0.1280.680@0.0.1280.680" timestamp="1601969841903" />
+    <state width="1113" height="255" key="GridCell.Tab.1.bottom" timestamp="1601969841903">
       <screen x="0" y="0" width="1280" height="680" />
     </state>
-    <state width="1113" height="254" key="GridCell.Tab.1.bottom/0.0.1280.680@0.0.1280.680" timestamp="1601966533146" />
-    <state width="1113" height="254" key="GridCell.Tab.1.center" timestamp="1601966533145">
+    <state width="1113" height="255" key="GridCell.Tab.1.bottom/0.0.1280.680@0.0.1280.680" timestamp="1601969841903" />
+    <state width="1113" height="255" key="GridCell.Tab.1.center" timestamp="1601969841903">
       <screen x="0" y="0" width="1280" height="680" />
     </state>
-    <state width="1113" height="254" key="GridCell.Tab.1.center/0.0.1280.680@0.0.1280.680" timestamp="1601966533145" />
-    <state width="1113" height="254" key="GridCell.Tab.1.left" timestamp="1601966533145">
+    <state width="1113" height="255" key="GridCell.Tab.1.center/0.0.1280.680@0.0.1280.680" timestamp="1601969841903" />
+    <state width="1113" height="255" key="GridCell.Tab.1.left" timestamp="1601969841903">
       <screen x="0" y="0" width="1280" height="680" />
     </state>
-    <state width="1113" height="254" key="GridCell.Tab.1.left/0.0.1280.680@0.0.1280.680" timestamp="1601966533145" />
-    <state width="1113" height="254" key="GridCell.Tab.1.right" timestamp="1601966533146">
+    <state width="1113" height="255" key="GridCell.Tab.1.left/0.0.1280.680@0.0.1280.680" timestamp="1601969841903" />
+    <state width="1113" height="255" key="GridCell.Tab.1.right" timestamp="1601969841903">
       <screen x="0" y="0" width="1280" height="680" />
     </state>
-    <state width="1113" height="254" key="GridCell.Tab.1.right/0.0.1280.680@0.0.1280.680" timestamp="1601966533146" />
-    <state width="1113" height="254" key="GridCell.Tab.2.bottom" timestamp="1601966533146">
+    <state width="1113" height="255" key="GridCell.Tab.1.right/0.0.1280.680@0.0.1280.680" timestamp="1601969841903" />
+    <state width="1113" height="255" key="GridCell.Tab.2.bottom" timestamp="1601969841904">
       <screen x="0" y="0" width="1280" height="680" />
     </state>
-    <state width="1113" height="254" key="GridCell.Tab.2.bottom/0.0.1280.680@0.0.1280.680" timestamp="1601966533146" />
-    <state width="1113" height="254" key="GridCell.Tab.2.center" timestamp="1601966533146">
+    <state width="1113" height="255" key="GridCell.Tab.2.bottom/0.0.1280.680@0.0.1280.680" timestamp="1601969841904" />
+    <state width="1113" height="255" key="GridCell.Tab.2.center" timestamp="1601969841903">
       <screen x="0" y="0" width="1280" height="680" />
     </state>
-    <state width="1113" height="254" key="GridCell.Tab.2.center/0.0.1280.680@0.0.1280.680" timestamp="1601966533146" />
-    <state width="1113" height="254" key="GridCell.Tab.2.left" timestamp="1601966533146">
+    <state width="1113" height="255" key="GridCell.Tab.2.center/0.0.1280.680@0.0.1280.680" timestamp="1601969841903" />
+    <state width="1113" height="255" key="GridCell.Tab.2.left" timestamp="1601969841903">
       <screen x="0" y="0" width="1280" height="680" />
     </state>
-    <state width="1113" height="254" key="GridCell.Tab.2.left/0.0.1280.680@0.0.1280.680" timestamp="1601966533146" />
-    <state width="1113" height="254" key="GridCell.Tab.2.right" timestamp="1601966533146">
+    <state width="1113" height="255" key="GridCell.Tab.2.left/0.0.1280.680@0.0.1280.680" timestamp="1601969841903" />
+    <state width="1113" height="255" key="GridCell.Tab.2.right" timestamp="1601969841904">
       <screen x="0" y="0" width="1280" height="680" />
     </state>
-    <state width="1113" height="254" key="GridCell.Tab.2.right/0.0.1280.680@0.0.1280.680" timestamp="1601966533146" />
+    <state width="1113" height="255" key="GridCell.Tab.2.right/0.0.1280.680@0.0.1280.680" timestamp="1601969841904" />
     <state x="121" y="0" key="SettingsEditor" timestamp="1601640256932">
       <screen x="0" y="0" width="1280" height="680" />
     </state>
