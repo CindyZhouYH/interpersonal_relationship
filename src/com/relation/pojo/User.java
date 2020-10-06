@@ -1,25 +1,46 @@
 package com.relation.pojo;
 
+import com.relation.service.Service;
+
+import java.sql.SQLException;
+
 public class User {
-    private static int totalNum=5;
+    private static int totalNum = 0;
     private int id;
     private String username;
     private String name;
     private String email;
     private String key;
+    private static boolean updated = false;
 
-    public User() {
+    private void update() {
+        try {
+            if(!updated) {
+                totalNum = Service.UserService.getMaxId();
+                updated = true;
+                System.out.println("updated user totalnum to " + totalNum);
+            }
+        } catch (SQLException e) {
+            e.printStackTrace();
+            totalNum = 0;
+            System.out.println("error updating");
+        }
     }
 
-    public User( String username, String name, String email, String key) {
+    public User() {
+        update();
+    }
+
+    public User(String username, String name, String email, String key) {
+        update();
         totalNum++;
         this.id = totalNum;
         this.username = username;
         this.name = name;
         this.email = email;
         this.key = key;
-
     }
+
     public User(int id, String username, String name, String email, String key) {
         this.id = id;
         this.username = username;
@@ -28,20 +49,12 @@ public class User {
         this.key = key;
     }
 
-    public static void setTotalNum(int totalNum) {
-        User.totalNum = totalNum;
-    }
-
     public String getUsername() {
         return username;
     }
 
     public void setUsername(String username) {
         this.username = username;
-    }
-
-    public static int getTotalNum() {
-        return totalNum;
     }
 
     public int getId() {

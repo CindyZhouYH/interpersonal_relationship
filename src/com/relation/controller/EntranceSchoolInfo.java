@@ -2,21 +2,18 @@ package com.relation.controller;
 
 import com.relation.dao.addSchoolHelper;
 import com.relation.pojo.*;
-import com.relation.service.SchoolService;
-import org.omg.PortableInterceptor.Interceptor;
+import com.relation.service.Service;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestParam;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
 import java.sql.SQLException;
 
 @Controller
-@RequestMapping("/registerEentranceInfo")
+@RequestMapping("/registerEntranceInfo")
 public class EntranceSchoolInfo {
-    private SchoolService ss=new SchoolService();
 
     @RequestMapping("/add")
     public String addEntranceInfo(addSchoolHelper add,
@@ -59,11 +56,10 @@ public class EntranceSchoolInfo {
         System.out.println(schoolName);
         System.out.println(level);
         System.out.println(year);
-        System.out.println(ss);
-        School checkSchool=ss.searchSchool(schoolName);
+        School checkSchool= Service.SchoolService.searchSchool(schoolName);
         if(checkSchool==null){
             checkSchool=new School(schoolName, Integer.parseInt(level));
-            boolean ans=ss.addSchool(checkSchool);
+            boolean ans= Service.SchoolService.addSchool(checkSchool);
             if(!ans){
                 return false;
             }
@@ -72,7 +68,7 @@ public class EntranceSchoolInfo {
         User user= (User) sess.getAttribute("user");
         EntranceInformation ei=new EntranceInformation(user.getId(),checkSchool.getId(),Integer.parseInt(year));
         System.out.println(ei);
-        boolean ans=ss.addInfo(user,checkSchool,ei);
+        boolean ans= Service.EntranceInformationService.addInfo(user,checkSchool,ei);
         return ans;
     }
 }

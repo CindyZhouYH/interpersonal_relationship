@@ -10,9 +10,9 @@ public class connect {
         //加载驱动
         Class.forName("com.mysql.jdbc.Driver");
         // y哦那个互信息
-        String url = "jdbc:mysql://127.0.0.1:3306/ssmbuild?useSSL=false&allowPublicKeyRetrieval=true&serverTimezone=UTC";
+        String url = "jdbc:mysql://127.0.0.1:3306/interpersonal_relationship?useSSL=false&allowPublicKeyRetrieval=true&serverTimezone=UTC";
         String username="root";
-        String password="ZYHmysql917";
+        String password="root";
         // 连接
 
         Connection conn= JdbcUtils.getConnection();

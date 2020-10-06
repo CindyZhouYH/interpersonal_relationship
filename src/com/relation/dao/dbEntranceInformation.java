@@ -85,6 +85,53 @@ public class dbEntranceInformation {
             JdbcUtils.release(conn,st,rs);
         }
     }
+
+    public int getCount() throws SQLException {
+        try {
+            getConnected();
+            String sql = "select count(*) from entranceinformation";
+            st = conn.prepareStatement(sql);
+            rs = st.executeQuery();
+            conn.commit();
+            if (!rs.next()) {
+                System.out.println("rs.next = false");
+                return 0;
+            }
+            int count = rs.getInt(1);
+            System.out.println("entranceinformation count = " + count);
+            return count;
+        } catch (SQLException e) {
+            conn.rollback();
+            System.out.println("entranceinformation count sqlException");
+            return 0;
+        } finally {
+            JdbcUtils.release(conn, st, rs);
+        }
+    }
+
+    public int getMaxId() throws SQLException {
+        try {
+            if (getCount() == 0) {
+                return 0;
+            }
+            getConnected();
+            String sql = "select max(id) from entranceinformation";
+            st = conn.prepareStatement(sql);
+            rs = st.executeQuery();
+            conn.commit();
+            rs.next();
+            int maxId = rs.getInt(1);
+            System.out.println("entranceinformation maxid = " + maxId);
+            return maxId;
+        } catch (SQLException e) {
+            conn.rollback();
+            System.out.println("entranceinformation maxid sqlException, set to 0");
+            return 0;
+        } finally {
+            JdbcUtils.release(conn, st, rs);
+        }
+    }
+
     private void getConnected() throws SQLException {
         conn= JdbcUtils.getConnection();
         conn.setAutoCommit(false);

@@ -8,38 +8,125 @@
     <link rel="stylesheet" href="css/user_center.css">
     <link rel="stylesheet" href="css/default.css">
     <link rel="stylesheet" href="css/user_center_layout.css">
+    <script src="js/jquery-3.1.1.min.js"></script>
     <script>
-        function onld()
-        {
-            document.getElementById("school1").innerHTML="ABC";
-            $.ajax({
-                type:"POST",
-                //url:"${pageContext.request.contextPath}/user/PersonalCenter.form",
-                cache: false,
-                dataType: 'json',
-                success:function(msg){
-                    //var user=msg[0];
-                    //var num =msg[0].num;
-                    var username = msg[0].username;
-                    var name = msg[0].name;
-                    var email = msg[0].email;
-                    var key= msg[0].key;
-                    document.getElementById(username).value = ${username};
-                    document.getElementById(name).value = ${name};
-                    document.getElementById(password).vlaue = ${key};
-                    document.getElementById(email).value = ${email};
+        function getUserProfile() {
+            $.post({
+                url: "${pageContext.request.contextPath}/user/PersonalCenter/PersonalInfo",
+                data: {},
+                success: function (data) {
+                    var msg = JSON.parse(data);
+                    console.log(msg.username);
+                    console.log(msg.name);
+                    console.log(msg.email);
+                    console.log(msg.key);
+                    var uname = msg.username;
+                    var name = msg.name;
+                    var email = msg.email;
+                    var key = msg.key;
+                    document.getElementById("username").value = uname;
+                    document.getElementById("name").value = name;
+                    document.getElementById("password").value = key;
+                    document.getElementById("email").value = email;
                 },
-                error:function(){
+                error: function (data) {
                     alert("error");
+                    console.log(data);
+                }
+            });
+            $.post({
+                url: "${pageContext.request.contextPath}/user/PersonalCenter/EntranceInfo",
+                data: {},
+                success: function (data) {
+                    var msg = JSON.parse(data);
+                    var i;
+                    console.log(msg);
+                    for (i = 1; i <= msg.length; i++) {
+                        console.log("school" + i);
+                        console.log(msg[i - 1].school_id);
+                        document.getElementById("school" + i).value = msg[i - 1].name;
+                        document.getElementById("id" + i).value = msg[i - 1].id;
+                        document.getElementById("y" + i).value = msg[i - 1].year;
+                        //document.getElementById("school_" + i).innerHTML = "School" + i + ":";
+                        document.getElementById("school_" + i).innerHTML = msg[i - 1].type;
+                        document.getElementById("id_" + i).innerHTML = "Identity:";
+                        document.getElementById("y_" + i).innerHTML = "Year:";
+                    }
+                },
+                error: function (data) {
+                    alert("error");
+                    console.log(data);
+                }
+            });
+        }
+    </script>
+    <script>
+        function logOff() {
+            var uname = "";
+            var name = "";
+            var email = "";
+            var key = "";
+            $.post({
+                url: "${pageContext.request.contextPath}/user/PersonalCenter/PersonalInfo",
+                data: {},
+                async: false,
+                success: function (data) {
+                    var msg = JSON.parse(data);
+                    uname = msg.username;
+                    name = msg.name;
+                    email = msg.email;
+                    key = msg.key;
+                },
+                error: function (data) {
+                    alert("error1");
+                    console.log(data);
+                }
+            });
+            $.post({
+                url: "${pageContext.request.contextPath}/user/delete",
+                data: {"username": uname, "name": name,
+                    "email": email, "key": key},
+                success: function (data) {
+                    alert(data);
+                    location.href="index.jsp";
+                },
+                error: function (data) {
+                    alert("error2");
+                    console.log(data);
+                }
+            });
+        }
+    </script>
+    <script>
+        function addSchool() {
+            //document.getElementById("username").setAttribute("placeholder","请输入");
+            $.post({
+                url: "${pageContext.request.contextPath}/user/PersonalCenter/EntranceInfo",
+                data: {},
+                success: function (data) {
+                    var msg = JSON.parse(data);
+                    var i;
+                    console.log(msg);
+                    var length = msg.length;
+                    length = length+1;
+                    var index=document.getElementById("schools").selectedIndex;
+                    var value = document.getElementById("schools").options[index].value;
+                    document.getElementById("school_"+ length).value = value;
+                    document.getElementById("id_" + length).innerHTML = "Identity:";
+                    document.getElementById("y_" + length).innerHTML = "Year:";
+                },
+                error: function (data) {
+                    alert("error");
+                    console.log(data);
                 }
             });
         }
     </script>
 </head>
-<body onload="onld()">
+<body onload="getUserProfile()">
 <header>
     <div class="logo">
-        <a class="smoothscroll" href="index.html"><img alt="" src="images/logo_1.png"></a>
+        <a class="smoothscroll" href="index.jsp"><img alt="" src="images/logo_1.png"></a>
     </div>
     <nav id="nav-wrap">
         <a class="mobile-btn" href="#nav-wrap" title="Show navigation">Show Menu</a>
@@ -49,86 +136,106 @@
         </ul>
     </nav>
     <ul class="header-social">
-        <li><a href="login.html" style="text-decoration: none;"><span>logOff</span></a></li>
+        <li>
+            <button id = "logoff" onclick="logOff()"><span>logOff</span></button>
+        </li>
     </ul>
 </header>
 <section id="hero">
-    <div class = "content">
-        <div class = "panel">
+    <div class="content">
+        <div class="panel">
             <div class="uc">User Center</div>
-            <table class = "table1" >
-                <thead>
-                <th>Username:</th>
-                <th>Password:</th>
-                <th>Name:</th>
-                <th>Email:</th>
-                </thead>
-                <tr>
-                    <td><input type = "text" id = "username" value =${msg}></td>
-                    <td><input type = "text" id = "password" value =key></td>
-                    <td><input type = "text" id = "name" value =name></td>
-                    <td><input type = "text" id = "email" value =email></td>
-                </tr>
-                <thead>
-                <th id = "school1"></th>
-                <th id = "id1"></th>
-                <th id = "y1"></th>
-                </thead>
-                <tr>
-                    <td><input type = "text" id = "school1" value =""></td>
-                    <td><input type = "text" id = "id1" value =""></td>
-                    <td><input type = "text" id = "y1" value =""></td>
-                </tr>
+            <form action="${pageContext.request.contextPath}/user/updateInfor2" method="post">
+                <table class="table1">
+                    <thead>
+                    <th>Username:</th>
+                    <th>Password:</th>
+                    <th>Name:</th>
+                    <th>Email:</th>
+                    <th>Add School:</th>
+                    <th>
+                        <button id ="add_button" onclick="addSchool()">Add</button>
+                    </th>
+                    <th>
+                        <div class="revise">
+                            <input type="submit" id = "revise_button"value="Revise" style="font-size: 18px;">
+                        </div>
+                    </th>
+                    </thead>
+                    <tr>
+                        <td><input type="text" id="username"> </td>
+                        <td><input type="text" id="password"></td>
+                        <td><input type="text" id="name"></td>
+                        <td><input type="text" id="email"></td>
+                        <td><select id="schools">
+                            <option value="ps">Primary School</option>
+                            <option value="jhs">Junior High School</option>
+                            <option value="shs">Senior High School</option>
+                            <option value="uni">University</option>
+                        </select></td>
+                    </tr>
+                    <thead>
+                    <th id="school_1"></th>
+                    <th id="id_1"></th>
+                    <th id="y_1"></th>
+                    </thead>
+                    <tr>
+                        <td><input type="text" id="school1"></td>
+                        <td><input type="text" id="id1"></td>
+                        <td><input type="text" id="y1"></td>
+                    </tr>
 
-                <thead>
-                <th id = "school2"></th>
-                <th id = "id2"></th>
-                <th id = "y2"></th>
-                </thead>
-                <tr>
-                    <td><input type = "text" id = "school2" value ="111"></td>
-                    <td><input type = "text" id = "id2" value ="2222"></td>
-                    <td><input type = "text" id = "y2" value ="333"></td>
-                </tr>
-                <thead>
-                <th id = "school3"></th>
-                <th id = "id3"></th>
-                <th id = "y3"></th>
-                </thead>
-                <tr>
-                    <td><input type = "text" id = "school3" value ="111"></td>
-                    <td><input type = "text" id = "id3" value ="2222"></td>
-                    <td><input type = "text" id = "y3" value ="333"></td>
-                </tr>
+                    <thead>
+                    <th id="school_2"></th>
+                    <th id="id_2"></th>
+                    <th id="y_2"></th>
+                    </thead>
+                    <tr>
+                        <td><input type="text" id="school2"></td>
+                        <td><input type="text" id="id2"></td>
+                        <td><input type="text" id="y2"></td>
+                    </tr>
+                    <thead>
+                    <th id="school_3"></th>
+                    <th id="id_3"></th>
+                    <th id="y_3"></th>
+                    </thead>
+                    <tr>
+                        <td><input type="text" id="school3"></td>
+                        <td><input type="text" id="id3"></td>
+                        <td><input type="text" id="y3"></td>
+                    </tr>
 
-                <thead>
-                <th id = "school4"></th>
-                <th id = "id4"></th>
-                <th id = "y4"></th>
-                </thead>
-                <tr>
-                    <td><input type = "text" id = "school4" value ="111"></td>
-                    <td><input type = "text" id = "id4" value ="2222"></td>
-                    <td><input type = "text" id = "y4" value ="333"></td>
-                </tr>
+                    <thead>
+                    <th id="school_4"></th>
+                    <th id="id_4"></th>
+                    <th id="y_4"></th>
+                    </thead>
+                    <tr>
+                        <td><input type="text" id="school4"></td>
+                        <td><input type="text" id="id4"></td>
+                        <td><input type="text" id="y4"></td>
+                    </tr>
 
-                <thead>
-                <th id = "school5"></th>
-                <th id = "id5"></th>
-                <th id = "y5"></th>
-                </thead>
-                <tr>
-                    <td><input type = "text" id = "school5" value ="111"></td>
-                    <td><input type = "text" id = "id5" value ="2222"></td>
-                    <td><input type = "text" id = "y5" value ="333"></td>
-                </tr>
-
+                    <thead>
+                    <th id="school_5"></th>
+                    <th id="id_5"></th>
+                    <th id="y_5"></th>
+                    </thead>
+                    <tr>
+                        <td><input type="text" id="school5"></td>
+                        <td><input type="text" id="id5"></td>
+                        <td><input type="text" id="y5"></td>
+                    </tr>
+                </table>
+            </form>
+<%--            <div class="revise">--%>
+<%--                <input type="submit" value="Revise" style="font-size: 18px;">--%>
+<%--            </div>--%>
         </div>
-        </table>
-    </div>
     </div>
     <div class="hero-image">
-        <img src="images/hero-image.png" alt="" />
+        <img src="images/hero-image.png" alt=""/>
     </div>
 </section>
 </body>

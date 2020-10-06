@@ -62,7 +62,9 @@ td{
     height:80px;
     text-align: left;
 }
-#username,#password,#name,#email{
+#username,#password,#name,#email,#school1,#id1,#y1,
+#school2,#id2,#y2,#school3,#id3,#y3,#school4,#id4,#y4,
+#school5,#id5,#y5{
     border:0;
     outline:0;
     background-color: transparent;
@@ -73,6 +75,47 @@ tr{
     display: block;
     float: left;
     width : 120px;
+}
+#logoff{
+    background-color: transparent;
+    color:#58687A;
+    font-size:medium;
+    padding-top:16px;
+
+}
+#logoff:hover{
+    color:white;
+}
+select[id = schools]{
+    display: block;
+    background: #23292f url(img/hero-bg_@2X.png);
+    width: 200px;/*宽度为250px*/
+    height: 30px;/*高度为30px*/
+    border: 1px solid #ddd;/*输入框的边框*/
+
+    padding: 0px 0px 0px 10px;/*左边内边距为10px，显得美观*/
+
+    font-size: 16px;/*字体大小*/
+}
+#add_button{
+    background-color:  #f64b39;
+    width: 140px;
+    height: 45px;
+}
+#add_button:hover{
+    background-color: white;
+    color: #f64b39;
+    border: 1px solid  #f64b39;
+}
+#revise_button{
+    background-color:  rgb(94, 204, 195);
+    width: 100px;
+    height: 45px;
+}
+#revise_button:hover{
+    background-color: white;
+    color: rgb(94, 204, 195);
+    border: 1px solid  rgb(94, 204, 195);
 }
 .content .panel .group {
     text-align: left;/*子内容居中*/
