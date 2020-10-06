@@ -167,7 +167,8 @@
                         <td><input type="text" id="password" name="password"></td>
                         <td><input type="text" id="name" name="name"></td>
                         <td><input type="text" id="email" name="email"></td>
-                        <td><select id="schools">
+                        <td><select id="schools" name="level">
+                            <option value="kd">Kindergarten</option>
                             <option value="ps">Primary School</option>
                             <option value="jhs">Junior High School</option>
                             <option value="shs">Senior High School</option>
@@ -180,9 +181,9 @@
                     <th id="y_1"></th>
                     </thead>
                     <tr>
-                        <td><input type="text" id="school1"></td>
-                        <td><input type="text" id="id1"></td>
-                        <td><input type="text" id="y1"></td>
+                        <td><input type="text" id="school1" name="school1"></td>
+                        <td><input type="text" id="id1" name="id1"></td>
+                        <td><input type="text" id="y1" name="y1"></td>
                     </tr>
 
                     <thead>
@@ -191,9 +192,9 @@
                     <th id="y_2"></th>
                     </thead>
                     <tr>
-                        <td><input type="text" id="school2"></td>
-                        <td><input type="text" id="id2"></td>
-                        <td><input type="text" id="y2"></td>
+                        <td><input type="text" id="school2" name="school2"></td>
+                        <td><input type="text" id="id2" name="id2"></td>
+                        <td><input type="text" id="y2" name="y2"></td>
                     </tr>
                     <thead>
                     <th id="school_3"></th>
@@ -201,9 +202,9 @@
                     <th id="y_3"></th>
                     </thead>
                     <tr>
-                        <td><input type="text" id="school3"></td>
-                        <td><input type="text" id="id3"></td>
-                        <td><input type="text" id="y3"></td>
+                        <td><input type="text" id="school3" name="school3"></td>
+                        <td><input type="text" id="id3" name="id3"></td>
+                        <td><input type="text" id="y3" name="y3"></td>
                     </tr>
 
                     <thead>
@@ -212,9 +213,9 @@
                     <th id="y_4"></th>
                     </thead>
                     <tr>
-                        <td><input type="text" id="school4"></td>
-                        <td><input type="text" id="id4"></td>
-                        <td><input type="text" id="y4"></td>
+                        <td><input type="text" id="school4"  name="school4"></td>
+                        <td><input type="text" id="id4"  name="id4"></td>
+                        <td><input type="text" id="y4" name="y4"></td>
                     </tr>
 
                     <thead>
@@ -223,9 +224,9 @@
                     <th id="y_5"></th>
                     </thead>
                     <tr>
-                        <td><input type="text" id="school5"></td>
-                        <td><input type="text" id="id5"></td>
-                        <td><input type="text" id="y5"></td>
+                        <td><input type="text" id="school5"  name="school5"></td>
+                        <td><input type="text" id="id5"  name="id5"></td>
+                        <td><input type="text" id="y5" name="y5"></td>
                     </tr>
                 </table>
             </form>

@@ -33,14 +33,14 @@ public class School {
         this.id=totalNum;
         this.name = name;
         this.level = level;
-        this.type=types[level%5];
+        this.type=types[level-1];
     }
 
     public School(int id, String name, int level) {
         this.id = id;
         this.name = name;
         this.level = level;
-        this.type=types[level%5];
+        this.type=types[level-1];
     }
 
     public int getId() {
