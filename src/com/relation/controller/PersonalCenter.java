@@ -4,6 +4,7 @@ import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.relation.helper.Parser;
 import com.relation.pojo.EntranceInformation;
+import com.relation.pojo.SchoolNum;
 import com.relation.pojo.User;
 import com.relation.service.Service;
 import org.springframework.stereotype.Controller;
@@ -47,5 +48,13 @@ public class PersonalCenter {
             //System.out.println(e.toString());
         }
         response.getWriter().print(objectToJson(entranceInfoArr));
+    }
+
+    @RequestMapping("/PersonalCenter/getSchoolNum")
+    public void getSchoolNum(HttpServletRequest request,
+                                 HttpServletResponse response) throws IOException, SQLException {
+        User user = getUserFromRequest(request);
+        ArrayList<EntranceInformation> entranceInfoArr = Service.EntranceInformationService.getEntranceInformation(user);
+        response.getWriter().print(objectToJson(new SchoolNum(entranceInfoArr.size())));
     }
 }

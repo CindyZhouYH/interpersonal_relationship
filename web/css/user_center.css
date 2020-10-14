@@ -1,6 +1,8 @@
 /*设置内容模块距离顶部一个有一段距离150px*/
 .content {
     margin-top: 20px;
+    overflow: scroll;
+    overflow-y: hidden;
 }
 /*登录和注册按钮的整体样式*/
 .content button {
@@ -65,16 +67,20 @@ td{
 #username,#password,#name,#email,#school1,#id1,#y1,
 #school2,#id2,#y2,#school3,#id3,#y3,#school4,#id4,#y4,
 #school5,#id5,#y5{
-    border:0;
-    outline:0;
+    /*outline:0;*/
     background-color: transparent;
     height:30px;
+    width:50px;
     font-size: 20px;
+    border: 1px solid #ddd;
+}
+#tr_1,#tr_2,#tr_3,#tr_4,#tr_5{
+    display: none;
 }
 tr{
     display: block;
     float: left;
-    width : 120px;
+    width : 250px;
 }
 #logoff{
     background-color: transparent;
@@ -96,6 +102,17 @@ select[id = schools]{
     padding: 0px 0px 0px 10px;/*左边内边距为10px，显得美观*/
 
     font-size: 16px;/*字体大小*/
+}
+#delete_button_1,#delete_button_2,#delete_button_3,#delete_button_4,#delete_button_5{
+    background-color:  #f64b39;
+    width: 100px;
+    height: 45px;
+    display: none;
+}
+#delete_button_1:hover,#delete_button_2:hover,#delete_button_3:hover,#delete_button_4:hover,#delete_button_5:hover{
+    background-color: white;
+    color: #f64b39;
+    border: 1px solid  #f64b39;
 }
 #add_button{
     background-color:  #f64b39;

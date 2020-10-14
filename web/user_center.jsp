@@ -44,6 +44,8 @@
                     for (i = 1; i <= msg.length; i++) {
                         console.log("school" + i);
                         console.log(msg[i - 1].school_id);
+                        document.getElementById("tr_"+i).style.display = "block";
+                        document.getElementById("delete_button_"+i).style.display = "block";
                         document.getElementById("school" + i).value = msg[i - 1].schoolName;
                         document.getElementById("id" + i).value = msg[i - 1].id;
                         document.getElementById("y" + i).value = msg[i - 1].year;
@@ -97,33 +99,43 @@
             });
         }
     </script>
-<%--
     <script>
+        var length = 0;
+        var flag = 0;
         function addSchool() {
             //document.getElementById("username").setAttribute("placeholder","请输入");
-            $.post({
-                url: "${pageContext.request.contextPath}/user/PersonalCenter/EntranceInfo",
-                data: {},
-                success: function (data) {
-                    var msg = JSON.parse(data);
-                    var i;
-                    console.log(msg);
-                    var length = msg.length;
-                    length = length+1;
-                    var index=document.getElementById("schools").selectedIndex;
-                    var value = document.getElementById("schools").options[index].value;
-                    document.getElementById("school_"+ length).value = value;
-                    document.getElementById("id_" + length).innerHTML = "Identity:";
-                    document.getElementById("y_" + length).innerHTML = "Year:";
-                },
-                error: function (data) {
-                    alert("error");
-                    console.log(data);
-                }
-            });
+            alert("into add")
+            if(this.flag==0){
+                alert("into flag");
+                $.post({
+                    url: "${pageContext.request.contextPath}/user/PersonalCenter/getSchoolNum",
+                    data: {},
+                    success: function (data) {
+                        var msg = JSON.parse(data);
+                        var i;
+                        console.log(msg);
+                        this.length = msg.length+1;
+                    },
+                    error: function (data) {
+                        alert("error");
+                        console.log(data);
+                    }
+                });
+                this.flag = 1;
+            }
+            var index=document.getElementById("schools").selectedIndex;
+            var value = document.getElementById("schools").options[index].value;
+            document.getElementById("tr_"+this.length).style.display = "block";
+            document.getElementById("delete_button_"+i).style.display = "block";
+            document.getElementById("school_"+ this.length).value = value;
+            document.getElementById("id_" + this.length).innerHTML = "Identity:";
+            document.getElementById("y_" + this.length).innerHTML = "Year:";
+            this.length = this.length+1;
+        }
+        function delete_school(){
+
         }
     </script>
---%>
 </head>
 <body onload="getUserProfile()">
 <header>
@@ -155,11 +167,9 @@
                     <th>Name:</th>
                     <th>Email:</th>
                     <th>Add School:</th>
-                    <%--
                     <th>
                         <button id ="add_button" onclick="addSchool()">Add</button>
                     </th>
-                    --%>
                     <th>
                         <div class="revise">
                             <input type="submit" id = "revise_button"value="Revise" style="font-size: 18px;">
@@ -183,8 +193,9 @@
                     <th id="school_1"></th>
                     <th id="id_1"></th>
                     <th id="y_1"></th>
+                    <th><button id ="delete_button_1" onclick="deleteSchool("1")">Delete</button></th>
                     </thead>
-                    <tr>
+                    <tr id = "tr_1">
                         <td><input type="text" id="school1" name="school1"></td>
                         <td><input type="text" id="id1" name="id1"></td>
                         <td><input type="text" id="y1" name="y1"></td>
@@ -194,8 +205,9 @@
                     <th id="school_2"></th>
                     <th id="id_2"></th>
                     <th id="y_2"></th>
+                    <th><button id ="delete_button_2" onclick="deleteSchool()">Delete</button></th>
                     </thead>
-                    <tr>
+                    <tr id = "tr_2">
                         <td><input type="text" id="school2" name="school2"></td>
                         <td><input type="text" id="id2" name="id2"></td>
                         <td><input type="text" id="y2" name="y2"></td>
@@ -204,8 +216,9 @@
                     <th id="school_3"></th>
                     <th id="id_3"></th>
                     <th id="y_3"></th>
+                    <th><button id ="delete_button_3" onclick="deleteSchool()">Delete</button></th>
                     </thead>
-                    <tr>
+                    <tr id = "tr_3">
                         <td><input type="text" id="school3" name="school3"></td>
                         <td><input type="text" id="id3" name="id3"></td>
                         <td><input type="text" id="y3" name="y3"></td>
@@ -215,8 +228,9 @@
                     <th id="school_4"></th>
                     <th id="id_4"></th>
                     <th id="y_4"></th>
+                    <th><button id ="delete_button_4" onclick="deleteSchool()">Delete</button></th>
                     </thead>
-                    <tr>
+                    <tr id = "tr_4">
                         <td><input type="text" id="school4"  name="school4"></td>
                         <td><input type="text" id="id4"  name="id4"></td>
                         <td><input type="text" id="y4" name="y4"></td>
@@ -226,22 +240,26 @@
                     <th id="school_5"></th>
                     <th id="id_5"></th>
                     <th id="y_5"></th>
+                    <th><button id ="delete_button_5" onclick="deleteSchool()">Delete</button></th>
                     </thead>
-                    <tr>
+                    <tr id = "tr_5">
                         <td><input type="text" id="school5"  name="school5"></td>
                         <td><input type="text" id="id5"  name="id5"></td>
                         <td><input type="text" id="y5" name="y5"></td>
                     </tr>
                 </table>
             </form>
-<%--            <div class="revise">--%>
-<%--                <input type="submit" value="Revise" style="font-size: 18px;">--%>
-<%--            </div>--%>
+            <%--            <div class="revise">--%>
+            <%--                <input type="submit" value="Revise" style="font-size: 18px;">--%>
+            <%--            </div>--%>
+        </div>
+        <div class="hero-image">
+            <img src="images/hero-image.png" alt=""/>
         </div>
     </div>
-    <div class="hero-image">
-        <img src="images/hero-image.png" alt=""/>
-    </div>
+<%--    <div class="hero-image">--%>
+<%--        <img src="images/hero-image.png" alt=""/>--%>
+<%--    </div>--%>
 </section>
 </body>
 </html>
