@@ -11,22 +11,19 @@
     <script src="js/jquery-3.1.1.min.js"></script>
     <script>
         function getUserProfile() {
-            // get basic information
-            $.ajax({
-                type: 'post',
+            $.post({
                 url: "${pageContext.request.contextPath}/user/PersonalCenter/PersonalInfo",
                 data: {},
-                async: false,
                 success: function (data) {
-                    let msg = JSON.parse(data);
+                    var msg = JSON.parse(data);
                     console.log(msg.username);
                     console.log(msg.name);
                     console.log(msg.email);
                     console.log(msg.key);
-                    let uname = msg.username;
-                    let name = msg.name;
-                    let email = msg.email;
-                    let key = msg.key;
+                    var uname = msg.username;
+                    var name = msg.name;
+                    var email = msg.email;
+                    var key = msg.key;
                     document.getElementById("username").value = uname;
                     document.getElementById("name").value = name;
                     document.getElementById("password").value = key;
@@ -37,29 +34,22 @@
                     console.log(data);
                 }
             });
-            // get valid school information
-            var i = 1;
-            //alert("getting entrance info");
-            $.ajax({
-                type: 'post',
+            $.post({
                 url: "${pageContext.request.contextPath}/user/PersonalCenter/EntranceInfo",
                 data: {},
-                async: false,
                 success: function (data) {
-                    let msg = JSON.parse(data);
-                    console.log("msg length");
-                    console.log(msg.length);
+                    var msg = JSON.parse(data);
+                    var i;
+                    console.log(msg);
                     if (msg.length > 0 && msg.length <= 3) {
-                        document.getElementsByClassName("table2")[0].style.display = "block";
+                        document.getElementsByClassName("table2").style.display = "block";
                     } else if (msg.length > 3) {
-                        document.getElementsByClassName("table2")[0].style.display = "block";
-                        document.getElementsByClassName("table3")[0].style.display = "block";
+                        document.getElementsByClassName("table2").style.display = "block";
+                        document.getElementsByClassName("table3").style.display = "block";
                     }
                     for (i = 1; i <= msg.length; i++) {
-                        console.log("showing when getting user profile");
                         console.log("school" + i);
                         console.log(msg[i - 1].school_id);
-                        //$("#tr_" + i + ", #delete_button_" + i).show();
                         document.getElementById("tr_" + i).style.display = "block";
                         document.getElementById("delete_button_" + i).style.display = "block";
                         document.getElementById("school" + i).value = msg[i - 1].schoolName;
@@ -77,18 +67,19 @@
                 }
             });
         }
+    </script>
+    <script>
         function logOff() {
-            let uname = "";
-            let name = "";
-            let email = "";
-            let key = "";
-            $.ajax({
-                type: 'post',
+            var uname = "";
+            var name = "";
+            var email = "";
+            var key = "";
+            $.post({
                 url: "${pageContext.request.contextPath}/user/PersonalCenter/PersonalInfo",
                 data: {},
                 async: false,
                 success: function (data) {
-                    let msg = JSON.parse(data);
+                    var msg = JSON.parse(data);
                     uname = msg.username;
                     name = msg.name;
                     email = msg.email;
@@ -99,15 +90,14 @@
                     console.log(data);
                 }
             });
-            $.ajax({
-                type: 'post',
+            $.post({
                 url: "${pageContext.request.contextPath}/user/delete",
                 data: {
                     "username": uname, "name": name,
                     "email": email, "key": key
                 },
                 success: function (data) {
-                    //alert(data);
+                    alert(data);
                     location.href = "index.jsp";
                 },
                 error: function (data) {
@@ -116,85 +106,44 @@
                 }
             });
         }
+    </script>
+    <script>
+        var length = 0;
+        var flag = 0;
 
         function addSchool() {
-            var length = 0;
-            $.ajax({
-                type: 'post',
-                url: "${pageContext.request.contextPath}/user/PersonalCenter/getSchoolNum",
-                data: {},
-                async: false,
-                success: function (data) {
-                    let msg = JSON.parse(data);
-                    console.log(msg);
-                    length = msg.length + 1;
-                },
-                error: function (data) {
-                    alert("error");
-                    console.log(data);
-                }
-            });
-            let index = document.getElementById("schools").selectedIndex;
-            let value = document.getElementById("schools").options[index].value;
-            $.ajax({
-                type: 'post',
-                url: "${pageContext.request.contextPath}/user/addSchool",
-                data: {schoolName: '', level: value, year: '0'},
-                async: false,
-                success: function (data) {
-                    console.log(data);
-                },
-                error: function (data) {
-                    alert("error");
-                    console.log(data);
-                }
-            });
-        }
-
-        function deleteSchool(index) {
-            $.ajax({
-                type: 'post',
-                url: '${pageContext.request.contextPath}/user/deleteSchool',
-                data: {index: index - 1},
-                success: function(data) {
-                    if (data == "1") {
-                        console.log("删除成功");
-                    } else {
-                        alert("删除失败");
+            //document.getElementById("username").setAttribute("placeholder","请输入");
+            if (this.flag == 0) {
+                $.post({
+                    url: "${pageContext.request.contextPath}/user/PersonalCenter/EntranceInfo",
+                    data: {},
+                    success: function (data) {
+                        var msg = JSON.parse(data);
+                        var i;
+                        console.log(msg);
+                        this.length = msg.length + 1;
+                    },
+                    error: function (data) {
+                        alert("error");
+                        console.log(data);
                     }
-                },
-                error: function(data) {
-                    alert("error");
-                    console.log(data);
-                }
-            })
-        }
-
-        function updateSchool(index) {
-            let index2 = document.getElementById("schools").selectedIndex;
-            let lvl = document.getElementById("schools").options[index2].value;
-            $.ajax({
-                type: 'post',
-                url: '${pageContext.request.contextPath}/user/updateSchool',
-                data: {
-                    index: index - 1,
-                    name: document.getElementById("school" + index).value,
-                    year: document.getElementById("y" + index).value,
-                    level: lvl
-                },
-                success: function(data) {
-                    alert(data);
-                    if (data == "11") {
-                        console.log("更新成功");
-                    } else {
-                        alert("更新失败");
-                    }
-                },
-                error: function(data) {
-                    alert("error");
-                    console.log(data);
-                }
-            })
+                });
+                this.flag = 1;
+            }
+            var index = document.getElementById("schools").selectedIndex;
+            var value = document.getElementById("schools").options[index].value;
+            if (this.length > 0 && this.length <= 3) {
+                document.getElementsByClassName("table2").style.display = "block";
+            } else if (this.length > 3) {
+                document.getElementsByClassName("table2").style.display = "block";
+                document.getElementsByClassName("table3").style.display = "block";
+            }
+            document.getElementById("tr_" + this.length).style.display = "block";
+            document.getElementById("delete_button_" + i).style.display = "block";
+            document.getElementById("school_" + this.length).value = value;
+            document.getElementById("id_" + this.length).innerHTML = "Identity:";
+            document.getElementById("y_" + this.length).innerHTML = "Year:";
+            this.length = this.length + 1;
         }
     </script>
 </head>
@@ -231,6 +180,11 @@
                     <th>
                         <button id="add_button" onclick="addSchool()">Add</button>
                     </th>
+                    <%--                    <th>--%>
+                    <%--                        <div class="revise">--%>
+                    <%--                            <input type="submit" id = "revise_button"value="Revise" style="font-size: 18px;">--%>
+                    <%--                        </div>--%>
+                    <%--                    </th>--%>
                     </thead>
                     <tr>
                         <td><input type="text" id="username" name="username"></td>
@@ -244,62 +198,48 @@
                             <option value="shs">Senior High School</option>
                             <option value="uni">University</option>
                         </select></td>
-                        <td>
-                            <div class="revise">
-                                <input type="submit" id="revise_button" value="Revise" style="font-size: 18px;">
-                            </div>
-                        </td>
                     </tr>
                 </table>
                 <table class="table2">
+                    </thead>
                     <thead>
                     <th id="school_1"></th>
                     <th id="id_1"></th>
                     <th id="y_1"></th>
                     <th>
-                        <button id="delete_button_1" onclick="deleteSchool(1)">Delete</button>
+                        <button id="delete_button_1" onclick="deleteSchool()">Delete</button>
                     </th>
                     </thead>
-                    <tr id="tr_1" style="display: none">
+                    <tr id="tr_1">
                         <td><input type="text" id="school1" name="school1"></td>
                         <td><input type="text" id="id1" name="id1"></td>
                         <td><input type="text" id="y1" name="y1"></td>
-                        <td>
-                            <button id="revise_button_1" onclick="updateSchool(1)">Revise</button>
-                        </td>
                     </tr>
-
                     <thead>
                     <th id="school_2"></th>
                     <th id="id_2"></th>
                     <th id="y_2"></th>
                     <th>
-                        <button id="delete_button_2" onclick="deleteSchool(2)">Delete</button>
+                        <button id="delete_button_2" onclick="deleteSchool()">Delete</button>
                     </th>
                     </thead>
-                    <tr id="tr_2" style="display: none">
+                    <tr id="tr_2">
                         <td><input type="text" id="school2" name="school2"></td>
                         <td><input type="text" id="id2" name="id2"></td>
                         <td><input type="text" id="y2" name="y2"></td>
-                        <td>
-                            <button id="revise_button_2" onclick="updateSchool(2)">Revise</button>
-                        </td>
                     </tr>
                     <thead>
                     <th id="school_3"></th>
                     <th id="id_3"></th>
                     <th id="y_3"></th>
                     <th>
-                        <button id="delete_button_3" onclick="deleteSchool(3)">Delete</button>
+                        <button id="delete_button_3" onclick="deleteSchool()">Delete</button>
                     </th>
                     </thead>
-                    <tr id="tr_3" style="display: none">
+                    <tr id="tr_3">
                         <td><input type="text" id="school3" name="school3"></td>
                         <td><input type="text" id="id3" name="id3"></td>
                         <td><input type="text" id="y3" name="y3"></td>
-                        <td>
-                            <button id="revise_button_3" onclick="updateSchool(3)">Revise</button>
-                        </td>
                     </tr>
                 </table>
                 <table class="table3">
@@ -308,16 +248,13 @@
                     <th id="id_4"></th>
                     <th id="y_4"></th>
                     <th>
-                        <button id="delete_button_4" onclick="deleteSchool(4)">Delete</button>
+                        <button id="delete_button_4" onclick="deleteSchool()">Delete</button>
                     </th>
                     </thead>
-                    <tr id="tr_4" style="display: none">
+                    <tr id="tr_4">
                         <td><input type="text" id="school4" name="school4"></td>
                         <td><input type="text" id="id4" name="id4"></td>
                         <td><input type="text" id="y4" name="y4"></td>
-                        <td>
-                            <button id="revise_button_4" onclick="updateSchool(4)">Revise</button>
-                        </td>
                     </tr>
 
                     <thead>
@@ -325,24 +262,30 @@
                     <th id="id_5"></th>
                     <th id="y_5"></th>
                     <th>
-                        <button id="delete_button_5" onclick="deleteSchool(5)">Delete</button>
+                        <button id="delete_button_5" onclick="deleteSchool()">Delete</button>
                     </th>
                     </thead>
-                    <tr id="tr_5" style="display: none">
+                    <tr id="tr_5">
                         <td><input type="text" id="school5" name="school5"></td>
                         <td><input type="text" id="id5" name="id5"></td>
                         <td><input type="text" id="y5" name="y5"></td>
-                        <td>
-                            <button id="revise_button_5" onclick="updateSchool(5)">Revise</button>
-                        </td>
                     </tr>
                 </table>
+                <div class="revise">
+                    <input type="submit" id="revise_button" value="Revise" style="font-size: 18px;">
+                </div>
             </form>
+            <%--            <div class="revise">--%>
+            <%--                <input type="submit" value="Revise" style="font-size: 18px;">--%>
+            <%--            </div>--%>
         </div>
         <div class="hero-image">
             <img src="images/hero-image.png" alt=""/>
         </div>
     </div>
+    <%--    <div class="hero-image">--%>
+    <%--        <img src="images/hero-image.png" alt=""/>--%>
+    <%--    </div>--%>
 </section>
 </body>
 </html>

@@ -10,6 +10,8 @@ import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
+import java.util.Collections;
+import java.util.Comparator;
 
 // 进行有关entranceInformation-table的增删查改工作，并返回结果
 public class dbEntranceInformation {
@@ -70,7 +72,7 @@ public class dbEntranceInformation {
             rs=st.executeQuery();
             conn.commit();
             System.out.println("get all entrances");
-            ArrayList allEntranceInfo=new ArrayList();
+            ArrayList<EntranceInformation> allEntranceInfo=new ArrayList();
             while(rs.next()){
                 EntranceInformation newEI=new EntranceInformation(Integer.parseInt(rs.getObject("id").toString()),
                         Integer.parseInt(rs.getObject("user_id").toString()),
@@ -79,10 +81,11 @@ public class dbEntranceInformation {
                 allEntranceInfo.add(newEI);
             }
             System.out.println(allEntranceInfo);
+            allEntranceInfo.sort((o1, o2) -> o2.getSchool_id() - o1.getSchool_id());
             return allEntranceInfo;
         }catch(SQLException e){
             conn.rollback();
-            return null;
+            return new ArrayList<>();
         }finally {
             JdbcUtils.release(conn,st,rs);
         }

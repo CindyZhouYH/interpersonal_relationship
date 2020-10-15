@@ -27,8 +27,9 @@
     <script >
         function judgeState() {
            //document.getElementById("usercenter_state").innerHTML = "UserCenter";
-            $.post({
-                url: "${pageContext.request.contextPath}/user/checkLoginState",//需更改
+            $.ajax({
+                type: "post",
+                url: "${pageContext.request.contextPath}/user/checkLoginState",
                 data: {},
                 success: function (data) {
                     var msg = JSON.parse(data);
