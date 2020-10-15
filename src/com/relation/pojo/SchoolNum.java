@@ -1,7 +1,10 @@
 package com.relation.pojo;
 
 public class SchoolNum {
-    private int length; // valid
+    private int length;
+
+    public SchoolNum() {
+    }
 
     public SchoolNum(int length) {
         this.length = length;

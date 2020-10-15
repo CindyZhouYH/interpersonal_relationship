@@ -53,11 +53,8 @@ public class PersonalCenter {
     @RequestMapping("/PersonalCenter/getSchoolNum")
     public void getSchoolNum(HttpServletRequest request,
                                  HttpServletResponse response) throws IOException, SQLException {
-        System.out.println("In calculation of school num");
         User user = getUserFromRequest(request);
-        System.out.println("Calculating school num of user " + user.getName());
         ArrayList<EntranceInformation> entranceInfoArr = Service.EntranceInformationService.getEntranceInformation(user);
-        System.out.println(entranceInfoArr);
         response.getWriter().print(objectToJson(new SchoolNum(entranceInfoArr.size())));
     }
 }

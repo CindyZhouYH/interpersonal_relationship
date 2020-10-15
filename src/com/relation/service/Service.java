@@ -19,10 +19,6 @@ public class Service {
             return dbe.addInfo(user, school, ei);
         }
 
-        public static boolean deleteEntranceInformation(EntranceInformation ei) throws SQLException {
-            return dbe.deleteEntranceInfo(ei);
-        }
-
         public static ArrayList<EntranceInformation> getEntranceInformation(User user) throws SQLException {
             return dbe.searchEntranceInfo(user);
         }

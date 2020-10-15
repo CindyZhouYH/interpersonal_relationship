@@ -22,7 +22,7 @@ public class dbUser {
             }
             getConnected();
             System.out.println("connect over");
-            String sql = "insert into user(`id`,`username`,`name`,`email`,`password`)values(?,?,?,?,?)";
+            String sql = "insert into user(`id`,`username`,`name`,`email`,`key`)values(?,?,?,?,?)";
             st = conn.prepareStatement(sql);     //预编译
             System.out.println(st);
             st.setInt(1, user.getId());
@@ -30,6 +30,7 @@ public class dbUser {
             st.setString(3, user.getName());
             st.setString(4, user.getEmail());
             st.setString(5, user.getKey());
+            System.out.println(st);
             st.executeUpdate();
             conn.commit();
             return 1;
@@ -82,7 +83,7 @@ public class dbUser {
     public boolean upDateUserKey(String key, int id) throws SQLException {
         try {
             getConnected();
-            String sql = "update user set `password`=? where `id`=?";
+            String sql = "update user set `key`=? where `id`=?";
             st = conn.prepareStatement(sql);     //预编译
             st.setString(1, key);
             st.setInt(2,id);
@@ -121,16 +122,17 @@ public class dbUser {
             String sql = "select * from user where `username`=?";
             st = conn.prepareStatement(sql);     //预编译
             st.setString(1, username);
+            //System.out.println(st);
             rs = st.executeQuery();
             conn.commit();
+            System.out.println(rs);
             User returnUser = null;
             while (rs.next()) {
-                System.out.println("ENTER");
                 returnUser = new User(Integer.parseInt(rs.getObject("id").toString()),
                         rs.getObject("username").toString(),
                         rs.getObject("name").toString(),
                         rs.getObject("email").toString(),
-                        rs.getObject("password").toString());
+                        rs.getObject("key").toString());
             }
             return returnUser;
         } catch (SQLException e) {
@@ -191,9 +193,12 @@ public class dbUser {
                 return 0;
             }
             getConnected();
+            System.out.println("1");
             String sql = "select max(id) from user";
             st = conn.prepareStatement(sql);
+            System.out.println("2");
             rs = st.executeQuery();
+            System.out.println("3");
             conn.commit();
             rs.next();
             int maxId = rs.getInt(1);

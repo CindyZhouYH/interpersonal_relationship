@@ -39,5 +39,6 @@ public class Delete {
             System.out.println("Wrong password.");
             response.getWriter().print("Wrong password.");
         }
+        return ;
     }
 }
