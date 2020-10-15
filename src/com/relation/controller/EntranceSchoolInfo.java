@@ -15,6 +15,44 @@ import java.sql.SQLException;
 @RequestMapping("/registerEntranceInfo")
 public class EntranceSchoolInfo {
 
+    @RequestMapping("/addFromUserCenter")
+    public String addFromUserCenter(addSchoolHelper add,
+                                  Model model,
+                                  HttpServletRequest request) throws SQLException {
+        if(add.getSchoolName1()!=null){
+            boolean ans=goon(add.getSchoolName1(),add.getLevel1(), add.getYear1(), request);
+            if(!ans){
+                return "redirect:/register_2.jsp";
+            }
+        }
+        if(add.getSchoolName2()!=null){
+            boolean ans=goon(add.getSchoolName2(),add.getLevel2(), add.getYear2(), request);
+            if(!ans){
+                return "redirect:/register_2.jsp";
+            }
+        }
+        if(add.getSchoolName3()!=null){
+            boolean ans=goon(add.getSchoolName3(),add.getLevel3(), add.getYear3(), request);
+            if(!ans){
+                return "redirect:/register_2.jsp";
+            }
+        }
+        if(add.getSchoolName4()!=null){
+            boolean ans=goon(add.getSchoolName4(),add.getLevel4(), add.getYear4(), request);
+            if(!ans){
+                return "redirect:/register_2.jsp";
+            }
+        }
+        if(add.getSchoolName5()!=null){
+            boolean ans=goon(add.getSchoolName5(),add.getLevel5(), add.getYear5(), request);
+            if(!ans){
+                return "redirect:/register_2.jsp";
+            }
+        }
+        return "redirect:/index.jsp";
+    }
+
+
     @RequestMapping("/add")
     public String addEntranceInfo(addSchoolHelper add,
                                   Model model,

@@ -58,6 +58,34 @@ public class dbSchool {
         }
     }
 
+    public School searchSchoolThrowId(int id) throws SQLException {
+        try{
+            System.out.println("seartching");
+            getConnected();
+            String sql="select * from school where `id`=?";
+            st=conn.prepareStatement(sql);     //预编译
+            st.setInt(1, id);
+            rs=st.executeQuery();
+            conn.commit();
+            School returnSchool=null;
+            System.out.println(rs);
+            while(rs.next()) {
+                returnSchool = new School(Integer.parseInt(rs.getObject("id").toString()),
+                        rs.getObject("name").toString(),
+                        Integer.parseInt(rs.getObject("level").toString()));
+            }
+            System.out.println("out");
+            System.out.println(returnSchool.toString());
+            return returnSchool;
+        }catch(SQLException e){
+            System.out.println("error");
+            conn.rollback();
+            return null;
+        }finally {
+            JdbcUtils.release(conn,st,rs);
+        }
+    }
+
     public int getCount() throws SQLException {
         try {
             getConnected();

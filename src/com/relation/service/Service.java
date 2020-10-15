@@ -19,6 +19,10 @@ public class Service {
             return dbe.addInfo(user, school, ei);
         }
 
+        public static boolean deleteEntranceInformation(EntranceInformation ei) throws SQLException {
+            return dbe.deleteEntranceInfo(ei);
+        }
+
         public static ArrayList<EntranceInformation> getEntranceInformation(User user) throws SQLException {
             return dbe.searchEntranceInfo(user);
         }
@@ -33,6 +37,9 @@ public class Service {
 
         public static School searchSchool(String name) throws SQLException {
             return dbs.searchSchool(name);
+        }
+        public static School searchSchoolThrowId(int id) throws SQLException {
+            return dbs.searchSchoolThrowId(id);
         }
 
         public static boolean addSchool(School school) throws SQLException {
@@ -59,8 +66,11 @@ public class Service {
             return dbuser.searchUser(username);
         }
 
-        public static boolean updateUserKey(User user) throws SQLException {
-            return dbuser.upDateUserKey(user);
+        public static boolean updateUserKey(String key, int id) throws SQLException {
+            return dbuser.upDateUserKey(key,id);
+        }
+        public static boolean updateUserUsername(String name, int id) throws SQLException {
+            return dbuser.upDateUserUsername(name,id);
         }
 
         public static boolean searchSameEmailUser(String email) throws SQLException {

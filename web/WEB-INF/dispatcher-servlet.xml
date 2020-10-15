@@ -20,9 +20,23 @@
             <!--/** 包括路径及其子路径-->
             <!--/admin/* 拦截的是/admin/add等等这种 , /admin/add/user不会被拦截-->
             <!--/admin/** 拦截的是/admin/下的所有-->
-            <mvc:mapping path="/user/**"/>
+            <mvc:mapping path="/user/"/>
             <!--bean配置的就是拦截器-->
             <bean class="com.relation.interceptor.LoginInterceptor"/>
         </mvc:interceptor>
     </mvc:interceptors>
+    <mvc:annotation-driven>
+        <mvc:message-converters register-defaults="true">
+            <bean class="org.springframework.http.converter.StringHttpMessageConverter">
+                <constructor-arg value="UTF-8"/>
+            </bean>
+            <bean class="org.springframework.http.converter.json.MappingJackson2HttpMessageConverter">
+                <property name="objectMapper">
+                    <bean class="org.springframework.http.converter.json.Jackson2ObjectMapperFactoryBean">
+                        <property name="failOnEmptyBeans" value="false"/>
+                    </bean>
+                </property>
+            </bean>
+        </mvc:message-converters>
+    </mvc:annotation-driven>
 </beans>

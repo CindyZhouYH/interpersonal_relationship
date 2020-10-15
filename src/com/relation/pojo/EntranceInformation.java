@@ -10,7 +10,25 @@ public class EntranceInformation {
     private int user_id;
     private int school_id;
     private int year;
+    private String schoolName;
+    private String schoolType;
     private static boolean updated = false;
+
+    public String getSchoolType() {
+        return schoolType;
+    }
+
+    public void setSchoolType(String schoolType) {
+        this.schoolType = schoolType;
+    }
+
+    public String getSchoolName() {
+        return schoolName;
+    }
+
+    public void setSchoolName(String schoolName) {
+        this.schoolName = schoolName;
+    }
 
     private void update() {
         try {
@@ -72,5 +90,17 @@ public class EntranceInformation {
 
     public void setYear(int year) {
         this.year = year;
+    }
+
+    @Override
+    public String toString() {
+        return "EntranceInformation{" +
+                "id=" + id +
+                ", user_id=" + user_id +
+                ", school_id=" + school_id +
+                ", year=" + year +
+                ", schoolName='" + schoolName + '\'' +
+                ", schoolType='" + schoolType + '\'' +
+                '}';
     }
 }

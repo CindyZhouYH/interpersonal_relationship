@@ -23,8 +23,35 @@
   <!-- Script
   ================================================== -->
   <script src="js/modernizr.js"></script>
+  <script src="js/jquery-3.1.1.min.js"></script>
+    <script >
+        function judgeState() {
+           //document.getElementById("usercenter_state").innerHTML = "UserCenter";
+            $.ajax({
+                type: "post",
+                url: "${pageContext.request.contextPath}/user/checkLoginState",
+                data: {},
+                success: function (data) {
+                    var msg = JSON.parse(data);
+                    console.log(msg.state);
+                    var state = msg.state;
+                    if(state=="1"){
+                        document.getElementById("usercenter_state").innerHTML = "UserCenter";
+                    }else{
+                        document.getElementById("login_state").innerHTML = "login";
+                        document.getElementById("register_state").innerHTML = "register";
+                    }
+                },
+                error: function (data) {
+                    alert("error");
+                    console.log(data);
+                }
+            });
+
+        }
+    </script>
 </head>
-<body>
+<body onload="judgeState()">
 <%--<div id="preloader">--%>
 <%--  <div id="status">--%>
 <%--    <img src="images/preloader.gif" height="64" width="64" alt="">--%>
@@ -49,15 +76,14 @@
       <li><a class="smoothscroll" href="#screenshots">Screenshots</a></li>
       <li><a class="smoothscroll" href="#testimonials">Introduction</a></li>
       <li><a class="smoothscroll" href="#subscribe">Subscribe</a></li>
-      <li><a href="user_center.jsp">UserCenter</a></li>
+      <li><a href="user_center.jsp" id = "usercenter_state"></a></li>
     </ul> <!-- end #nav -->
 
   </nav> <!-- end #nav-wrap -->
 
   <ul class="header-social">
-    <li><a href="login.jsp"><span>login</span></a></li>
-    <li><a href="register_1.jsp"><span>register</span></a></li>
-    <li><a href="register_2.jsp"><span>register_school</span></a></li>
+    <li><a href="login.jsp"><span id = "login_state"></span></a></li>
+    <li><a href="register_1.jsp"><span id = "register_state"></span></a></li>
   </ul>
 
 </header> <!-- Header End -->
