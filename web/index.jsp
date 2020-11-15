@@ -7,59 +7,198 @@
   <title>Connection</title>
   <meta name="description" content="">
   <meta name="author" content="">
-
-  <!-- Mobile Specific Metas
-  ================================================== -->
   <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
 
-  <!-- CSS
-  ================================================== -->
   <link rel="stylesheet" href="css/default.css">
   <link rel="stylesheet" href="css/layout.css">
   <link rel="stylesheet" href="css/media-queries.css">
-  <link rel="stylesheet" href="css/animate.css">
-  <link rel="stylesheet" href="css/prettyPhoto.css">
 
-  <!-- Script
-  ================================================== -->
+  <script src="js/jquery-3.2.1.min.js"></script>
+  <script src="js/echarts.js"></script>
   <script src="js/modernizr.js"></script>
-  <script src="js/jquery-3.1.1.min.js"></script>
-    <script >
-        function judgeState() {
-           //document.getElementById("usercenter_state").innerHTML = "UserCenter";
-            $.ajax({
-                type: "post",
-                url: "${pageContext.request.contextPath}/user/checkLoginState",
-                data: {},
-                success: function (data) {
-                    var msg = JSON.parse(data);
-                    console.log(msg.state);
-                    var state = msg.state;
-                    if(state=="1"){
-                        document.getElementById("usercenter_state").innerHTML = "UserCenter";
-                    }else{
-                        document.getElementById("login_state").innerHTML = "login";
-                        document.getElementById("register_state").innerHTML = "register";
-                    }
-                },
-                error: function (data) {
-                    alert("error");
-                    console.log(data);
-                }
-            });
-
+  <script >
+    function judgeState() {
+      //document.getElementById("usercenter_state").innerHTML = "UserCenter";
+      $.ajax({
+        type: "post",
+        url: "${pageContext.request.contextPath}/user/checkLoginState",
+        data: {},
+        success: function (data) {
+          var msg = JSON.parse(data);
+          console.log(msg.state);
+          var state = msg.state;
+          if(state=="1"){
+            document.getElementById("usercenter_state").innerHTML = "UserCenter";
+          }else{
+            document.getElementById("login_state").innerHTML = "login";
+            document.getElementById("register_state").innerHTML = "register";
+          }
+        },
+        error: function (data) {
+          alert("error");
+          console.log(data);
         }
-    </script>
+      });
+    }
+  </script>
+  <script>
+    function getResult() {
+      var myChart = echarts.init(document.getElementById('main'));
+      var brower = [];
+      var categories = [];
+      categories[0] = {
+        name: "Yourself"
+      };
+      categories[1] = {
+        name: "Connection"
+      };
+      brower[0] = {
+        name: 'node0' + 1,
+        des:"nodedes0"+1,
+        symbolSize:70,
+        category:0
+      };
+      for (var i = 1; i < 5; i++) {
+        brower[i] = {
+          name: 'node0' + (i+1),
+          des:"nodedes0"+(i+1),
+          symbolSize:50,
+          category:1
+        };
+      }
+      option = {
+        // 图的标题
+        /* title: {
+           text: 'Network'
+         },*/
+        // 提示框的配置
+        tooltip: {
+          formatter: function (x) {
+            return x.data.des;
+          }
+        },
+        // 工具箱
+        toolbox: {
+          // 显示工具箱
+          show: true,
+          feature: {
+            mark: {
+              show: true
+            },
+            // 还原
+            restore: {
+              show: true
+            },
+            // 保存为图片
+            saveAsImage: {
+              show: true
+            }
+          }
+        },
+        legend: [{
+          // selectedMode: 'single',
+          data: categories.map(function (a) {
+            return a.name;
+          })
+        }],
+        series: [{
+          type: 'graph', // 类型:关系图
+          layout: 'force', //图的布局，类型为力导图
+          symbolSize: 40, // 调整节点的大小
+          //roam: true, // 是否开启鼠标缩放和平移漫游。默认不开启。如果只想要开启缩放或者平移,可以设置成 'scale' 或者 'move'。设置成 true 为都开启
+          edgeSymbol: ['circle', 'arrow'],
+          edgeSymbolSize: [2, 10],
+          edgeLabel: {
+            normal: {
+              textStyle: {
+                fontSize: 20
+              }
+            }
+          },
+          force: {
+            repulsion: 2500,
+            edgeLength: [10, 50]
+          },
+          draggable: true,
+          lineStyle: {
+            normal: {
+              width: 2,
+              color: '#4b565b',
+            }
+          },
+          edgeLabel: {
+            normal: {
+              show: true,
+              formatter: function (x) {
+                return x.data.name;
+              }
+            }
+          },
+          label: {
+            normal: {
+              show: true,
+              textStyle: {}
+            }
+          },
+
+          // 数据
+          data:brower,
+          // [{
+          //   name: 'node01',
+          //   des: 'nodedes01',
+          //   symbolSize: 70,
+          //   category: 0,
+          // }, {
+          //   name: 'node02',
+          //   des: 'nodedes02',
+          //   symbolSize: 50,
+          //   category: 1,
+          // }, {
+          //   name: 'node03',
+          //   des: 'nodedes3',
+          //   symbolSize: 50,
+          //   category: 1,
+          // }, {
+          //   name: 'node04',
+          //   des: 'nodedes04',
+          //   symbolSize: 50,
+          //   category: 1,
+          // }, {
+          //   name: 'node05',
+          //   des: 'nodedes05',
+          //   symbolSize: 50,
+          //   category: 1,
+          // }],
+          links: [{
+            source: 'node01',
+            target: 'node02',
+            name: 'link01',
+            des: 'link01des'
+          }, {
+            source: 'node01',
+            target: 'node03',
+            name: 'link02',
+            des: 'link02des'
+          }, {
+            source: 'node01',
+            target: 'node04',
+            name: 'link03',
+            des: 'link03des'
+          }, {
+            source: 'node01',
+            target: 'node05',
+            name: 'link04',
+            des: 'link05des'
+          }],
+          categories: categories,
+        }]
+      };
+      myChart.setOption(option);
+      document.getElementById("main").style.display = "block";
+    }
+  </script>
 </head>
 <body onload="judgeState()">
-<%--<div id="preloader">--%>
-<%--  <div id="status">--%>
-<%--    <img src="images/preloader.gif" height="64" width="64" alt="">--%>
-<%--  </div>--%>
-<%--</div>--%>
-
-<!-- Header
-================================================== -->
 <header>
 
   <div class="logo">
@@ -73,30 +212,29 @@
 
     <ul id="nav" class="nav">
       <li><a class="smoothscroll" href="#trial">Trial</a></li>
-      <li><a class="smoothscroll" href="#screenshots">Screenshots</a></li>
       <li><a class="smoothscroll" href="#testimonials">Introduction</a></li>
-      <li><a class="smoothscroll" href="#subscribe">Subscribe</a></li>
       <li><a href="user_center.jsp" id = "usercenter_state"></a></li>
-    </ul> <!-- end #nav -->
+    </ul>
 
-  </nav> <!-- end #nav-wrap -->
+  </nav>
 
   <ul class="header-social">
     <li><a href="login.jsp"><span id = "login_state"></span></a></li>
     <li><a href="register_1.jsp"><span id = "register_state"></span></a></li>
+    <li><a href="register_2.jsp"><span id = "school_state"></span></a></li>
   </ul>
 
-</header> <!-- Header End -->
+</header>
 <section id="hero">
 
   <div class="row">
     <div class="twelve columns">
       <div class="hero-text">
-        <h1 class="responsive-headline">The perfect template to showcase your awesome product and service.</h1>
+        <h1 class="responsive-headline">The perfect platform about Six Degrees of Separation.</h1>
 
-        <p>Aenean condimentum, lacus sit amet luctus lobortis, dolores et quas molestias excepturi
-          enim tellus ultrices elit, amet consequat enim elit noneas sit amet luctu.
-          Quis nostrum exercitationem ullam corporis suscipit laboriosam.</p>
+        <p>You can search the relationship with strangers as long as he/she is a registered user of our website. We will show you the interpersonal
+          relationship in a visual way of network diagram. You can also add the people in the network diagram if you want. Come and have a free trial !</p>
+
       </div>
 
       <div class="buttons">
@@ -114,158 +252,176 @@
 
 </section> <!-- Homepage Hero end -->
 <section id='trial'>
-  <button onclick="">Get Your Result</button>
-
+  <div class="six columns left">
+    <%--  <form action="">--%>
+    <table>
+      <td><button style="font-size: 20px">Username:</button></td>
+      <td><input type="text"></td>
+    </table>
+    <button onclick="getResult()">Get Your Result</button>
+    <%--  </form>--%>
+  </div>
   <div class="row feature design">
 
     <div class="six columns right">
-      <h3>Simple, Clean and Modern Design.</h3>
+      <h2>instruction</h2>
 
-      <p>Lorem ipsum dolor sit amet, ea eum labitur scripserit, illum complectitur deterruisset at pro. Odio quaeque reformidans est eu, expetendis intellegebat has ut, viderer invenire ut his. Has molestie percipit an. Falli volumus efficiantur sed id, ad vel noster propriae. Ius ut etiam vivendo, graeci iudicabit constituto at mea. No soleat fabulas prodesset vel, ut quo solum dicunt.
-        Nec et amet vidisse mentitum. Cibo mutat nulla ei eam.
+      <p>To get your result, you should first choose a registered user of this website or let us assign you one person at random. And then click the "GET YOUR RESULT" button, we will try to find the relationship between you two,
+        and present it in a visual way of network diagram. If you want to find out more about the person in the network diagram, .......
       </p>
     </div>
-
     <div class="six columns feature-media left">
-      <img src="images/feature-image-1.png" alt="" />
+      <%--      <img src="images/gragh.png" alt=""/>--%>
+      <div id="main" style="width: 500px;height:400px;padding-top:10px;display:none"></div>
+      <%--      <script type="text/javascript">--%>
+      <%--        // 基于准备好的dom，初始化echarts实例--%>
+      <%--        var myChart = echarts.init(document.getElementById('main'));--%>
+
+      <%--        var categories = [];--%>
+      <%--        categories[0] = {--%>
+      <%--          name: "Yourself"--%>
+      <%--        };--%>
+      <%--        categories[1] = {--%>
+      <%--          name: "Connection"--%>
+      <%--        };--%>
+      <%--       /* for (var i = 0; i < 2; i++) {--%>
+      <%--          categories[i] = {--%>
+      <%--            name: '类目' + i--%>
+      <%--          };--%>
+      <%--        }*/--%>
+      <%--        option = {--%>
+      <%--          // 图的标题--%>
+      <%--         /* title: {--%>
+      <%--            text: 'Network'--%>
+      <%--          },*/--%>
+      <%--          // 提示框的配置--%>
+      <%--          tooltip: {--%>
+      <%--            formatter: function (x) {--%>
+      <%--              return x.data.des;--%>
+      <%--            }--%>
+      <%--          },--%>
+      <%--          // 工具箱--%>
+      <%--          toolbox: {--%>
+      <%--            // 显示工具箱--%>
+      <%--            show: true,--%>
+      <%--            feature: {--%>
+      <%--              mark: {--%>
+      <%--                show: true--%>
+      <%--              },--%>
+      <%--              // 还原--%>
+      <%--              restore: {--%>
+      <%--                show: true--%>
+      <%--              },--%>
+      <%--              // 保存为图片--%>
+      <%--              saveAsImage: {--%>
+      <%--                show: true--%>
+      <%--              }--%>
+      <%--            }--%>
+      <%--          },--%>
+      <%--          legend: [{--%>
+      <%--            // selectedMode: 'single',--%>
+      <%--            data: categories.map(function (a) {--%>
+      <%--              return a.name;--%>
+      <%--            })--%>
+      <%--          }],--%>
+      <%--          series: [{--%>
+      <%--            type: 'graph', // 类型:关系图--%>
+      <%--            layout: 'force', //图的布局，类型为力导图--%>
+      <%--            symbolSize: 40, // 调整节点的大小--%>
+      <%--            //roam: true, // 是否开启鼠标缩放和平移漫游。默认不开启。如果只想要开启缩放或者平移,可以设置成 'scale' 或者 'move'。设置成 true 为都开启--%>
+      <%--            edgeSymbol: ['circle', 'arrow'],--%>
+      <%--            edgeSymbolSize: [2, 10],--%>
+      <%--            edgeLabel: {--%>
+      <%--              normal: {--%>
+      <%--                textStyle: {--%>
+      <%--                  fontSize: 20--%>
+      <%--                }--%>
+      <%--              }--%>
+      <%--            },--%>
+      <%--            force: {--%>
+      <%--              repulsion: 2500,--%>
+      <%--              edgeLength: [10, 50]--%>
+      <%--            },--%>
+      <%--            draggable: true,--%>
+      <%--            lineStyle: {--%>
+      <%--              normal: {--%>
+      <%--                width: 2,--%>
+      <%--                color: '#4b565b',--%>
+      <%--              }--%>
+      <%--            },--%>
+      <%--            edgeLabel: {--%>
+      <%--              normal: {--%>
+      <%--                show: true,--%>
+      <%--                formatter: function (x) {--%>
+      <%--                  return x.data.name;--%>
+      <%--                }--%>
+      <%--              }--%>
+      <%--            },--%>
+      <%--            label: {--%>
+      <%--              normal: {--%>
+      <%--                show: true,--%>
+      <%--                textStyle: {}--%>
+      <%--              }--%>
+      <%--            },--%>
+
+      <%--            // 数据--%>
+      <%--            data: [{--%>
+      <%--              name: 'node01',--%>
+      <%--              des: 'nodedes01',--%>
+      <%--              symbolSize: 70,--%>
+      <%--              category: 0,--%>
+      <%--            }, {--%>
+      <%--              name: 'node02',--%>
+      <%--              des: 'nodedes02',--%>
+      <%--              symbolSize: 50,--%>
+      <%--              category: 1,--%>
+      <%--            }, {--%>
+      <%--              name: 'node03',--%>
+      <%--              des: 'nodedes3',--%>
+      <%--              symbolSize: 50,--%>
+      <%--              category: 1,--%>
+      <%--            }, {--%>
+      <%--              name: 'node04',--%>
+      <%--              des: 'nodedes04',--%>
+      <%--              symbolSize: 50,--%>
+      <%--              category: 1,--%>
+      <%--            }, {--%>
+      <%--              name: 'node05',--%>
+      <%--              des: 'nodedes05',--%>
+      <%--              symbolSize: 50,--%>
+      <%--              category: 1,--%>
+      <%--            }],--%>
+      <%--            links: [{--%>
+      <%--              source: 'node01',--%>
+      <%--              target: 'node02',--%>
+      <%--              name: 'link01',--%>
+      <%--              des: 'link01des'--%>
+      <%--            }, {--%>
+      <%--              source: 'node01',--%>
+      <%--              target: 'node03',--%>
+      <%--              name: 'link02',--%>
+      <%--              des: 'link02des'--%>
+      <%--            }, {--%>
+      <%--              source: 'node01',--%>
+      <%--              target: 'node04',--%>
+      <%--              name: 'link03',--%>
+      <%--              des: 'link03des'--%>
+      <%--            }, {--%>
+      <%--              source: 'node01',--%>
+      <%--              target: 'node05',--%>
+      <%--              name: 'link04',--%>
+      <%--              des: 'link05des'--%>
+      <%--            }],--%>
+      <%--            categories: categories,--%>
+      <%--          }]--%>
+      <%--        };--%>
+      <%--        myChart.setOption(option);--%>
+      <%--      </script>--%>
     </div>
-
   </div>
-
-
   </div>
+</section>
 
-</section> <!-- Homepage Hero end -->
-
-<!-- Screenshots
-================================================== -->
-<section id="screenshots">
-
-  <div class="row section-head">
-
-    <h1>Product Screenshots.</h1>
-
-    <p>Sed ut perspiciatis unde omnis iste natus error sit voluptatem accusantium doloremque laudantium, totam rem aperiam,
-      eaque ipsa quae ab illo inventore veritatis et quasi architecto beatae vitae dicta sunt explicabo. Nemo enim ipsam
-      voluptatem quia voluptas sit aspernatur aut odit aut fugit.
-    </p>
-
-  </div>
-
-  <div class="row">
-
-    <div class="twelve columns">
-
-      <!-- screenshots-wrapper -->
-      <div id="screenshots-wrapper" class="bgrid-quarters s-bgrid-thirds cf">
-
-        <div class="columns item">
-          <div class="item-wrap">
-
-            <a href="images/screenshots/big/b-line-icons.jpg" data-imagelightbox="a" >
-              <img src="images/screenshots/line-icons.jpg" alt="Line Icons">
-              <div class="overlay"></div>
-              <div class="link-icon"><i class="icon-plus"></i></div>
-            </a>
-
-          </div>
-        </div> <!-- item end -->
-
-        <div class="columns item">
-          <div class="item-wrap">
-
-            <a href="images/screenshots/big/b-hipster.jpg" data-imagelightbox="a" >
-              <img src="images/screenshots/hipster.jpg" alt="Hipster">
-              <div class="overlay"></div>
-              <div class="link-icon"><i class="icon-plus"></i></div>
-            </a>
-
-          </div>
-        </div> <!-- item end -->
-
-        <div class="columns item">
-          <div class="item-wrap">
-
-            <a href="images/screenshots/big/b-authentic-vintage.jpg" data-imagelightbox="a" >
-              <img src="images/screenshots/authentic-vintage.jpg" alt="Authentic Vintage">
-              <div class="overlay"></div>
-              <div class="link-icon"><i class="icon-plus"></i></div>
-            </a>
-
-          </div>
-        </div> <!-- item end -->
-
-        <div class="columns item">
-          <div class="item-wrap">
-
-            <a href="images/screenshots/big/b-spot-uv-logo.jpg" data-imagelightbox="a" >
-              <img src="images/screenshots/spot-uv-logo.jpg" alt="Spot UV Logo">
-              <div class="overlay"></div>
-              <div class="link-icon"><i class="icon-plus"></i></div>
-            </a>
-
-          </div>
-        </div> <!-- item end -->
-
-        <div class="columns item">
-          <div class="item-wrap">
-
-            <a href="images/screenshots/big/b-tshirt-mockup.jpg" data-imagelightbox="a" >
-              <img src="images/screenshots/tshirt-mockup.jpg" alt="TShirt Mockup">
-              <div class="overlay"></div>
-              <div class="link-icon"><i class="icon-plus"></i></div>
-            </a>
-
-          </div>
-        </div> <!-- item end -->
-
-        <div class="columns item">
-          <div class="item-wrap">
-
-            <a href="images/screenshots/big/b-abstract-vector.jpg" data-imagelightbox="a" >
-              <img src="images/screenshots/abstract-vector.jpg" alt="Abstract Vector">
-              <div class="overlay"></div>
-              <div class="link-icon"><i class="icon-plus"></i></div>
-            </a>
-
-          </div>
-        </div> <!-- item end -->
-
-        <div class="columns item">
-          <div class="item-wrap">
-
-            <a href="images/screenshots/big/b-embossed-paper.jpg" data-imagelightbox="a" >
-              <img src="images/screenshots/embossed-paper.jpg" alt="Embossed Paper">
-              <div class="overlay"></div>
-              <div class="link-icon"><i class="icon-plus"></i></div>
-            </a>
-
-          </div>
-        </div> <!-- item end -->
-
-        <div class="columns item">
-          <div class="item-wrap">
-
-            <a href="images/screenshots/big/b-judah.jpg" data-imagelightbox="a" >
-              <img src="images/screenshots/judah.jpg" alt="Judah">
-              <div class="overlay"></div>
-              <div class="link-icon"><i class="icon-plus"></i></div>
-            </a>
-
-          </div>
-        </div>  <!-- item end -->
-
-      </div> <!-- portfolio-wrapper end -->
-
-    </div> <!-- twelve columns end -->
-
-  </div>  <!-- end row -->
-
-</section> <!-- Screenshots End -->
-
-
-<!-- Testimonials Section
-================================================== -->
 <section id="testimonials">
   <div class="row content">
     <span><i class="quote-left fa fa-quote-left"></i></span>
@@ -275,84 +431,34 @@
           <ul class="slides">
             <li>
               <blockquote>
-                <p>Your work is going to fill a large part of your life, and the only way to be truly satisfied is
-                  to do what you believe is great work. And the only way to do great work is to love what you do.
-                  If you haven't found it yet, keep looking. Don't settle. As with all matters of the heart, you'll know when you find it.
+                <p>Six Degrees of Separation</p>
+                <p>There are no more than five people between you and any stranger, that is, you can meet any stranger through at most five people!
+
                 </p>
-                <cite>Steve Jobs</cite>
+                <cite>Stanley Milgram</cite>
               </blockquote>
-            </li> <!-- slide ends -->
+            </li>
             <li>
               <blockquote>
-                <p>This is Photoshop's version  of Lorem Ipsum. Proin gravida nibh vel velit auctor aliquet.
-                  Aenean sollicitudin, lorem quis bibendum auctor, nisi elit consequat ipsum, nec sagittis sem
-                  nibh id elit. Duis sed odio sit amet nibh vulputate cursus a sit amet mauris.
+                <p>According to this concept, we implement this interpersonal relationship query website. As long as the person you are inquiring is a registered user of this website, we will try to find the relationship between you two, and present it in a visual way of network diagram.
                 </p>
-                <cite>Mr. Adobe</cite>
               </blockquote>
-            </li> <!-- slide ends -->
+            </li>
           </ul>
-        </div> <!-- div.flexslider ends -->
-      </div> <!-- div.flex-container ends -->
-    </div>  <!-- text-container ends -->
-    <span><i class="quote-right fa fa-quote-right"></i></span>
-  </div> <!-- row ends -->
-</section> <!-- Testimonials Section End-->
-
-
-<!-- Subscribe
-================================================== -->
-<section id="subscribe">
-
-  <div class="row section-head">
-
-    <div class="twelve columns">
-
-      <h1>MailChimp signup form.</h1>
-
-      <p>Adding your own MailChimp powered email sign-up is easy.
-        Grab the super slim code from your MailChimp account and drop the code here. Lastly, remove the link and style tags
-        that comes with the embedded code and your good to go. All styling is within our stylesheet.</p>
-
-    </div>
-
-  </div>
-
-  <div class="row">
-
-    <div class="twelve columns">
-
-      <!-- Begin MailChimp Signup Form -->
-
-      <div id="mc_embed_signup">
-
+        </div>
       </div>
-
-      <p><small>We never share your information or use it to spam you.</small></p>
-
     </div>
-
+    <span><i class="quote-right fa fa-quote-right"></i></span>
   </div>
+</section>
 
-</section>  <!-- Subscribe Section End-->
-
-
-<!-- Footer
-================================================== -->
 <footer>
-
   <div class="row">
     <div id="go-top">
       <a class="smoothscroll" title="Back to Top" href="#hero"><i class="icon-up-open"></i></a>
     </div>
-
-  </div> <!-- Row End -->
-
-</footer> <!-- Footer End-->
-
-
-<!-- Java Script
-================================================== -->
+  </div>
+</footer>
 <script src="http://ajax.googleapis.com/ajax/libs/jquery/1.10.2/jquery.min.js"></script>
 <script>window.jQuery || document.write('<script src="js/jquery-1.10.2.min.js"><\/script>')</script>
 <script type="text/javascript" src="js/jquery-migrate-1.2.1.min.js"></script>

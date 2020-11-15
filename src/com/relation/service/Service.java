@@ -3,9 +3,13 @@ package com.relation.service;
 import com.relation.dao.dbEntranceInformation;
 import com.relation.dao.dbSchool;
 import com.relation.dao.dbUser;
+import com.relation.dao.dbFamily;
+import com.relation.dao.dbBirthInformation;
 import com.relation.pojo.EntranceInformation;
 import com.relation.pojo.School;
 import com.relation.pojo.User;
+import com.relation.pojo.Family;
+import com.relation.pojo.BirthInformation;
 
 import java.sql.SQLException;
 import java.util.ArrayList;
@@ -79,6 +83,26 @@ public class Service {
 
         public static int getMaxId() throws SQLException {
             return dbuser.getMaxId();
+        }
+    }
+
+    public static class FamilyService {
+        private static dbFamily dbfamily = new dbFamily();
+
+        public static boolean addFamily(Family b) throws SQLException {
+            return dbfamily.addFamily(b);
+        }
+
+        public static Family searchFamily(String name,String place) throws SQLException {
+            return dbfamily.searchFamily(name, place);
+        }
+    }
+
+    public static class BirthInfoService {
+        private static dbBirthInformation dbbirth = new dbBirthInformation();
+
+        public static boolean addBirthInfo(BirthInformation b) throws SQLException {
+            return dbbirth.addBirthInfo(b);
         }
     }
 }
