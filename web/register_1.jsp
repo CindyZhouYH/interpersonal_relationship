@@ -43,9 +43,9 @@
 
         <ul id="nav" class="nav">
             <li><a class="smoothscroll" href="index.jsp" style="font-size: medium;">Back</a></li>
-        </ul> <!-- end #nav -->
-    </nav> <!-- end #nav-wrap -->
-</header> <!-- Header End -->
+        </ul>
+    </nav>
+</header>
 <div class="content">
     <div class="panel">
         <form action="${pageContext.request.contextPath}/user/register.form" method="post">

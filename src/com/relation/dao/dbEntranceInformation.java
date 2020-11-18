@@ -137,6 +137,28 @@ public class dbEntranceInformation {
         }
     }
 
+    public ArrayList<Integer> getClassmatesEntranceInfo(EntranceInformation e) throws SQLException {
+        try{
+            getConnected();
+            String sql="select * from entranceinformation where `school_id`=? and `year`=?";
+            st=conn.prepareStatement(sql);     //预编译
+            st.setInt(1,e.getSchool_id());
+            st.setInt(1,e.getYear());
+            rs=st.executeQuery();
+            conn.commit();
+            ArrayList<Integer> allClassmatesId=new ArrayList<>();
+            while(rs.next()){
+                allClassmatesId.add(Integer.parseInt(rs.getObject("id").toString()));
+            }
+            return allClassmatesId;
+        }catch(SQLException exc){
+            conn.rollback();
+            return null;
+        }finally {
+            JdbcUtils.release(conn,st,rs);
+        }
+    }
+
     private void getConnected() throws SQLException {
         conn= JdbcUtils.getConnection();
         conn.setAutoCommit(false);

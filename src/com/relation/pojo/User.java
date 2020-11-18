@@ -13,6 +13,15 @@ public class User {
     private String key;
     private static boolean updated = false;
 
+    @Override
+    public boolean equals(Object obj) {
+        if (obj instanceof User) {
+            User u = (User) obj;
+            return u.getId() == id;
+        }
+        return false;
+    }
+
     private void update() {
         try {
             if(!updated) {
