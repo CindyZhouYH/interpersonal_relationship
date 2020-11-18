@@ -16,7 +16,7 @@ public class connect {
         // 连接
 
         Connection conn= JdbcUtils.getConnection();
-        String sql="insert into user(`id`,`username`,`name`,`email`,`password`)values(?,?,?,?,?)";
+        String sql="insert into user(`id`,`username`,`name`,`email`,`key`)values(?,?,?,?,?)";
         PreparedStatement st=conn.prepareStatement(sql);
         //写sql语句
         User user=new User("cindy917","Yuanhang Zhou","18678902738@163.com","123456");

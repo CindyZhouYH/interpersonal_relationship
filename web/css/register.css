@@ -1,69 +1,32 @@
-
-/*设置内容模块距离顶部一个有一段距离150px*/
-
 .content {
-
     margin-top: 150px;
-
 }
-
-
-/*登录和注册按钮的整体样式*/
-
 .content button {
-
-    height: 30px;/*登录和注册按钮的高度*/
-
-    color: white;/*登录和注册按钮字体颜色为白色*/
-
-    font-size: 18px;/*登录和注册按钮的字体大小*/
-
-    border: 0px;/*无边框*/
-
-    padding: 0px;/*无内边距*/
-
-    cursor: pointer;/*登录和注册按钮的选择时为手形状*/
-
+    height: 30px;
+    color: white;
+    font-size: 18px;
+    border: 0px;
+    padding: 0px;
+    cursor: pointer;
 }
-
-
-
-/*登录面板*/
-
 .content .panel {
-
-    /* background-color: white;登录面板背景颜色为白色 */
-
-    width: 600px;/*宽度为302px*/
-
-    text-align: left;/*子内容居中 */
-
-    margin: 0px auto;/*自身居中*/
-
-    padding-top: 20px;/*顶部的内边距为20px*/
-
-    padding-bottom: 20px;/*底部的内边距为20px*/
+    width: 600px;
+    text-align: left;
+    margin: 0px auto;
+    padding-top: 20px;
+    padding-bottom: 20px;
     padding-left: 30px;
-
-    border: 1px solid #ddd;/*边框颜色为灰色*/
-
-    border-radius: 5px;/*边框边角有5px的弧度*/
+    border: 1px solid #ddd;
+    border-radius: 5px;
 }
-
 .content .panel .re{
     color: white;
     font-size: 28px;
     margin-bottom: 10px;
 }
-/*登录和密码组*/
-
 .content .panel .group {
-    /* text-align: left;子内容居中 */
-
-    width: 262px;/*宽度为262px*/
-
-    margin: 0px 0px 20px;/*自身居中，并距离底部有20px的间距 */
-
+    width: 262px;
+    margin: 0px 0px 20px;
 }
 .content .panel .group .star{
     color: turquoise;
@@ -75,98 +38,68 @@ span[class = register_w]{
 select[id = schools]{
     display: block;
     background: #23292f url(img/hero-bg_@2X.png);
-    width: 250px;/*宽度为250px*/
-    height: 30px;/*高度为30px*/
-    border: 1px solid #ddd;/*输入框的边框*/
-
-    padding: 0px 0px 0px 10px;/*左边内边距为10px，显得美观*/
-
-    font-size: 16px;/*字体大小*/
+    width: 250px;
+    height: 30px;
+    border: 1px solid #ddd;
+    padding: 0px 0px 0px 10px;
+    font-size: 16px;
 }
 option{
     padding-top: 1px;
 }
-
 .content .panel .group label {
-    line-height: 30px;/*高度为30px*/
-
-    font-size: 18px;/*字体大小为18px*/
-
+    line-height: 30px;
+    font-size: 18px;
 }
 
 .content .panel .group input {
 
-    display: block;/*设置为块，是为了让输入框独占一行*/
+    display: block;
     background: #23292f url(img/hero-bg_@2X.png);
-
-    width: 250px;/*宽度为250px*/
-
-    height: 30px;/*高度为30px*/
-
-    border: 1px solid #ddd;/*输入框的边框*/
-
-    padding: 0px 0px 0px 10px;/*左边内边距为10px，显得美观*/
-
-    font-size: 16px;/*字体大小*/
-
+    width: 250px;
+    height: 30px;
+    border: 1px solid #ddd;
+    padding: 0px 0px 0px 10px;
+    font-size: 16px;
 }
 .content .panel .login button {
-
-    background-color: rgb(94, 204, 195);/*按钮的背景颜色*/
-
-    width: 260px;/*按钮的宽度*/
-
+    background-color: rgb(94, 204, 195);
+    width: 260px;
 }
 
 .content .panel .star button {
-    background-color: rgb(94, 204, 195);/*按钮的背景颜色*/
-    width: 160px;/*按钮的宽度*/
+    background-color: rgb(94, 204, 195);
+    width: 160px;
 }
-
 .content .panel .star button:hover {
-    background-color: white;/*按钮选中后背景颜色为白色*/
-    color: rgb(94, 204, 195);/*按钮选中后字体颜色为褐色*/
-    border: 1px solid rgb(94, 204, 195);/*按钮选中后边框颜色为褐色*/
+    background-color: white;/
+    color: rgb(94, 204, 195);
+    border: 1px solid rgb(94, 204, 195);
 }
 .content .panel input{
-    background-color: #f64b39;/*按钮的背景颜色*/
-    width: 180px;/*按钮的宽度*/
+    background-color: #f64b39;
+    width: 180px;
     height: 45px;
 }
-
 .content .panel input:hover {
-    background-color: white;/*按钮选中后背景颜色为白色*/
-    color: white;/*按钮选中后字体颜色为褐色*/
-    border: 1px solid white;/*按钮选中后边框颜色为褐色*/
+    background-color: white;/
+    color: white;
+    border: 1px solid white;
 }
 
-
-
-/*注册按钮*/
-
 .content .register {
-
-    text-align: center;/*子内容居中*/
-
-    margin-top: 20px;/*顶部的内边距为20px*/
-
+    text-align: center;
+    margin-top: 20px;
 }
 
 .content .register button {
-
-    background-color: #f64b39;/*按钮的背景颜色为蓝色*/
-
-    width: 180px;/*按钮的宽度*/
-
+    background-color: #f64b39;
+    width: 180px;
 }
 
 
 .content .register button:hover {
-
-    background-color: white;/*按钮选中后背景颜色为白色*/
-
-    color: #f64b39;/*按钮选中后字体颜色为蓝色*/
-
-    border: 1px solid #f64b39;/*按钮选中后边框颜色为蓝色*/
-
+    background-color: white;
+    color: #f64b39;
+    border: 1px solid #f64b39;
 }

@@ -34,32 +34,6 @@
     font-size: 18px;
     padding-right: 20px;
 }
-.content .panel .table2 {
-    border-color:transparent;
-    color: #ddd;
-    border-radius: 5px;
-    padding-top: 50px;
-    padding-left: 10px;
-    display: none;
-    width: 3000px;
-    font-size: 18px;
-    padding-right: 20px;
-    margin-top:480px;
-}
-
-.content .panel .table3 {
-    border-color:transparent;
-    color: #ddd;
-    border-radius: 5px;
-    padding-top: 50px;
-    padding-left: 10px;
-    display: none;
-    width: 3000px;
-    font-size: 18px;
-    padding-right: 20px;
-    margin-top:270px;
-}
-
 thead{
     display: block;
     float: left;
@@ -90,6 +64,9 @@ td{
     width:50px;
     font-size: 20px;
     border: 1px solid #ddd;
+}
+#tr_1,#tr_2,#tr_3,#tr_4,#tr_5{
+    display: none;
 }
 tr{
     display: block;
@@ -142,7 +119,6 @@ select[id = schools]{
     background-color:  rgb(94, 204, 195);
     width: 100px;
     height: 45px;
-    margin-left: 50px;
 }
 #revise_button:hover{
     background-color: white;

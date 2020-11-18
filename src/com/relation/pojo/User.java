@@ -15,7 +15,7 @@ public class User {
 
     private void update() {
         try {
-            if(!updated) {
+            if (!updated) {
                 totalNum = Service.UserService.getMaxId();
                 updated = true;
                 System.out.println("updated user totalnum to " + totalNum);
@@ -87,5 +87,14 @@ public class User {
 
     public void setKey(String key) {
         this.key = key;
+    }
+
+    @Override
+    public boolean equals(Object obj) {
+        if (obj instanceof User) {
+            User u = (User) obj;
+            return u.getId() == id;
+        }
+        return false;
     }
 }

@@ -1,15 +1,7 @@
 package com.relation.service;
 
-import com.relation.dao.dbEntranceInformation;
-import com.relation.dao.dbSchool;
-import com.relation.dao.dbUser;
-import com.relation.dao.dbFamily;
-import com.relation.dao.dbBirthInformation;
-import com.relation.pojo.EntranceInformation;
-import com.relation.pojo.School;
-import com.relation.pojo.User;
-import com.relation.pojo.Family;
-import com.relation.pojo.BirthInformation;
+import com.relation.dao.*;
+import com.relation.pojo.*;
 
 import java.sql.SQLException;
 import java.util.ArrayList;
@@ -33,6 +25,10 @@ public class Service {
 
         public static int getMaxId() throws SQLException {
             return dbe.getMaxId();
+        }
+
+        public static ArrayList<Integer> getClassmatesEntranceInfo(EntranceInformation e) throws SQLException {
+            return dbe.getClassmatesEntranceInfo(e);
         }
     }
 
@@ -84,6 +80,10 @@ public class Service {
         public static int getMaxId() throws SQLException {
             return dbuser.getMaxId();
         }
+
+        public static User getUserThroughId(Integer id) throws SQLException {
+            return dbuser.getUserThroughId(id);
+        }
     }
 
     public static class FamilyService {
@@ -103,6 +103,14 @@ public class Service {
 
         public static boolean addBirthInfo(BirthInformation b) throws SQLException {
             return dbbirth.addBirthInfo(b);
+        }
+
+        public static BirthInformation getBirthInfo(Integer user_id) throws SQLException {
+            return dbbirth.getBirthInfo(user_id);
+        }
+
+        public static ArrayList<BirthInformation> getBrotherThroughFamilyId(Integer id) throws SQLException {
+            return dbbirth.getBrotherThroughFamilyId(id);
         }
     }
 }
