@@ -167,6 +167,32 @@ public class dbUser {
         }
     }
 
+    public User getUserThroughName(String name) throws SQLException {
+        try {
+            getConnected();
+            String sql = "select * from user where `name`=?";
+            st = conn.prepareStatement(sql);     //预编译
+            st.setString(1, name);
+            //System.out.println(st);
+            rs = st.executeQuery();
+            conn.commit();
+            User returnUser = null;
+            while (rs.next()) {
+                returnUser = new User(Integer.parseInt(rs.getObject("id").toString()),
+                        rs.getObject("username").toString(),
+                        rs.getObject("name").toString(),
+                        rs.getObject("email").toString(),
+                        rs.getObject("key").toString());
+            }
+            return returnUser;
+        } catch (SQLException e) {
+            conn.rollback();
+            return null;
+        } finally {
+            JdbcUtils.release(conn, st, rs);
+        }
+    }
+
 
     public boolean searchSameEmailUser(String email) throws SQLException {
         // have same email user: true

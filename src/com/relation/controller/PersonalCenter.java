@@ -31,7 +31,9 @@ public class PersonalCenter {
     @RequestMapping("/PersonalCenter/PersonalInfo")
     public void showPersonalInfo(HttpServletRequest request,
                                  HttpServletResponse response) throws IOException {
+        System.out.println("Start get person info");
         User user = getUserFromRequest(request);
+        System.out.println(user.toString());
         response.getWriter().print(objectToJson(user));
     }
 

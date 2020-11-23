@@ -5,6 +5,7 @@ import com.relation.pojo.*;
 
 import java.sql.SQLException;
 import java.util.ArrayList;
+import java.util.HashSet;
 
 public class Service {
 
@@ -84,6 +85,10 @@ public class Service {
         public static User getUserThroughId(Integer id) throws SQLException {
             return dbuser.getUserThroughId(id);
         }
+
+        public static User getUserThroughName(String name) throws SQLException {
+            return dbuser.getUserThroughName(name);
+        }
     }
 
     public static class FamilyService {
@@ -111,6 +116,18 @@ public class Service {
 
         public static ArrayList<BirthInformation> getBrotherThroughFamilyId(Integer id) throws SQLException {
             return dbbirth.getBrotherThroughFamilyId(id);
+        }
+    }
+
+    public static class FriendShipService {
+        private static dbFriendship dbFriend = new dbFriendship();
+
+        public static void  addFriendship(Integer id1, Integer id2) throws SQLException {
+            dbFriend.addFriendship(id1, id2);
+        }
+
+        public static HashSet<Integer> getAllFriendsId(Integer id) throws SQLException {
+            return dbFriend.getAllFriends(id);
         }
     }
 }
