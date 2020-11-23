@@ -8,7 +8,7 @@
     <link rel="stylesheet" href="css/user_center.css">
     <link rel="stylesheet" href="css/default.css">
     <link rel="stylesheet" href="css/user_center_layout.css">
-    <script src="js/jquery-3.1.1.min.js"></script>
+    <script src="js/jquery-3.2.1.min.js"></script>
     <script>
         function getUserProfile() {
             // get basic information

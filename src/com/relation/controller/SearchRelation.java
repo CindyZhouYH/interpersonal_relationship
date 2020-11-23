@@ -2,6 +2,7 @@ package com.relation.controller;
 
 import com.relation.pojo.BirthInformation;
 import com.relation.pojo.EntranceInformation;
+import com.relation.pojo.SchoolNum;
 import com.relation.pojo.User;
 import com.relation.service.Service;
 import org.springframework.stereotype.Controller;
@@ -14,9 +15,9 @@ import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 import java.io.IOException;
 import java.sql.SQLException;
-import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.HashSet;
+import java.util.*;
+
+import static com.relation.helper.Parser.objectToJson;
 
 @Controller
 public class SearchRelation {
@@ -26,13 +27,87 @@ public class SearchRelation {
         return (User) sess.getAttribute("user");
     }
 
+    private class userStep {
+        int step;
+        User user;
+        userStep(int step, User user){
+            this.step = step;
+            this.user = user;
+        }
+
+        public int getStep() {
+            return step;
+        }
+
+        public User getUser() {
+            return user;
+        }
+    }
+
+    private ArrayList<Relation> getRelations(User curUser) throws SQLException {
+        ArrayList<Relation> result = new ArrayList<>();
+
+        // classmates
+        ArrayList<EntranceInformation> ei = Service.EntranceInformationService.getEntranceInformation(curUser);
+        HashSet<User> classmates = new HashSet<>();
+        for(EntranceInformation info: ei) {
+            classmates.addAll(getClassmatesThroughEntranceInfo(info));
+        }
+        // family
+        HashSet<User> familyMembers = new HashSet<>();
+        familyMembers.addAll(getBrothersThroughMotherFamily(curUser));
+        familyMembers.addAll(getBrothersThroughSelfFamily(curUser));
+        // friend
+        HashSet<User> friends = new HashSet<>();
+        // TO-DO
+
+        for(User user: classmates) {
+            result.add(new Relation(curUser, user, Relation.CLASSMATE));
+        }
+        for(User user: familyMembers) {
+            result.add(new Relation(curUser, user, Relation.FAMILY));
+        }
+        for(User user: friends) {
+            result.add(new Relation(curUser, user, Relation.FRIEND));
+        }
+        return result;
+    }
+
+    private void dfsForRelation(User user1, User user2, ArrayList<Relation> result, HashSet<Relation> curRelation) throws SQLException {
+        if (user1 == user2) {
+            result.addAll(curRelation);
+            return;
+        }
+        if (curRelation.size() > 10) {
+            return;
+        }
+        ArrayList<Relation> allRelation = getRelations(user1);
+        for(Relation relation: allRelation) {
+            if (curRelation.contains(relation)) {
+                continue;
+            }
+            User curUser = relation.getUser_2();
+            curRelation.add(relation);
+            dfsForRelation(curUser, user2, result, curRelation);
+            curRelation.remove(relation);
+        }
+    }
+
     @RequestMapping("/search")
-    public String searchRelation(HttpServletRequest request,
-                                 HttpServletResponse response) throws SQLException {
-        User user = getUserFromRequest(request);
-        String name2 = request.getParameter("name");
-        
-        return "redirect:/showRelation.jsp";
+    public void searchRelation(HttpServletRequest request,
+                                 HttpServletResponse response) throws SQLException, IOException {
+        User user1 = getUserFromRequest(request);
+        User user2 = Service.UserService.getUserThroughName(request.getParameter("name"));
+
+        ArrayList<Relation> result = new ArrayList<>();
+        HashSet<Relation> curRelation = new HashSet<>();
+        dfsForRelation(user1, user2, result, curRelation);
+        for(Relation res: result) {
+            System.out.println(res.getUser1() + " " + res.getUser2() + " " + res.getType());
+        }
+
+        //return "redirect:/showRelation.jsp";
+        response.getWriter().print(objectToJson(result));
     }
 
     public HashSet<User> getClassmatesThroughEntranceInfo(EntranceInformation info) throws SQLException {
