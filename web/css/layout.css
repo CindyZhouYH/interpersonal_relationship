@@ -175,10 +175,20 @@ ul#nav li.current a { color: #fff; }
 #hero .buttons .learn-more {}
 #trial {
     background: #fff;
-    padding-top: 80px;
+    padding-top: 50px;
     padding-bottom: 78px;
     overflow: hidden;
 }
+#add_button.button {
+    background-color: #f64b39;
+    width: 80px;
+}
+#add_button.button:hover {
+    background-color: white;
+    color: #f64b39;
+    border: 1px solid #f64b39;
+}
+
 #trial .feature {
     margin-top: 30px;
     margin-bottom: 54px;
@@ -191,24 +201,46 @@ ul#nav li.current a { color: #fff; }
     padding-right: 32px;
     float: left;
 }
+#trial h2 {
+    font-size: 20px;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+    color: #222;
+}
 #trial h3 {
     font: 16px/24px 'montserrat-bold', sans-serif;
     text-transform: uppercase;
     letter-spacing: 1px;
     color: #222;
 }
+#trial td{
+    width: 50px;
+}
+#trial input{
+    height: 20px;
+    color: black;
+    background-color: transparent;
+    border: 1px solid #838A91;
+}
 #trial button{
-    font: 25px 'montserrat-bold', sans-serif;
+    font: 20px 'montserrat-bold', sans-serif;
     text-transform: uppercase;
     letter-spacing: 1px;
     color: #222;
     margin-left: 100px;
     background-color: transparent;
     border-color: transparent;
+    height:25px;
+    padding-top:5px;
+    padding-bottom: 5px;
+    outline: none;
 }
 #trial button:hover{
-    color: rgb(94, 204, 195);
+    /*color: rgb(94, 204, 195);*/
+    color:transparent;
+    border-color:transparent;
     border: 1px solid transparent;
+    background-color: transparent;
 }
 #testimonials {
    background: #10999E url(img/escheresque.png);

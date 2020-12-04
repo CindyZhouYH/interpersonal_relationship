@@ -106,8 +106,11 @@ public class SearchRelation {
     public void getAllUsers(HttpServletRequest request,
                                HttpServletResponse response) throws SQLException, IOException {
         idMap.clear();
+        System.out.println("GET ALL -----------------------");
         User user1 = getUserFromRequest(request);
+        System.out.println("USER1: " + user1.getName());
         User user2 = Service.UserService.getUserThroughName(request.getParameter("name"));
+        System.out.println("USER2: " + user2.getName());
 
         ArrayList<Relation> result = new ArrayList<>();
         HashSet<Relation> curRelation = new HashSet<>();
