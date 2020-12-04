@@ -17,11 +17,11 @@ public class Relation {
     private User user_1;
     private User user_2;
 
-    public Relation(int user1, int user2, int type) {
+    /*public Relation(int user1, int user2, int type) {
         this.user1 = user1;
         this.user2 = user2;
         this.type = type;
-    }
+    }*/
 
     public Relation(User user1, User user2, int type) {
         this.user_1 = user1;

@@ -20,7 +20,12 @@ import java.util.*;
 import static com.relation.helper.Parser.objectToJson;
 
 @Controller
+@RequestMapping("/relations")
 public class SearchRelation {
+
+    // for search relations
+    private ArrayList<Relation> searchResult = new ArrayList<>();
+    private HashMap<Integer, User> idMap = new HashMap<>();
 
     private User getUserFromRequest(HttpServletRequest request) {
         HttpSession sess = request.getSession();
@@ -76,6 +81,10 @@ public class SearchRelation {
     private void dfsForRelation(User user1, User user2, ArrayList<Relation> result, HashSet<Relation> curRelation) throws SQLException {
         if (user1 == user2) {
             result.addAll(curRelation);
+            for (Relation relation: curRelation) {
+                idMap.put(relation.getUser_1().getId(), relation.getUser_1());
+                idMap.put(relation.getUser_2().getId(), relation.getUser_2());
+            }
             return;
         }
         if (curRelation.size() > 10) {
@@ -93,9 +102,10 @@ public class SearchRelation {
         }
     }
 
-    @RequestMapping("/search")
-    public void searchRelation(HttpServletRequest request,
-                                 HttpServletResponse response) throws SQLException, IOException {
+    @RequestMapping("/getall")
+    public void getAllUsers(HttpServletRequest request,
+                               HttpServletResponse response) throws SQLException, IOException {
+        idMap.clear();
         User user1 = getUserFromRequest(request);
         User user2 = Service.UserService.getUserThroughName(request.getParameter("name"));
 
@@ -105,10 +115,18 @@ public class SearchRelation {
         for(Relation res: result) {
             System.out.println(res.getUser1() + " " + res.getUser2() + " " + res.getType());
         }
+        this.searchResult = result;
 
-        //return "redirect:/showRelation.jsp";
-        response.getWriter().print(objectToJson(result));
+        response.getWriter().print(objectToJson(idMap.entrySet().toArray()));
     }
+
+    @RequestMapping("/search")
+    public void searchRelation(HttpServletRequest request,
+                               HttpServletResponse response) throws SQLException, IOException {
+        //return "redirect:/showRelation.jsp";
+        response.getWriter().print(objectToJson(searchResult));
+    }
+
 
     public HashSet<User> getClassmatesThroughEntranceInfo(EntranceInformation info) throws SQLException {
         ArrayList<Integer> matesId = Service.EntranceInformationService.getClassmatesEntranceInfo(info);
