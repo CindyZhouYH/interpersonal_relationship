@@ -62,21 +62,18 @@
           'name': document.getElementById("search_name").value
         },
 
-        success: function (data) {
-          alert(data)
-          var msg = JSON.parse(data);
-          alert(msg)
+        success: function (msg) {
+          console.log(msg);
           brower[0] = {
-            name: msg[0].user.username,
-            des:msg[0].user.username,
+            name: msg[0].user.name,
+            des:msg[0].user.name,
             symbolSize:70,
             category:0
           };
-          alert("before for")
           for (i = 2; i <= msg.length; i++) {
             brower[i-1] = {
-              name: msg[i-1].user.username,
-              des:msg[i-1].user.username,
+              name: msg[i-1].user.name,
+              des:msg[i-1].user.name,
               symbolSize:50,
               category:1
             };
@@ -87,19 +84,19 @@
           console.log(data);
         }
       });
-      alert("in3")
       $.ajax({
         type: "post",
         url: "${pageContext.request.contextPath}/relations/search",
         data: {},
         success: function (data) {
-          var msg = JSON.parse(data);
-          for (i = 1; i <= msg.length; i++) {
+          let msg = JSON.parse(data);
+          console.log(msg);
+          for (let i = 1; i <= msg.length; i++) {
             link[i-1] = {
-              source: msg[i].user_1.username,
-              target: msg[i].user_2.username,
-              name: msg[i].type,
-              des: msg[i].type
+              source: msg[i-1].user_1.name,
+              target: msg[i-1].user_2.name,
+              name: msg[i-1].type,
+              des: msg[i-1].type
             };
           }
         },

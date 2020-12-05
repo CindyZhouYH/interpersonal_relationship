@@ -146,10 +146,12 @@ public class dbEntranceInformation {
             st.setInt(2,e.getYear());
             rs=st.executeQuery();
             conn.commit();
+            System.out.println(" - " + sql);
             ArrayList<Integer> allClassmatesId=new ArrayList<>();
             while(rs.next()){
-                allClassmatesId.add(Integer.parseInt(rs.getObject("id").toString()));
+                allClassmatesId.add(Integer.parseInt(rs.getObject("user_id").toString()));
             }
+            System.out.println(allClassmatesId.toString());
             return allClassmatesId;
         }catch(SQLException exc){
             conn.rollback();

@@ -75,19 +75,30 @@ public class SearchRelation {
         HashSet<User> friends = new HashSet<>();
         // TO-DO
         for(User user: classmates) {
-            result.add(new Relation(curUser, user, Relation.CLASSMATE));
+            if (curUser.getId() != user.getId()) {
+                result.add(new Relation(curUser, user, Relation.CLASSMATE));
+            }
         }
         for(User user: familyMembers) {
-            result.add(new Relation(curUser, user, Relation.FAMILY));
+            if (curUser.getId() != user.getId()) {
+                result.add(new Relation(curUser, user, Relation.FAMILY));
+            }
         }
         for(User user: friends) {
-            result.add(new Relation(curUser, user, Relation.FRIEND));
+            if (curUser.getId() != user.getId()) {
+                result.add(new Relation(curUser, user, Relation.FRIEND));
+            }
+        }
+        System.out.println("getRelations : ");
+        for(Relation relation: result) {
+            System.out.println(" ! " + relation.toString());
         }
         return result;
     }
 
     private void dfsForRelation(User user1, User user2, ArrayList<Relation> result, HashSet<Relation> curRelation) throws SQLException {
-        if (user1 == user2) {
+        System.out.println(" -- in dfs: user1 - " + user1.getName() + ", user2 - " + user2.getName());
+        if (user1.getId() == user2.getId()) {
             result.addAll(curRelation);
             for (Relation relation: curRelation) {
                 idMap.put(relation.getUser_1().getId(), relation.getUser_1());
@@ -107,6 +118,31 @@ public class SearchRelation {
             curRelation.add(relation);
             dfsForRelation(curUser, user2, result, curRelation);
             curRelation.remove(relation);
+        }
+    }
+
+    private class ReturnUser {
+        private int id;
+        private User user;
+        public ReturnUser(int id, User user) {
+            this.id = id;
+            this.user = user;
+        }
+
+        public int getId() {
+            return id;
+        }
+
+        public void setId(int id) {
+            this.id = id;
+        }
+
+        public User getUser() {
+            return user;
+        }
+
+        public void setUser(User user) {
+            this.user = user;
         }
     }
 
@@ -130,8 +166,13 @@ public class SearchRelation {
         }
         this.searchResult = result;
         System.out.println("return from getall");
-        System.out.println("idmap:  " + idMap.toString());
-        response.getWriter().print(objectToJson(idMap.entrySet().toArray()));
+        System.out.println("idmap:  " + Arrays.toString(idMap.entrySet().toArray()));
+        ArrayList<ReturnUser> returnUsers = new ArrayList<>();
+        for (Integer id: idMap.keySet()) {
+            returnUsers.add(new ReturnUser(id, idMap.get(id)));
+        }
+        System.out.println("return json is: " + objectToJson(returnUsers));
+        response.getWriter().print(objectToJson(returnUsers));
     }
 
     @RequestMapping("/search")
@@ -143,6 +184,7 @@ public class SearchRelation {
 
 
     public HashSet<User> getClassmatesThroughEntranceInfo(EntranceInformation info) throws SQLException {
+        System.out.println("getting Classmates through entranceInfo");
         ArrayList<Integer> matesId = Service.EntranceInformationService.getClassmatesEntranceInfo(info);
         HashSet<User> mates = new HashSet<>();
         for (Integer id : matesId) {
