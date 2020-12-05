@@ -88,6 +88,7 @@
         type: "post",
         url: "${pageContext.request.contextPath}/relations/search",
         data: {},
+        async: false,
         success: function (data) {
           let msg = JSON.parse(data);
           console.log(msg);
@@ -267,8 +268,10 @@
       <div id="main" style="width: 500px;height:400px;padding-top:10px;display:none"></div>
       <div class="six columns left">
         <table>
-          <td id = "add_button"><input type="submit" value = "Add" style = "height: 50px "></td>
-          <td><input id = "add_text" type="text"></td>
+          <form action="${pageContext.request.contextPath}/friend/addFriend" method="post">
+              <td id = "add_button"><input type="submit" value = "Add" style = "height: 50px "></td>
+              <td><input id = "add_text" name="name" type="text"></td>
+          </form>
         </table>
       </div>
 </section>

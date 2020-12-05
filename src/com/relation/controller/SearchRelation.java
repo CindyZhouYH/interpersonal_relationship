@@ -65,15 +65,18 @@ public class SearchRelation {
         HashSet<User> familyMembers = new HashSet<>();
         set = getBrothersThroughMotherFamily(curUser);
         if(set != null){
-            familyMembers.addAll(getBrothersThroughMotherFamily(curUser));
+            familyMembers.addAll(set);
         }
         set = getBrothersThroughSelfFamily(curUser);
         if(set != null){
-            familyMembers.addAll(getBrothersThroughSelfFamily(curUser));
+            familyMembers.addAll(set);
         }
         // friend
         HashSet<User> friends = new HashSet<>();
-        // TO-DO
+        set = getFriends(curUser);
+        if(set != null){
+            friends.addAll(set);
+        }
         for(User user: classmates) {
             if (curUser.getId() != user.getId()) {
                 result.add(new Relation(curUser, user, Relation.CLASSMATE));
@@ -219,5 +222,21 @@ public class SearchRelation {
             return brothers;
         }
         return null;
+    }
+
+    public HashSet<User> getFriends(User user) throws SQLException {
+        System.out.println("getting friends of user " + user.getName());
+        HashSet<Integer> friendsId = Service.FriendShipService.getAllFriendsId(user.getId());
+        if (friendsId == null) {
+            return null;
+        }
+        HashSet<User> friends = new HashSet<>();
+        for (Integer id: friendsId) {
+            User friend = Service.UserService.getUserThroughId(id);
+            friends.add(friend);
+            System.out.println(friend);
+        }
+        System.out.println("------------------------");
+        return friends;
     }
 }

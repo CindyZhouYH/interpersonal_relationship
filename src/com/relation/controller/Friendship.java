@@ -26,12 +26,13 @@ public class Friendship {
     }
 
     @RequestMapping("/addFriend")
-    public void addFriend(HttpServletRequest request,
+    public String addFriend(HttpServletRequest request,
                           HttpServletResponse response) throws IOException, SQLException {
         User user = getUserFromRequest(request);
         String opName = request.getParameter("name");
         User opUser = Service.UserService.getUserThroughName(opName);
         Service.FriendShipService.addFriendship(user.getId(), opUser.getId());
+        return "redirect:/index.jsp";
     }
 
     @RequestMapping("/getFriends")
