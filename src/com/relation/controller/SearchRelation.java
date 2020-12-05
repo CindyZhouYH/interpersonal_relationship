@@ -51,21 +51,29 @@ public class SearchRelation {
 
     private ArrayList<Relation> getRelations(User curUser) throws SQLException {
         ArrayList<Relation> result = new ArrayList<>();
-
+        HashSet<User> set=new HashSet<>();
         // classmates
         ArrayList<EntranceInformation> ei = Service.EntranceInformationService.getEntranceInformation(curUser);
         HashSet<User> classmates = new HashSet<>();
         for(EntranceInformation info: ei) {
-            classmates.addAll(getClassmatesThroughEntranceInfo(info));
+            set = getClassmatesThroughEntranceInfo(info);
+            if(set != null){
+                classmates.addAll(set);
+            }
         }
         // family
         HashSet<User> familyMembers = new HashSet<>();
-        familyMembers.addAll(getBrothersThroughMotherFamily(curUser));
-        familyMembers.addAll(getBrothersThroughSelfFamily(curUser));
+        set = getBrothersThroughMotherFamily(curUser);
+        if(set != null){
+            familyMembers.addAll(getBrothersThroughMotherFamily(curUser));
+        }
+        set = getBrothersThroughSelfFamily(curUser);
+        if(set != null){
+            familyMembers.addAll(getBrothersThroughSelfFamily(curUser));
+        }
         // friend
         HashSet<User> friends = new HashSet<>();
         // TO-DO
-
         for(User user: classmates) {
             result.add(new Relation(curUser, user, Relation.CLASSMATE));
         }
@@ -104,11 +112,13 @@ public class SearchRelation {
 
     @RequestMapping("/getall")
     public void getAllUsers(HttpServletRequest request,
-                               HttpServletResponse response) throws SQLException, IOException {
+                            HttpServletResponse response) throws SQLException, IOException {
+        System.out.println("inside back getall");
         idMap.clear();
         System.out.println("GET ALL -----------------------");
         User user1 = getUserFromRequest(request);
         System.out.println("USER1: " + user1.getName());
+        System.out.println("user2name "+ request.getParameter("name"));
         User user2 = Service.UserService.getUserThroughName(request.getParameter("name"));
         System.out.println("USER2: " + user2.getName());
 
@@ -119,7 +129,8 @@ public class SearchRelation {
             System.out.println(res.getUser1() + " " + res.getUser2() + " " + res.getType());
         }
         this.searchResult = result;
-
+        System.out.println("return from getall");
+        System.out.println("idmap:  " + idMap.toString());
         response.getWriter().print(objectToJson(idMap.entrySet().toArray()));
     }
 
@@ -142,23 +153,29 @@ public class SearchRelation {
 
     public HashSet<User> getBrothersThroughSelfFamily(User user) throws SQLException {
         BirthInformation info = Service.BirthInfoService.getBirthInfo(user.getId());
-        int selfId = info.getPatriarchal_family_id();
-        HashSet<User> brothers = new HashSet<>();
-        ArrayList<BirthInformation> brothersInfo = Service.BirthInfoService.getBrotherThroughFamilyId(selfId);
-        for (BirthInformation brotherInfo : brothersInfo) {
-            brothers.add(Service.UserService.getUserThroughId(brotherInfo.getUser_id()));
+        if(info != null){
+            int selfId = info.getPatriarchal_family_id();
+            HashSet<User> brothers = new HashSet<>();
+            ArrayList<BirthInformation> brothersInfo = Service.BirthInfoService.getBrotherThroughFamilyId(selfId);
+            for (BirthInformation brotherInfo : brothersInfo) {
+                brothers.add(Service.UserService.getUserThroughId(brotherInfo.getUser_id()));
+            }
+            return brothers;
         }
-        return brothers;
+        return null;
     }
 
     public HashSet<User> getBrothersThroughMotherFamily(User user) throws SQLException {
         BirthInformation info = Service.BirthInfoService.getBirthInfo(user.getId());
-        int motherFamilyId = info.getMaternal_family_id();
-        HashSet<User> brothers = new HashSet<>();
-        ArrayList<BirthInformation> brothersInfo = Service.BirthInfoService.getBrotherThroughFamilyId(motherFamilyId);
-        for (BirthInformation brotherInfo : brothersInfo) {
-            brothers.add(Service.UserService.getUserThroughId(brotherInfo.getUser_id()));
+        if(info != null) {
+            int motherFamilyId = info.getMaternal_family_id();
+            HashSet<User> brothers = new HashSet<>();
+            ArrayList<BirthInformation> brothersInfo = Service.BirthInfoService.getBrotherThroughFamilyId(motherFamilyId);
+            for (BirthInformation brotherInfo : brothersInfo) {
+                brothers.add(Service.UserService.getUserThroughId(brotherInfo.getUser_id()));
+            }
+            return brothers;
         }
-        return brothers;
+        return null;
     }
 }

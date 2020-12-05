@@ -156,7 +156,7 @@ public class dbUser {
                         rs.getObject("username").toString(),
                         rs.getObject("name").toString(),
                         rs.getObject("email").toString(),
-                        rs.getObject("key").toString());
+                        rs.getObject("password").toString());
             }
             return returnUser;
         } catch (SQLException e) {
@@ -173,7 +173,7 @@ public class dbUser {
             String sql = "select * from user where `name`=?";
             st = conn.prepareStatement(sql);     //预编译
             st.setString(1, name);
-            //System.out.println(st);
+            System.out.println(st);
             rs = st.executeQuery();
             conn.commit();
             User returnUser = null;
@@ -182,7 +182,7 @@ public class dbUser {
                         rs.getObject("username").toString(),
                         rs.getObject("name").toString(),
                         rs.getObject("email").toString(),
-                        rs.getObject("key").toString());
+                        rs.getObject("password").toString());
             }
             return returnUser;
         } catch (SQLException e) {

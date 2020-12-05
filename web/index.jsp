@@ -56,17 +56,23 @@
       $.ajax({
         type: "post",
         url: "${pageContext.request.contextPath}/relations/getall",
+        async: false,
+        dataType: 'json',
         data: {
-          name: document.getElementById("search_name")
+          'name': document.getElementById("search_name").value
         },
+
         success: function (data) {
+          alert(data)
           var msg = JSON.parse(data);
+          alert(msg)
           brower[0] = {
             name: msg[0].user.username,
             des:msg[0].user.username,
             symbolSize:70,
             category:0
           };
+          alert("before for")
           for (i = 2; i <= msg.length; i++) {
             brower[i-1] = {
               name: msg[i-1].user.username,
@@ -81,6 +87,7 @@
           console.log(data);
         }
       });
+      alert("in3")
       $.ajax({
         type: "post",
         url: "${pageContext.request.contextPath}/relations/search",
