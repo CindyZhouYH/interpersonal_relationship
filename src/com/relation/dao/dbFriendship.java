@@ -52,7 +52,7 @@ public class dbFriendship {
             System.out.println(" - " + sql);
             st.setInt(1, id);
             st.setInt(2, id);
-            st.executeUpdate();
+            rs = st.executeQuery();
             conn.commit();
             HashSet<Integer> friends=new HashSet<>();
             while(rs.next()){
