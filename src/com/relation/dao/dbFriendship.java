@@ -48,10 +48,10 @@ public class dbFriendship {
         try {
             getConnected();
             String sql = "select * from friendship where `user1_id` = ? or `user2_id`=?";
-            st = conn.prepareStatement(sql);     //预编译
-            System.out.println(" - " + sql);
+            st = conn.prepareStatement(sql);
             st.setInt(1, id);
-            st.setInt(2, id);
+            st.setInt(2, id);   //预编译
+            System.out.println(" - " + sql);
             rs = st.executeQuery();
             conn.commit();
             HashSet<Integer> friends=new HashSet<>();

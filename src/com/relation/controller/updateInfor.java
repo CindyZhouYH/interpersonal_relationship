@@ -37,7 +37,7 @@ public class updateInfor {
         if (level.equals("uni")) {
             return "5";
         }
-        return null;
+        return level;
     }
 
     private User getUserFromRequest(HttpServletRequest request) {
@@ -80,26 +80,34 @@ public class updateInfor {
     public void add_school(HttpServletRequest request,
                            HttpServletResponse response,
                            String schoolName, String level, String year) throws SQLException, IOException {
-        response.getWriter().print(addEIAndUpdateSession(schoolName, stringtolevel(level), year, request));
+        int result = 0;
+        if (addEIAndUpdateSession(schoolName, stringtolevel(level), year, request)) {
+            result = 1;
+        }
+        response.getWriter().print(result);
     }
 
-    @RequestMapping("/deleteSchool")
-    public void delete_school(HttpServletRequest request,
+    @RequestMapping("/deleteSchool") // return the lvl of school
+    public int delete_school(HttpServletRequest request,
                               HttpServletResponse response,
                               int index) throws SQLException, IOException {
         User user = getUserFromRequest(request);
         ArrayList<EntranceInformation> entranceInfoArr = Service.EntranceInformationService.getEntranceInformation(user);
         if (index >= entranceInfoArr.size()) {
-            response.getWriter().print("0");
-            return;
+            response.getWriter().print("1");
+            System.out.println("delete_school_ei  -  index >= size");
+            return -1;
         }
         EntranceInformation ei = entranceInfoArr.get(index);
         boolean result = Service.EntranceInformationService.deleteEntranceInformation(ei);
         if (result) {
             response.getWriter().print("1");
+            System.out.println("delete_school_ei  -  successfully deleted ei");
         } else {
             response.getWriter().print("0");
+            System.out.println("delete_school_ei  -  failed to delete ei");
         }
+        return Service.SchoolService.searchSchoolThrowId(ei.getSchool_id()).getLevel();
     }
 
     @RequestMapping("/updateSchool")
@@ -107,10 +115,12 @@ public class updateInfor {
                               HttpServletResponse response,
                               int index,
                               String name,
-                              String year,
-                              String level) throws SQLException, IOException {
-        delete_school(request, response, index);
-        add_school(request, response, name, level, year);
+                              String year) throws SQLException, IOException {
+        int level = delete_school(request, response, index);
+        System.out.println("level in update_school: " + level);
+        if (level >= 0) {
+            add_school(request, response, name, "" + level, year);
+        }
     }
 
     public boolean addEIAndUpdateSession(String schoolName, String level, String year, HttpServletRequest request) throws SQLException {

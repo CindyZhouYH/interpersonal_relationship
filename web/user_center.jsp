@@ -79,7 +79,7 @@
             //friends
             $.ajax({
                 type: 'post',
-                url: "${pageContext.request.contextPath}/user/PersonalCenter/EntranceInfo",
+                url: "${pageContext.request.contextPath}/friend/getFriends",
                 data: {},
                 async: false,
                 success: function (data) {
@@ -134,6 +134,16 @@
                 }
             });
         }
+        function randomString(len) {
+            len = len || 32;
+            const $chars = 'ABCDEFGHJKMNPQRSTWXYZabcdefhijkmnprstwxyz2345678';
+            const maxPos = $chars.length;
+            let pwd = '';
+            for (i = 0; i < len; i++) {
+                pwd += $chars.charAt(Math.floor(Math.random() * maxPos));
+            }
+            return pwd;
+        }
         function addSchool() {
             var length = 0;
             $.ajax({
@@ -156,7 +166,7 @@
             $.ajax({
                 type: 'post',
                 url: "${pageContext.request.contextPath}/user/addSchool",
-                data: {schoolName: '', level: value, year: '0'},
+                data: {schoolName: randomString(15), level: value, year: '0'},
                 async: false,
                 success: function (data) {
                     console.log(data);
@@ -187,18 +197,16 @@
         }
         function updateSchool(index) {
             let index2 = document.getElementById("schools").selectedIndex;
-            let lvl = document.getElementById("schools").options[index2].value;
             $.ajax({
                 type: 'post',
                 url: '${pageContext.request.contextPath}/user/updateSchool',
                 data: {
                     index: index - 1,
                     name: document.getElementById("school" + index).value,
-                    year: document.getElementById("y" + index).value,
-                    level: lvl
+                    year: document.getElementById("y" + index).value
                 },
                 success: function(data) {
-                    alert(data);
+                    // alert(data);
                     if (data == "11") {
                         console.log("更新成功");
                     } else {
