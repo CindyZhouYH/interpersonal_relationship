@@ -44,6 +44,7 @@ public class Login {
             return "redirect:/login.jsp";
         }
         session.setAttribute("user", searchUser);
+        session.setAttribute("user_name", searchUser.getName());
         ObjectMapper mapper=new ObjectMapper();
         model.addAttribute("msg","登陆成功！" + mapper.writeValueAsString(searchUser));
         return "redirect:/index.jsp";

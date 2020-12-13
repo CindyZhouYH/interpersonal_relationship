@@ -242,6 +242,19 @@ ul#nav li.current a { color: #fff; }
     border: 1px solid transparent;
     background-color: transparent;
 }
+#add_button input{
+    color:white;
+    font-size: large;
+    background-color: #11ABB0;
+    margin-right: 30px;
+    outline: none;
+    border-color:transparent;
+}
+#add_button input:hover{
+    background-color: white;
+    color: #11ABB0;
+    border: 1px solid #11ABB0;
+}
 #testimonials {
    background: #10999E url(img/escheresque.png);
    padding-top: 112px;

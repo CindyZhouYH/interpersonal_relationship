@@ -60,7 +60,7 @@ public class dbSchool {
 
     public School searchSchoolThrowId(int id) throws SQLException {
         try{
-            System.out.println("seartching");
+            //System.out.println("seartching");
             getConnected();
             String sql="select * from school where `id`=?";
             st=conn.prepareStatement(sql);     //预编译
@@ -68,17 +68,17 @@ public class dbSchool {
             rs=st.executeQuery();
             conn.commit();
             School returnSchool=null;
-            System.out.println(rs);
+            //System.out.println(rs);
             while(rs.next()) {
                 returnSchool = new School(Integer.parseInt(rs.getObject("id").toString()),
                         rs.getObject("name").toString(),
                         Integer.parseInt(rs.getObject("level").toString()));
             }
-            System.out.println("out");
-            System.out.println(returnSchool.toString());
+            //System.out.println("out");
+            //System.out.println(returnSchool.toString());
             return returnSchool;
         }catch(SQLException e){
-            System.out.println("error");
+            //System.out.println("error");
             conn.rollback();
             return null;
         }finally {
@@ -94,15 +94,15 @@ public class dbSchool {
             rs = st.executeQuery();
             conn.commit();
             if (!rs.next()) {
-                System.out.println("rs.next = false");
+                //System.out.println("rs.next = false");
                 return 0;
             }
             int count = rs.getInt(1);
-            System.out.println("school sql count = " + count);
+            //System.out.println("school sql count = " + count);
             return count;
         } catch (SQLException e) {
             conn.rollback();
-            System.out.println("school count sqlException");
+            //System.out.println("school count sqlException");
             return 0;
         } finally {
             JdbcUtils.release(conn, st, rs);
@@ -121,11 +121,11 @@ public class dbSchool {
             conn.commit();
             rs.next();
             int maxId = rs.getInt(1);
-            System.out.println("school maxid sql maxid = " + maxId);
+            //System.out.println("school maxid sql maxid = " + maxId);
             return maxId;
         } catch (SQLException e) {
             conn.rollback();
-            System.out.println("school maxid sqlException, set to 0");
+            //System.out.println("school maxid sqlException, set to 0");
             return 0;
         } finally {
             JdbcUtils.release(conn, st, rs);

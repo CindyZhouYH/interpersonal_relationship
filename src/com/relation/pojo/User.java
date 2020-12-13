@@ -27,12 +27,12 @@ public class User {
             if(!updated) {
                 totalNum = Service.UserService.getMaxId();
                 updated = true;
-                System.out.println("updated user totalnum to " + totalNum);
+                //System.out.println("updated user totalnum to " + totalNum);
             }
         } catch (SQLException e) {
             e.printStackTrace();
             totalNum = 0;
-            System.out.println("error updating");
+            //System.out.println("error updating");
         }
     }
 

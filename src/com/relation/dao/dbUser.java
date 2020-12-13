@@ -21,10 +21,10 @@ public class dbUser {
                 return 0;
             }
             getConnected();
-            System.out.println("connect over");
+            //System.out.println("connect over");
             String sql = "insert into user(`id`,`username`,`name`,`email`,`password`)values(?,?,?,?,?)";
             st = conn.prepareStatement(sql);     //预编译
-            System.out.println(st);
+            //System.out.println(st);
             st.setInt(1, user.getId());
             st.setString(2, user.getUsername());
             st.setString(3, user.getName());
@@ -43,7 +43,7 @@ public class dbUser {
 
     public boolean deleteUser(String username) throws SQLException {
         try {
-            System.out.println("start delete");
+            //System.out.println("start delete");
             getConnected();
             int user_id = 0;
             // get user id
@@ -57,13 +57,13 @@ public class dbUser {
                 user_id = Integer.parseInt(rs.getObject("id").toString());
             }
             // delete user
-            System.out.println("user");
+            //System.out.println("user");
             sql = "delete from user where `username`=?";
             st = conn.prepareStatement(sql);     //预编译
             st.setString(1, username);
             st.executeUpdate();
             // delete ei
-            System.out.println("entrance");
+            //System.out.println("entrance");
             sql = "delete from entranceinformation where `user_id`=?";
             st = conn.prepareStatement(sql);     //预编译
             st.setInt(1, user_id);
@@ -125,7 +125,7 @@ public class dbUser {
             conn.commit();
             User returnUser = null;
             while (rs.next()) {
-                System.out.println("ENTER");
+                //System.out.println("ENTER");
                 returnUser = new User(Integer.parseInt(rs.getObject("id").toString()),
                         rs.getObject("username").toString(),
                         rs.getObject("name").toString(),
@@ -173,7 +173,7 @@ public class dbUser {
             String sql = "select * from user where `name`=?";
             st = conn.prepareStatement(sql);     //预编译
             st.setString(1, name);
-            System.out.println(st);
+            //System.out.println(st);
             rs = st.executeQuery();
             conn.commit();
             User returnUser = null;
@@ -205,7 +205,7 @@ public class dbUser {
             rs = st.executeQuery();
             conn.commit();
             boolean result = rs.next();
-            System.out.println(result);
+            //System.out.println(result);
             return result;
         } catch (SQLException e) {
             conn.rollback();
@@ -223,15 +223,15 @@ public class dbUser {
             rs = st.executeQuery();
             conn.commit();
             if (!rs.next()) {
-                System.out.println("rs.next = false");
+                //System.out.println("rs.next = false");
                 return 0;
             }
             int count = rs.getInt(1);
-            System.out.println("user count = " + count);
+            //System.out.println("user count = " + count);
             return count;
         } catch (SQLException e) {
             conn.rollback();
-            System.out.println("user count sqlException");
+            //System.out.println("user count sqlException");
             return 0;
         } finally {
             JdbcUtils.release(conn, st, rs);
@@ -250,11 +250,11 @@ public class dbUser {
             conn.commit();
             rs.next();
             int maxId = rs.getInt(1);
-            System.out.println("user maxid = " + maxId);
+            //System.out.println("user maxid = " + maxId);
             return maxId;
         } catch (SQLException e) {
             conn.rollback();
-            System.out.println("user maxid sqlException, set to 0");
+            //System.out.println("user maxid sqlException, set to 0");
             return 0;
         } finally {
             JdbcUtils.release(conn, st, rs);

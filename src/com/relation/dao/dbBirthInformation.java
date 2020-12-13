@@ -47,6 +47,8 @@ public class dbBirthInformation {
             String sql = "select * from birth_information where `user_id`=?";
             st = conn.prepareStatement(sql);     //预编译
             st.setInt(1, user_id);
+//            System.out.println("get birth info of user_id = " + user_id + "," + sql);
+//            System.out.println(user_id);
             rs = st.executeQuery();
             conn.commit();
             BirthInformation returnInfo = null;
@@ -69,6 +71,7 @@ public class dbBirthInformation {
     public ArrayList<BirthInformation> getBrotherThroughFamilyId(Integer id) throws SQLException {
         try {
             getConnected();
+            //System.out.println("getting brother through family id " + id);
             String sql = "select * from birth_information where `patriarchal_family_id`=? or `maternal_family_id`=?";
             st = conn.prepareStatement(sql);     //预编译
             st.setInt(1, id);
@@ -83,6 +86,7 @@ public class dbBirthInformation {
                         Integer.parseInt(rs.getObject("maternal_family_id").toString()),
                         Integer.parseInt(rs.getObject("year").toString())));
             }
+            //System.out.println("got all brother, " + brotherInfos.toString());
             return brotherInfos;
         } catch (SQLException e) {
             conn.rollback();

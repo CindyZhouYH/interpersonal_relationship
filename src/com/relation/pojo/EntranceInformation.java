@@ -35,12 +35,12 @@ public class EntranceInformation {
             if(!updated) {
                 totalNum = Service.EntranceInformationService.getMaxId();
                 updated = true;
-                System.out.println("updated EntranceInformation totalnum to " + totalNum);
+                //System.out.println("updated EntranceInformation totalnum to " + totalNum);
             }
         } catch (SQLException e) {
             e.printStackTrace();
             totalNum = 0;
-            System.out.println("error updating");
+            //System.out.println("error updating");
         }
     }
 

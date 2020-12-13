@@ -91,9 +91,9 @@ public class EntranceSchoolInfo {
     }
 
     private boolean goon(String schoolName, String level, String year,HttpServletRequest request) throws SQLException {
-        System.out.println(schoolName);
-        System.out.println(level);
-        System.out.println(year);
+//        System.out.println(schoolName);
+//        System.out.println(level);
+//        System.out.println(year);
         School checkSchool= Service.SchoolService.searchSchool(schoolName);
         if(checkSchool==null){
             checkSchool=new School(schoolName, Integer.parseInt(level));
@@ -105,7 +105,7 @@ public class EntranceSchoolInfo {
         HttpSession sess=request.getSession();
         User user= (User) sess.getAttribute("user");
         EntranceInformation ei=new EntranceInformation(user.getId(),checkSchool.getId(),Integer.parseInt(year));
-        System.out.println(ei);
+        //System.out.println(ei);
         boolean ans= Service.EntranceInformationService.addInfo(user,checkSchool,ei);
         return ans;
     }

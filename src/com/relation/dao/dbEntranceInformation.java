@@ -24,18 +24,18 @@ public class dbEntranceInformation {
             getConnected();
             String sql="insert into entranceinformation(`id`,`user_id`,`school_id`,`year`)values(?,?,?,?)";
             st=conn.prepareStatement(sql);     //预编译
-            System.out.println(st);
-            System.out.println(ei.getId());
-            System.out.println(user.getId());
-            System.out.println(sch.getId());
-            System.out.println(ei.getYear());
+//            System.out.println(st);
+//            System.out.println(ei.getId());
+//            System.out.println(user.getId());
+//            System.out.println(sch.getId());
+//            System.out.println(ei.getYear());
             st.setInt(1,ei.getId());
             st.setInt(2,user.getId());
             st.setInt(3,sch.getId());
             st.setInt(4,ei.getYear());
-            System.out.println(st);
+            //System.out.println(st);
             st.executeUpdate();
-            System.out.println(st);
+            //System.out.println(st);
             conn.commit();
             return true;
         }catch(SQLException e){
@@ -71,7 +71,7 @@ public class dbEntranceInformation {
             st.setInt(1,user.getId());
             rs=st.executeQuery();
             conn.commit();
-            System.out.println("get all entrances");
+            //System.out.println("get all entrances");
             ArrayList<EntranceInformation> allEntranceInfo=new ArrayList();
             while(rs.next()){
                 EntranceInformation newEI=new EntranceInformation(Integer.parseInt(rs.getObject("id").toString()),
@@ -80,7 +80,7 @@ public class dbEntranceInformation {
                         Integer.parseInt(rs.getObject("year").toString()));
                 allEntranceInfo.add(newEI);
             }
-            System.out.println(allEntranceInfo);
+            //System.out.println(allEntranceInfo);
             allEntranceInfo.sort((o1, o2) -> o2.getSchool_id() - o1.getSchool_id());
             return allEntranceInfo;
         }catch(SQLException e){
@@ -99,15 +99,15 @@ public class dbEntranceInformation {
             rs = st.executeQuery();
             conn.commit();
             if (!rs.next()) {
-                System.out.println("rs.next = false");
+                //System.out.println("rs.next = false");
                 return 0;
             }
             int count = rs.getInt(1);
-            System.out.println("entranceinformation count = " + count);
+            //System.out.println("entranceinformation count = " + count);
             return count;
         } catch (SQLException e) {
             conn.rollback();
-            System.out.println("entranceinformation count sqlException");
+            //System.out.println("entranceinformation count sqlException");
             return 0;
         } finally {
             JdbcUtils.release(conn, st, rs);
@@ -126,11 +126,11 @@ public class dbEntranceInformation {
             conn.commit();
             rs.next();
             int maxId = rs.getInt(1);
-            System.out.println("entranceinformation maxid = " + maxId);
+            //System.out.println("entranceinformation maxid = " + maxId);
             return maxId;
         } catch (SQLException e) {
             conn.rollback();
-            System.out.println("entranceinformation maxid sqlException, set to 0");
+            //System.out.println("entranceinformation maxid sqlException, set to 0");
             return 0;
         } finally {
             JdbcUtils.release(conn, st, rs);
@@ -146,12 +146,12 @@ public class dbEntranceInformation {
             st.setInt(2,e.getYear());
             rs=st.executeQuery();
             conn.commit();
-            System.out.println(" - " + sql);
+            //System.out.println(" - " + sql);
             ArrayList<Integer> allClassmatesId=new ArrayList<>();
             while(rs.next()){
                 allClassmatesId.add(Integer.parseInt(rs.getObject("user_id").toString()));
             }
-            System.out.println(allClassmatesId.toString());
+            //System.out.println(allClassmatesId.toString());
             return allClassmatesId;
         }catch(SQLException exc){
             conn.rollback();

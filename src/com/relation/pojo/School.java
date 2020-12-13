@@ -18,12 +18,12 @@ public class School {
             if(!updated) {
                 totalNum = Service.SchoolService.getMaxId();
                 updated = true;
-                System.out.println("updated school totalnum to " + totalNum);
+                //System.out.println("updated school totalnum to " + totalNum);
             }
         } catch (SQLException e) {
             e.printStackTrace();
             totalNum = 0;
-            System.out.println("error updating");
+            //System.out.println("error updating");
         }
     }
 

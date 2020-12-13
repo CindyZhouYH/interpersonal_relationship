@@ -24,20 +24,20 @@ public class dbFriendship {
 
     public void addFriendship(int id1, int id2) throws SQLException {
         try {
-            System.out.println("adding friendship between " + id1 + " and " + id2);
+            //System.out.println("adding friendship between " + id1 + " and " + id2);
             getConnected();
             String sql = "insert into friendship(`user1_id`,`user2_id`)values(?,?)";
             st = conn.prepareStatement(sql);     //预编译
-            System.out.println(st);
+            //System.out.println(st);
             st.setInt(1, id1);
             st.setInt(2, id2);
             st.executeUpdate();
             conn.commit();
-            System.out.println("successfully added friendship");
+            //System.out.println("successfully added friendship");
             return;
         } catch (SQLException e) {
             conn.rollback();
-            System.out.println("failed to add friendship");
+            //System.out.println("failed to add friendship");
             return;
         } finally {
             JdbcUtils.release(conn, st, rs);
@@ -51,7 +51,7 @@ public class dbFriendship {
             st = conn.prepareStatement(sql);
             st.setInt(1, id);
             st.setInt(2, id);   //预编译
-            System.out.println(" - " + sql);
+            //System.out.println(" - " + sql);
             rs = st.executeQuery();
             conn.commit();
             HashSet<Integer> friends=new HashSet<>();
@@ -60,7 +60,7 @@ public class dbFriendship {
                 friends.add(Integer.parseInt(rs.getObject("user2_id").toString()));
             }
             friends.remove(id);
-            System.out.println("all friends of user " + id + "");
+            //System.out.println("all friends of user " + id + "");
             return friends;
         } catch (SQLException e) {
             conn.rollback();

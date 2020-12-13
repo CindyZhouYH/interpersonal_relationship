@@ -5,6 +5,7 @@ import com.relation.pojo.EntranceInformation;
 import com.relation.pojo.SchoolNum;
 import com.relation.pojo.User;
 import com.relation.service.Service;
+import javafx.util.Pair;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -92,15 +93,70 @@ public class SearchRelation {
                 result.add(new Relation(curUser, user, Relation.FRIEND));
             }
         }
-        System.out.println("getRelations : ");
-        for(Relation relation: result) {
-            System.out.println(" ! " + relation.toString());
-        }
+        //System.out.println("getRelations : ");
+//        for(Relation relation: result) {
+//            System.out.println(" ! " + relation.toString());
+//        }
         return result;
     }
 
-    private void dfsForRelation(User user1, User user2, ArrayList<Relation> result, HashSet<Relation> curRelation) throws SQLException {
-        System.out.println(" -- in dfs: user1 - " + user1.getName() + ", user2 - " + user2.getName());
+    private void bfsForRelation(User user1, User user2, ArrayList<Relation> result) throws SQLException {
+        try {
+
+            ArrayDeque<Pair<User, Integer>> queue = new ArrayDeque<>();
+            HashMap<Integer, Relation> preRelation = new HashMap<>(); // <curId, lastRelation> 链接上一个用户的relation
+            HashSet<Integer> vis = new HashSet<>();
+            vis.add(user1.getId());
+            queue.offerLast(new Pair<User, Integer>(user1, 0));
+            System.out.println(" ` offer " + user1.getId());
+            idMap.put(user2.getId(), user2);
+            while(!queue.isEmpty()) {
+                Pair<User, Integer> pr = queue.pollFirst();
+                User curUser = pr.getKey();
+                int step = pr.getValue();
+                System.out.println(" ~ poll " + curUser.getId() + ", step: " + step);
+                if (step > 8) {
+                    break;
+                }
+                ArrayList<Relation> allRelation = getRelations(curUser);
+                for (Relation relation : allRelation) {
+                    User oppUser = relation.getUser_2();
+                    if (oppUser.getId() == user2.getId()) {
+                        result.add(relation);
+                        System.out.println(" + " + relation.getUser_1().getId() + ", " + relation.getUser_2().getId());
+                        User tempUser = curUser;
+                        idMap.put(tempUser.getId(), tempUser);
+                        Relation tempRelation;
+                        while (tempUser.getId() != user1.getId()) {
+                            tempRelation = preRelation.get(tempUser.getId());
+                            result.add(tempRelation);
+                            System.out.println(" + " + tempRelation.getUser_1().getId() + ", " + tempRelation.getUser_2().getId());
+                            tempUser = tempRelation.getUser_1();
+                            idMap.put(tempUser.getId(), tempUser);
+                        }
+                        continue;
+                    }
+                    if (vis.contains(oppUser.getId())) {
+                        continue;
+                    }
+                    vis.add(oppUser.getId());
+                    preRelation.put(oppUser.getId(), relation);
+                    queue.offerLast(new Pair<>(oppUser, step + 1));
+                    System.out.println(" ` offer " + oppUser.getId());
+                }
+            }
+        } catch (Exception e){
+            e.printStackTrace();
+        }
+    }
+
+    private void dfsForRelation(User user1, User user2, ArrayList<Relation> result,
+                                HashSet<Integer> includedUsers, HashSet<Relation> curRelation) throws SQLException {
+//        System.out.println(" -- in dfs: user1 - " + user1.getName() + ", user2 - " + user2.getName());
+        if (includedUsers.contains(user1.getId())) {
+            return;
+        }
+        includedUsers.add(user1.getId());
         if (user1.getId() == user2.getId()) {
             result.addAll(curRelation);
             for (Relation relation: curRelation) {
@@ -117,9 +173,10 @@ public class SearchRelation {
             if (curRelation.contains(relation)) {
                 continue;
             }
+//            System.out.println(" Relation -> " + relation.getUser_1() + ", " + relation.getUser_2());
             User curUser = relation.getUser_2();
             curRelation.add(relation);
-            dfsForRelation(curUser, user2, result, curRelation);
+            dfsForRelation(curUser, user2, result, includedUsers, curRelation);
             curRelation.remove(relation);
         }
     }
@@ -152,29 +209,32 @@ public class SearchRelation {
     @RequestMapping("/getall")
     public void getAllUsers(HttpServletRequest request,
                             HttpServletResponse response) throws SQLException, IOException {
-        System.out.println("inside back getall");
+//        System.out.println("inside back getall");
         idMap.clear();
-        System.out.println("GET ALL -----------------------");
+        searchResult.clear();
+//        System.out.println("GET ALL -----------------------");
         User user1 = getUserFromRequest(request);
-        System.out.println("USER1: " + user1.getName());
-        System.out.println("user2name "+ request.getParameter("name"));
+//        System.out.println("USER1: " + user1.getName());
+//        System.out.println("user2name "+ request.getParameter("name"));
         User user2 = Service.UserService.getUserThroughName(request.getParameter("name"));
-        System.out.println("USER2: " + user2.getName());
+//        System.out.println("USER2: " + user2.getName());
 
         ArrayList<Relation> result = new ArrayList<>();
-        HashSet<Relation> curRelation = new HashSet<>();
-        dfsForRelation(user1, user2, result, curRelation);
-        for(Relation res: result) {
-            System.out.println(res.getUser1() + " " + res.getUser2() + " " + res.getType());
-        }
+        //HashSet<Relation> curRelation = new HashSet<>();
+        //HashSet<Integer> includedUsers = new HashSet<>();
+        //dfsForRelation(user1, user2, result, includedUsers, curRelation);
+        bfsForRelation(user1, user2, result);
+//        for(Relation res: result) {
+//            System.out.println(res.getUser1() + " " + res.getUser2() + " " + res.getType());
+//        }
         this.searchResult = result;
-        System.out.println("return from getall");
-        System.out.println("idmap:  " + Arrays.toString(idMap.entrySet().toArray()));
+//        System.out.println("return from getall");
+//        System.out.println("idmap:  " + Arrays.toString(idMap.entrySet().toArray()));
         ArrayList<ReturnUser> returnUsers = new ArrayList<>();
         for (Integer id: idMap.keySet()) {
             returnUsers.add(new ReturnUser(id, idMap.get(id)));
         }
-        System.out.println("return json is: " + objectToJson(returnUsers));
+//        System.out.println("return json is: " + objectToJson(returnUsers));
         response.getWriter().print(objectToJson(returnUsers));
     }
 
@@ -187,7 +247,7 @@ public class SearchRelation {
 
 
     public HashSet<User> getClassmatesThroughEntranceInfo(EntranceInformation info) throws SQLException {
-        System.out.println("getting Classmates through entranceInfo");
+        //System.out.println("getting Classmates through entranceInfo");
         ArrayList<Integer> matesId = Service.EntranceInformationService.getClassmatesEntranceInfo(info);
         HashSet<User> mates = new HashSet<>();
         for (Integer id : matesId) {
@@ -225,7 +285,7 @@ public class SearchRelation {
     }
 
     public HashSet<User> getFriends(User user) throws SQLException {
-        System.out.println("getting friends of user " + user.getName());
+        //System.out.println("getting friends of user " + user.getName());
         HashSet<Integer> friendsId = Service.FriendShipService.getAllFriendsId(user.getId());
         if (friendsId == null) {
             return null;
@@ -234,9 +294,9 @@ public class SearchRelation {
         for (Integer id: friendsId) {
             User friend = Service.UserService.getUserThroughId(id);
             friends.add(friend);
-            System.out.println(friend);
+            //System.out.println(friend);
         }
-        System.out.println("------------------------");
+        //System.out.println("------------------------");
         return friends;
     }
 }
